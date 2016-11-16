@@ -1,0 +1,63 @@
+package com.danielme.muspyforandroid.ui.fragments;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.danielme.muspyforandroid.model.Artist;
+import com.danielme.muspyforandroid.model.Release;
+import com.danielme.muspyforandroid.service.ReleaseService;
+import com.danielme.muspyforandroid.ui.activities.ArtistDetailActivity;
+import com.danielme.muspyforandroid.ui.adapters.RecyclerViewOnItemClickListener;
+import com.danielme.muspyforandroid.ui.adapters.ReleasesAdapter;
+
+import java.util.ArrayList;
+
+/**
+ * Created by dani on 23/04/16.
+ */
+public class ReleasesFragment2 extends GenericRecyclerViewFragment {
+
+  private Artist artist;
+
+
+  @Override
+  protected void manageArguments(Bundle arguments) {
+    if(getArguments() != null){
+      artist = getArguments().getParcelable(ArtistDetailActivity.ARTIST_INTENT);
+    }
+  }
+
+  @Override
+  protected Adapter createAdapter() {
+    return  new ReleasesAdapter(new ArrayList(), new
+        RecyclerViewOnItemClickListener() {
+
+
+          @Override
+          public void onClick(View v, int position) {
+
+            Toast.makeText(getActivity(), ((Release) ReleasesFragment2.this.getDataFromAdapter().get
+                (position)).getName(), Toast.LENGTH_SHORT).show();
+          }
+        });
+  }
+
+  @Override
+  protected Results doInBackground(int offset) throws Exception {
+    String mbid;
+    ArrayList<Release> releases;
+    if (artist != null) {
+      mbid = artist.getMbid();
+      releases = ReleaseService.INSTANCE.getReleasesByArtist(offset, ReleaseService.LIMIT,
+          mbid);
+    }
+    else
+    {
+      releases = ReleaseService.INSTANCE.getReleasesByUser(offset, ReleaseService.LIMIT);
+    }
+    return new Results(releases);
+  }
+}

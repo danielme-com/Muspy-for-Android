@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * Copyright (C) 2012-2016 Daniel Medina <http://danielme.com>
+ *
+ * This file is part of "Muspy for Android".
+ *
+ * "Muspy for Android" is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * "Muspy for Android" is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License version 3
+ * along with this program.  If not, see <http://www.gnu.org/licenses/gpl-3.0.html/>
+ */
+-->
+<resources>
+    <color name="colorPrimary">#A50000</color>
+    <color name="colorPrimaryDark">#630000</color>
+    <color name="error_info">#2d4dc5</color>
+    <color name="indigo">#3f51b5</color>
+    <color name="green">#4caf50</color>
+    <color name="orange">#ff5722</color>
+    <color name="recyclerViewHighlight">#c9c5c5</color>
+    <color name="results">#fbdad0</color>
+    <color name="grey_background">#efefef</color>
+    <color name="form_title">#8b8b8b</color>
+    <color name="grey_dark">#8b8b8b</color>
+</resources>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * Copyright (C) 2012-2016 Daniel Medina <http://danielme.com>
+ *
+ * This file is part of "Muspy for Android".
+ *
+ * "Muspy for Android" is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * "Muspy for Android" is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License version 3
+ * along with this program.  If not, see <http://www.gnu.org/licenses/gpl-3.0.html/>
+ */
+-->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/youtube"
+        style="@style/AppTheme.BottomSheetItem"
+        android:drawableLeft="@drawable/youtube"
+        android:text="@string/youtube"/>
+
+    <TextView
+        android:id="@+id/lastfm"
+        style="@style/AppTheme.BottomSheetItem"
+        android:drawableLeft="@drawable/lastfm"
+        android:text="@string/title_lastfm"/>
+
+    <TextView
+        android:id="@+id/google"
+        style="@style/AppTheme.BottomSheetItem"
+        android:drawableLeft="@drawable/google"
+        android:text="@string/google"/>
+
+    <TextView
+        android:id="@+id/musicbrainz"
+        style="@style/AppTheme.BottomSheetItem"
+        android:drawableLeft="@drawable/musicbrainz"
+        android:text="@string/musicbrainz"/>
+
+    <TextView
+        android:id="@+id/amazon"
+        style="@style/AppTheme.BottomSheetItem"
+        android:drawableLeft="@drawable/amazon"
+        android:text="@string/amazon"/>
+
+    <TextView
+        android:id="@+id/play"
+        style="@style/AppTheme.BottomSheetItem"
+        android:drawableLeft="@drawable/play"
+        android:text="@string/google_play"/>
+
+</LinearLayout>

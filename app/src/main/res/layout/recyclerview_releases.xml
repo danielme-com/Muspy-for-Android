@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * Copyright (C) 2012-2016 Daniel Medina <http://danielme.com>
+ * 
+ * This file is part of "Muspy for Android".
+ * 
+ * "Muspy for Android" is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * "Muspy for Android" is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License version 3
+ * along with this program.  If not, see <http://www.gnu.org/licenses/gpl-3.0.html/>
+ */
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/AppTheme.LayoutRecyclerView">
+
+    <ImageView
+        android:id="@+id/cover"
+        android:layout_width="@dimen/cover_thumb"
+        android:layout_height="@dimen/cover_thumb"
+        android:layout_alignParentLeft="true"
+        android:paddingTop="3dp"
+        android:contentDescription="@string/cover"
+        android:src="@drawable/loadingcover"/>
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_toRightOf="@+id/cover"
+        tools:text="12/12/2015"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/release"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/date"
+        android:layout_below="@+id/date"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingTop="2dp"
+        tools:text="Lorem ipsum dolor sit t"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/artist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/date"
+        android:paddingLeft="@dimen/standard_separation"
+        android:ellipsize="end"
+        android:singleLine="true"
+        tools:text="At vero eos et accusamus"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+
+</RelativeLayout>

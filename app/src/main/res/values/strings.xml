@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * Copyright (C) 2012-2016 Daniel Medina <http://danielme.com>
+ *
+ * This file is part of "Muspy for Android".
+ *
+ * "Muspy for Android" is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * "Muspy for Android" is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License version 3
+ * along with this program.  If not, see <http://www.gnu.org/licenses/gpl-3.0.html/>
+ */
+-->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Muspy for Android</string>
+    <string name="logo">muspy logo</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="signin">Sign In</string>
+    <string name="forgot_pass">Forgot your password?</string>
+    <string name="dont_have">Don\'t have an account?</string>
+    <string name="resetit"><u>Reset it</u></string>
+    <string name="createone"><u>Create one</u></string>
+    <string name="emailsentreset">An email has been sent to %1$s describing how to obtain your new password</string>
+    <string name="noemail">You must supply a valid email (username)</string>
+    <string name="nopass">You must supply your password</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="signup">Sign up</string>
+    <string name="instructions_create">Join Muspy, the easiest way to follow your favourite
+        artists!</string>
+    <string name="emailsentsignup">Your account is awaiting email confirmation. You need to activate your address to receive email notifications.</string>
+    <string name="pass_nomatch">The passwords do not match</string>
+    <string name="title_sigup">Sign up</string>
+    <string name="pass_length">Your password is too short</string>
+    <string name="invalid_email">Enter a valid e-mail address</string>
+    <string name="instructions_reset">Enter  your login email. We will send you an email with a link to reset your password.</string>
+    <string name="title_reset">Reset</string>
+    <string name="privacy_policy"><u>Privacy policy</u></string>
+    <string name="unknown_error">There was an error</string>
+    <string name="unknown_error_reset">There was an error. Check your email address.</string>
+    <string name="invalid_credentials">Wrong credentials</string>
+    <string name="loading">Loading&#8230;</string>
+    <string name="noconnection">Internet connection not available</string>
+    <string name="invalid_credentials_reset">Wrong credentials. Do you want to request a new password?</string>
+    <string name="email_duplicate">This email address is already in use</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_import">Import from Last.fm</string>
+    <string name="action_about">About</string>
+    <string name="cover">cover</string>
+    <string name="refresh_button">Refresh</string>
+    <string name="invalid_autologin">You have account has been created but unfortunaly there was an error while trying to sign in.</string>
+    <string name="noartists">You don\'t have any! Search and add your favourite artists.</string>
+    <string name="action_follow">Follow</string>
+    <string name="action_unfollow">Unfollow</string>
+    <string name="follow_success">You are following %1$s</string>
+    <string name="follow_error">There was an error trying to follow %1$s</string>
+    <string name="unfollow_success">You are not following %1s</string>
+    <string name="unfollow_error">There was an error trying to unfollow %1s</string>
+    <string name="action_search">Search</string>
+    <string name="title_activity_search_artist">Search artist</string>
+    <string name="search_artist">Search artist</string>
+    <string name="notifications">Notifications</string>
+    <string name="notificationsInfo">Receive new release notifications by email</string>
+    <string name="filters">Filters</string>
+    <string name="filtersAlbum">Album</string>
+    <string name="filtersSingle">Single</string>
+    <string name="filtersEP">EP</string>
+    <string name="filtersLive">Live</string>
+    <string name="filtersCompilation">Compilation</string>
+    <string name="filtersRemix">Remix</string>
+    <string name="filtersOther">Other</string>
+    <string name="moreoptions">More options</string>
+    <string name="action_save">Save</string>
+    <string name="nodata">There are no results</string>
+    <string name="retry_button">Retry</string>
+    <string name="sending">Sending data</string>
+    <string name="lastfm_user">Last.fm user name</string>
+    <string name="top_artists">Top artists</string>
+    <string name="bullet">\u2022</string>
+    <string name="period">Period</string>
+    <plurals
+        name="results">
+        <item quantity="one">One result</item>
+        <item quantity="other">%1d results</item>
+    </plurals>
+    <plurals
+        name="following">
+        <item quantity="one">You are following one artist</item>
+        <item quantity="other">You are following %1d artists</item>
+    </plurals>
+    <string name="title_lastfm">Last.fm</string>
+
+    <string name="periodOverall">overall</string>
+    <string name="period6month">in the last 6 months</string>
+    <string name="period3month">in the last 3 months</string>
+    <string name="period7day">in the last 7 days</string>
+    <string name="period12month">in the last 12 months</string>
+    <string name="buttom_import">Import</string>
+    <string name="invalid_user_lastfm">Enter a valid Last.fm user name</string>
+    <string name="dialog_info_title">Information</string>
+    <string name="info_import_success">Your artists will be imported in a few minutes.</string>
+    <string name="lastfm_user_unknown">User not found</string>
+    <string name="info_save_success">Your settings have been saved</string>
+    <string name="country">Country: </string>
+    <string name="label">Label: </string>
+    <string name="format">Format: </string>
+    <string name="type">Type: </string>
+    <string name="release">Release</string>
+    <string name="length">Length:</string>
+    <string name="search">search</string>
+    <string name="action_share">Share</string>
+    <string name="action_agenda">agenda</string>
+    <string name="share_title">Share with</string>
+    <string name="pick_agenda">Select your agenda app</string>
+
+
+    <string name="Album" tools:keep="@string/Album">Album</string>
+    <string name="Single" tools:keep="@string/Single">Single</string>
+    <string name="EP" tools:keep="@string/EP">EP</string>
+    <string name="Live" tools:keep="@string/Live">Live</string>
+    <string name="Compilation" tools:keep="@string/Compilation">Compilation</string>
+    <string name="Remix" tools:keep="@string/Remix">Remix</string>
+    <string name="Other" tools:keep="@string/Other">Other</string>
+
+    <string name="youtube">Youtube</string>
+    <string name="google">Google</string>
+    <string name="musicbrainz">MusicBrainz</string>
+    <string name="amazon">Amazon</string>
+    <string name="google_play">Google Play</string>
+    <string name="title_activity_about">About</string>
+    <string name="tab_details">Details</string>
+    <string name="tab_license">License</string>
+    <string name="title_activity_release">Release</string>
+    <string name="buttom_google_play">Google Play</string>
+    <string name="data_not_available">Data is not available at this moment</string>
+    <string name="logout_question">Do you really want to logout?</string>
+    <string name="nocredentials">You have to log into Muspy for Android</string>
+
+    <string name="com.crashlytics.CrashSubmissionPromptTitle" tools:keep="@string/com_crashlytics_CrashSubmissionPromptTitle">
+          Send Crash Report?</string>
+    <string name="com.crashlytics.CrashSubmissionPromptMessage" tools:keep="@string/com_crashlytics_CrashSubmissionPromptMessage">
+          Looks like Muspy crashed! Please help us fix the problem
+          by sending a crash report. We don\'t collect personal information.</string>
+    <string name="com.crashlytics.CrashSubmissionSendTitle" tools:keep="@string/com_crashlytics_CrashSubmissionSendTitle">
+          Send</string>
+    <string name="com.crashlytics.CrashSubmissionAlwaysSendTitle" tools:keep="@string/com_crashlytics_CrashSubmissionAlwaysSendTitle">
+          Always Send</string>
+    <string name="com.crashlytics.CrashSubmissionCancelTitle" tools:keep="@string/com_crashlytics_CrashSubmissionCancelTitle">
+          Don\'t Send</string>
+
+    <string name="about_muspy"><![CDATA[<a href="https://muspy.com">Muspy</a> is a free
+    service that notifies you when your favourite artists release new albums. It was created and is
+    maintained by <a href="http://kojevnikov.com/">Alexander Kojevnikov</a> and Olga
+        Vasylevska.]]></string>
+
+     <string name="about_muspy_android"><![CDATA[Muspy for Android is an Open Source project
+    developed by Daniel Medina. You can find me on <a href="http://danielme.com">danielme.com</a>.]]></string>
+    <string name="about_libraries">This app proudly uses</string>
+    <string name="about_pp">Privacy policy</string>
+
+    <!-- MusicBrainz countries-->
+    <!-- COUNTRIES -->
+    <string name="AF" tools:keep="@string/AF">Afghanistan</string>
+    <string name="AX" tools:keep="@string/AX">Åland Islands</string>
+    <string name="AL" tools:keep="@string/AL">Albania</string>
+    <string name="DZ">Algeria</string>
+    <string name="AS">American Samoa</string>
+    <string name="AD">Andorra</string>
+    <string name="AO" tools:keep="@string/AO">Angola</string>
+    <string name="AI">Anguilla</string>
+    <string name="AQ">Antarctica</string>
+    <string name="AG">Antigua and Barbuda</string>
+    <string name="AR">Argentina</string>
+    <string name="AM">Armenia</string>
+    <string name="AW">Aruba</string>
+    <string name="AU">Australia</string>
+    <string name="AT">Austria</string>
+    <string name="AZ">Azerbaijan</string>
+    <string name="BS">Bahamas</string>
+    <string name="BH">Bahrain</string>
+    <string name="BD">Bangladesh</string>
+    <string name="BB">Barbados</string>
+    <string name="BY">Belarus</string>
+    <string name="BE">Belgium</string>
+    <string name="BZ">Belize</string>
+    <string name="BJ">Benin</string>
+    <string name="BM">Bermuda</string>
+    <string name="BT">Bhutan</string>
+    <string name="BO">Bolivia</string>
+    <string name="BA">Bosnia and Herzegovina</string>
+    <string name="BW">Botswana</string>
+    <string name="BV">Bouvet Island</string>
+    <string name="BR">Brazil</string>
+    <string name="IO">British Indian Ocean Territory</string>
+    <string name="BN">Brunei Darussalam</string>
+    <string name="BG">Bulgaria</string>
+    <string name="BF">Burkina Faso</string>
+    <string name="BI">Burundi</string>
+    <string name="KH">Cambodia</string>
+    <string name="CM">Cameroon</string>
+    <string name="CA">Canada</string>
+    <string name="CV">Cape Verde</string>
+    <string name="KY">Cayman Islands</string>
+    <string name="TD">Chad</string>
+    <string name="CL">Chile</string>
+    <string name="CN">China</string>
+    <string name="CX">Christmas Island</string>
+    <string name="CC">Cocos (Keeling) Islands</string>
+    <string name="CO">Colombia</string>
+    <string name="KM">Comoros</string>
+    <string name="CG">Congo</string>
+    <string name="CD">Congo, The Democratic Republic of the</string>
+    <string name="CK">Cook Islands</string>
+    <string name="CR">Costa Rica</string>
+    <string name="CI">Cote d\'Ivoire</string>
+    <string name="HR">Croatia</string>
+    <string name="CU">Cuba</string>
+    <string name="CY">Cyprus</string>
+    <string name="XC">Czechoslovakia</string>
+    <string name="CZ">Czech Republic</string>
+    <string name="DK">Denmark</string>
+    <string name="DJ">Djibouti</string>
+    <string name="DM">Dominica</string>
+    <string name="DO">Dominican Republic</string>
+    <string name="XG">East Germany</string>
+    <string name="EC">Ecuador</string>
+    <string name="EG">Egypt</string>
+    <string name="SV">El Salvador</string>
+    <string name="GQ">Equatorial Guinea</string>
+    <string name="ER">Eritrea</string>
+    <string name="EE">Estonia</string>
+    <string name="ET">Ethiopia</string>
+    <string name="XE">Europe</string>
+    <string name="FK">Falkland Islands (Malvinas)</string>
+    <string name="FO">Faroe Islands</string>
+    <string name="FJ">Fiji</string>
+    <string name="FI">Finland</string>
+    <string name="FR">France</string>
+    <string name="GF">French Guiana</string>
+    <string name="PF">French Polynesia</string>
+    <string name="TF">French Southern Territories</string>
+    <string name="GA">Gabon</string>
+    <string name="GM">Gambia</string>
+    <string name="GE">Georgia</string>
+    <string name="DE">Germany</string>
+    <string name="GH">Ghana</string>
+    <string name="GI">Gibraltar</string>
+    <string name="GR">Greece</string>
+    <string name="GL">Greenland</string>
+    <string name="GD">Grenada</string>
+    <string name="GP">Guadeloupe</string>
+    <string name="GU">Guam</string>
+    <string name="GT">Guatemala</string>
+    <string name="GG">Guernsey</string>
+    <string name="GN">Guinea</string>
+    <string name="GW">Guinea-Bissau</string>
+    <string name="GY">Guyanau</string>
+    <string name="HT">Haiti</string>
+    <string name="HM">Heard and Mc Donald Islands</string>
+    <string name="HN">Honduras</string>
+    <string name="HK">Hong Kong</string>
+    <string name="HU">Hungary</string>
+    <string name="IS">Iceland</string>
+    <string name="IN">India</string>
+    <string name="ID">Indonesia</string>
+    <string name="IR">Iran</string>
+    <string name="IQ">Iraq</string>
+    <string name="IE">Ireland</string>
+    <string name="IM">Isle of Man</string>
+    <string name="IL">Israel</string>
+    <string name="IT">Italy</string>
+    <string name="JM">Jamaica</string>
+    <string name="JP">Japan</string>
+    <string name="JE">Jersey</string>
+    <string name="JO">Jordan</string>
+    <string name="KZ">Kazakhstan</string>
+    <string name="KE">Kenya</string>
+    <string name="KI">Kiribati</string>
+    <string name="KP">North Korea</string>
+    <string name="KR">South Korea</string>
+    <string name="KW">Kuwait</string>
+    <string name="KG">Kyrgyzstan</string>
+    <string name="LA">Lao People\'s Democratic Republic</string>
+    <string name="LV">Latvia</string>
+    <string name="LB">Lebanon</string>
+    <string name="LS">Lesotho</string>
+    <string name="LR">Liberia</string>
+    <string name="LY">Libyan Arab Jamahiriya</string>
+    <string name="LI">Liechtenstein</string>
+    <string name="LT">Lithuania</string>
+    <string name="LU">Luxembourg</string>
+    <string name="MO">Macau</string>
+    <string name="MK">Macedonia</string>
+    <string name="MG">Madagascar</string>
+    <string name="MW">Malawi</string>
+    <string name="MY">Malaysia</string>
+    <string name="MV">Maldives</string>
+    <string name="ML">Mali</string>
+    <string name="MT">Malta</string>
+    <string name="MH">Marshall Islands</string>
+    <string name="MQ">Martinique</string>
+    <string name="MR">Mauritania</string>
+    <string name="MU">Mauritius</string>
+    <string name="YT">Mayotte</string>
+    <string name="MX">Mexico</string>
+    <string name="FM">Micronesia</string>
+    <string name="MD">Republic of Moldova</string>
+    <string name="MC">Monaco</string>
+    <string name="MN">Mongolia</string>
+    <string name="ME">Montenegro</string>
+    <string name="MS">Montserrat</string>
+    <string name="MA">Morocco</string>
+    <string name="MZ">Mozambique</string>
+    <string name="MM">Myanmar</string>
+    <string name="NA">Namibia</string>
+    <string name="NR">Nauru</string>
+    <string name="NP">Nepal</string>
+    <string name="NL">Netherlands</string>
+    <string name="AN">Netherlands Antilles</string>
+    <string name="NC">New Caledonia</string>
+    <string name="NZ">New Zealand</string>
+    <string name="NI">Nicaragua</string>
+    <string name="NE">Niger</string>
+    <string name="NG">Nigeria</string>
+    <string name="NU">Niue</string>
+    <string name="NF">Norfolk Island</string>
+    <string name="MP">Northern Mariana Islands</string>
+    <string name="NO">Norway</string>
+    <string name="OM">Oman</string>
+    <string name="PK">Pakistan</string>
+    <string name="PW">Palau</string>
+    <string name="PS">Palestinian Territory</string>
+    <string name="PA">Panama</string>
+    <string name="PG">Papua New Guinea</string>
+    <string name="PY">Paraguay</string>
+    <string name="PE">Peru</string>
+    <string name="PH">Philippines</string>
+    <string name="PN">Pitcairn</string>
+    <string name="PL">Poland</string>
+    <string name="PT">Portugal</string>
+    <string name="PR">Puerto Rico</string>
+    <string name="QA">Qatar</string>
+    <string name="RE">Reunion</string>
+    <string name="RO">Romania</string>
+    <string name="RU">Russian Federation</string>
+    <string name="RW">Rwanda</string>
+    <string name="BL">Saint Barthélemy</string>
+    <string name="SH">Saint Helena</string>
+    <string name="KN">Saint Kitts and Nevis</string>
+    <string name="LC">Saint Lucia</string>
+    <string name="MF">Saint Martin</string>
+    <string name="PM">Saint Pierre and Miquelon</string>
+    <string name="VC">Saint Vincent and The Grenadines</string>
+    <string name="WS">Samoa</string>
+    <string name="SM">San Marino</string>
+    <string name="ST">Sao Tome and Principe</string>
+    <string name="SA">Saudi Arabia</string>
+    <string name="SN">Senegal</string>
+    <string name="RS">Serbia</string>
+    <string name="CS">Serbia and Montenegro</string>
+    <string name="SC">Seychelles</string>
+    <string name="SL">Sierra Leone</string>
+    <string name="SG">Singapore</string>
+    <string name="SK">Slovakia</string>
+    <string name="SI">Slovenia</string>
+    <string name="SB">Solomon Islands</string>
+    <string name="SO">Somalia</string>
+    <string name="ZA">South Africa</string>
+    <string name="GS">South Georgia and the South Sandwich Islands</string>
+    <string name="SU">Soviet Union</string>
+    <string name="ES">Spain</string>
+    <string name="LK">Sri Lanka</string>
+    <string name="SD">Sudan</string>
+    <string name="SR">Suriname</string>
+    <string name="SJ" tools:keep="@string/SJ">Svalbard and Jan Mayen</string>
+    <string name="SZ">Swaziland</string>
+    <string name="SE">Sweden</string>
+    <string name="CH" tools:keep="@string/CH">Switzerland</string>
+    <string name="SY">Syrian Arab Republic</string>
+    <string name="TW">Taiwan</string>
+    <string name="TJ">Tajikistan</string>
+    <string name="TZ">Tanzania</string>
+    <string name="TH">Thailand</string>
+    <string name="TL">Timor-Leste</string>
+    <string name="TG">Togo</string>
+    <string name="TK">Tokelau</string>
+    <string name="TO">Tonga</string>
+    <string name="TT">Trinidad and Tobago</string>
+    <string name="TN">Tunisia</string>
+    <string name="TR">Turkey</string>
+    <string name="TM">Turkmenistan</string>
+    <string name="TC">Turks and Caicos Islands</string>
+    <string name="TV">Tuvalu</string>
+    <string name="UG">Uganda</string>
+    <string name="UA">Ukraine</string>
+    <string name="AE">United Arab Emirates</string>
+    <string name="GB">United Kingdom</string>
+    <string name="US">United States</string>
+    <string name="UY">Uruguay</string>
+    <string name="UZ">Uzbekistan</string>
+    <string name="VU">Vanuatu</string>
+    <string name="VA">Vatican City State (Holy See)</string>
+    <string name="VE">Venezuela</string>
+    <string name="VN">Viet Nam</string>
+    <string name="VG">Virgin Islands, British</string>
+    <string name="VI">Virgin Islands, U.S.</string>
+    <string name="WF">Wallis and Futuna Islands</string>
+    <string name="EH">Western Sahara</string>
+    <string name="XW">Worldwide</string>
+    <string name="YE">Yemen</string>
+    <string name="YU" tools:keep="@string/YU">Yugoslavia</string>
+    <string name="ZM">Zambia</string>
+    <string name="ZW" tools:keep="@string/ZW">Zimbabwe</string>
+
+
+</resources>

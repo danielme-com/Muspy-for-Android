@@ -1,0 +1,343 @@
+package com.danielme.muspyforandroid.ui.fragments;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.danielme.muspyforandroid.R;
+import com.danielme.muspyforandroid.model.Artist;
+import com.danielme.muspyforandroid.model.Release;
+import com.danielme.muspyforandroid.service.ReleaseService;
+import com.danielme.muspyforandroid.ui.DividerItemDecoration;
+import com.danielme.muspyforandroid.ui.UiUtils;
+import com.danielme.muspyforandroid.ui.activities.ArtistDetailActivity;
+import com.danielme.muspyforandroid.ui.activities.SearchArtistActivity;
+import com.danielme.muspyforandroid.ui.adapters.RecyclerViewOnItemClickListener;
+import com.danielme.muspyforandroid.ui.adapters.ReleasesAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+/**
+ * Created by dani on 2/04/16.
+ */
+public class ReleasesFragment extends Fragment {
+
+  public static final String ENABLE_SWIPE_REFRESH = "enableSwipe";
+
+  @Bind(R.id.recyclerView_releases)
+  RecyclerView releasesRecyclerView;
+
+  @Bind(R.id.swipeLayout_releases)
+  SwipeRefreshLayout swipeRefreshLayout;
+
+  @Bind(R.id.button_refresh)
+  Button buttonRefresh;
+  private ArtistBroadcastReceiver artistBroadcastReceiver;
+
+  private boolean enableSwipeRefresh = true;
+  private Artist artist;
+  /**
+   * The releases can be loaded using a swipe gesture or scrolling the recycler view to the end.
+   */
+  private enum LoadType {
+    SWIPE, ENDLESS
+  }
+
+  private boolean hasMore = false;
+
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                           Bundle savedInstanceState) {
+
+    View rootView = inflater.inflate(R.layout.fragment_releases, container, false);
+    ButterKnife.bind(this, rootView);
+
+    initSwipeLayout();
+    initRecyclerView();
+
+    artistBroadcastReceiver = new ArtistBroadcastReceiver();
+    IntentFilter filter = new IntentFilter();
+    filter.addAction(ArtistDetailActivity.BROADCAST_ACTION_ARTIST);
+    getActivity().registerReceiver(artistBroadcastReceiver, filter);
+
+    if(getArguments() != null){
+      enableSwipeRefresh = getArguments().getBoolean(ENABLE_SWIPE_REFRESH, true);
+      artist = getArguments().getParcelable(ArtistDetailActivity.ARTIST_INTENT);
+    }
+
+    return rootView;
+  }
+
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    getActivity().unregisterReceiver(artistBroadcastReceiver);
+  }
+
+  @OnClick(R.id.button_refresh)
+  public void refresh(View view) {
+    launchSwipe();
+  }
+
+
+  private void initSwipeLayout() {
+    UiUtils.applyIconColor(swipeRefreshLayout);
+    swipeRefreshLayout.setOnRefreshListener(
+        new SwipeRefreshLayout.OnRefreshListener() {
+          @Override
+          public void onRefresh() {
+            (new LoadReleasesAsyncTask(LoadType.SWIPE)).execute();
+          }
+        });
+    //triggers the swipe progranmatically the first time the page/frament is created
+    swipeRefreshLayout.post(new Runnable() {
+      @Override
+      public void run() {
+        launchSwipe();
+      }
+    });
+  }
+
+  private void launchSwipe() {
+    swipeRefreshLayout.setVisibility(View.VISIBLE);
+    buttonRefresh.setVisibility(View.GONE);
+    swipeRefreshLayout.setRefreshing(true);
+    //setRefreshing doesn't call OnRefreshListener
+    (new LoadReleasesAsyncTask(LoadType.SWIPE)).execute();
+  }
+
+  private void initRecyclerView() {
+
+    releasesRecyclerView.setAdapter(new ReleasesAdapter(new ArrayList(), new
+        RecyclerViewOnItemClickListener() {
+
+
+      @Override
+      public void onClick(View v, int position) {
+
+        Toast.makeText(getActivity(), ((Release) getReleasesFromAdapter().get(position)).getName
+            (), Toast.LENGTH_SHORT).show();
+      }
+    }));
+    releasesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    releasesRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), R.drawable
+        .divider));
+
+    releasesRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+      @Override
+      public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+        super.onScrolled(recyclerView, dx, dy);
+        if (hasMore && !(hasFooter())) {
+          LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView
+              .getLayoutManager();
+          if (layoutManager.findLastCompletelyVisibleItemPosition() == layoutManager
+              .getItemCount() - 2) {
+
+            //displays the footer
+            getReleasesFromAdapter().add(new GenericRecyclerViewFragment.Footer());
+            recyclerView.scrollToPosition(getReleasesFromAdapter().size() - 1);
+            recyclerView.getAdapter().notifyItemInserted(getReleasesFromAdapter().size() - 1);
+            (new LoadReleasesAsyncTask(LoadType.ENDLESS)).execute();
+          }
+        }
+      }
+    });
+
+  }
+
+  private List getReleasesFromAdapter() {
+    return ((ReleasesAdapter) releasesRecyclerView.getAdapter()).getData();
+  }
+
+  /**
+   * Gets the number of releases ignoring the footer.
+   */
+  private int getNumReleases() {
+    List list = getReleasesFromAdapter();
+    if (list.isEmpty()) {
+      return 0;
+    } else if (hasFooter()) {
+      return list.size() - 1;
+    } else {
+      return list.size();
+    }
+  }
+
+  private boolean hasFooter() {
+    List list = getReleasesFromAdapter();
+    return !list.isEmpty() && list.get(list.size() - 1) instanceof GenericRecyclerViewFragment.Footer;
+  }
+
+
+  //remember:the tasks for the same AsyncTask are executed one by one when using
+  //the default thread pool executor (serial executor).
+  class LoadReleasesAsyncTask extends AsyncTask<Void, Void, Boolean> {
+
+    private LoadType loadType;
+    private List<Release> releases = null;
+
+    public LoadReleasesAsyncTask(LoadType loadType) {
+      this.loadType = loadType;
+    }
+
+    @Override
+    protected void onPreExecute() {
+      if (!UiUtils.isNetworkConnected(getActivity())) {
+        if (!UiUtils.isAnyDialoFragmentVisible(ReleasesFragment.this)) {
+          UiUtils.showYesDialogFragment(ReleasesFragment.this, getString(android.R.string
+                  .dialog_alert_title),
+              getString(R.string.noconnection));
+        }
+        cancel(true);
+      }
+    }
+
+    @Override
+    protected Boolean doInBackground(Void... params) {
+      if (!isCancelled()) {
+        try {
+          int offset = getNumReleases();
+          if (loadType == LoadType.SWIPE) {
+            offset = 0;
+          }
+          String mbid = null;
+          if (artist != null) {
+            mbid = artist.getMbid();
+            releases = ReleaseService.INSTANCE.getReleasesByArtist(offset, ReleaseService.LIMIT,
+                mbid);
+          }
+          else
+          {
+            releases = ReleaseService.INSTANCE.getReleasesByUser(offset, ReleaseService.LIMIT);
+          }
+
+          return Boolean.TRUE;
+        } catch (Exception ex) {
+          Log.e(ReleasesFragment.class.getSimpleName(), "error while loading releases", ex);
+          return Boolean.FALSE;
+        }
+      }
+      return Boolean.FALSE;
+    }
+
+    @Override
+    protected void onPostExecute(Boolean result) {
+      final List releasesFromAdapter = getReleasesFromAdapter();
+      removeFooter();
+      if (result) {
+        int start = 0;
+        if (loadType == LoadType.SWIPE) {
+          ListIterator<Release> iterate = releases.listIterator(releases.size());
+          while (iterate.hasPrevious()) {
+            //FIXME determinar el punto de inserción
+            releasesFromAdapter.add(0, iterate.previous());
+          }
+        } else {
+          releasesFromAdapter.addAll(releases);
+          start = releasesFromAdapter.size();
+        }
+        if (releases.size() == ReleaseService.LIMIT) {
+          hasMore = true;
+        } else {
+          hasMore = false;
+        }
+        releasesRecyclerView.getAdapter().notifyItemRangeInserted(start, releases.size() - 1);
+
+        if (loadType == LoadType.SWIPE) {
+          releasesRecyclerView.scrollToPosition(0);
+        }
+        UiUtils.changeMainViewBackground(releasesRecyclerView, getReleasesFromAdapter());
+      } else {
+        if (!UiUtils.isAnyDialoFragmentVisible(ReleasesFragment.this)) {
+          UiUtils.showYesDialogFragment(ReleasesFragment.this, getString(android.R.string
+              .dialog_alert_title), getString(R.string.unknown_error));
+        }
+      }
+      swipeRefreshLayout.setRefreshing(false);
+      swipeRefreshLayout.setEnabled(enableSwipeRefresh);
+
+      displayRefreshButton();
+    }
+
+    @Override
+    protected void onCancelled() {
+      swipeRefreshLayout.setRefreshing(false);
+      removeFooter();
+      displayRefreshButton();
+    }
+  }
+
+  private void displayRefreshButton() {
+    if (getReleasesFromAdapter() == null || getReleasesFromAdapter().isEmpty()) {
+      buttonRefresh.setVisibility(View.VISIBLE);
+      swipeRefreshLayout.setVisibility(View.GONE);
+    } else {
+      buttonRefresh.setVisibility(View.GONE);
+      swipeRefreshLayout.setVisibility(View.VISIBLE);
+    }
+  }
+
+  /**
+   * Removes the footer if exists and notifies the adapter.
+   */
+  private boolean removeFooter() {
+    if (hasFooter()) {
+      Object obj = getReleasesFromAdapter().remove(getReleasesFromAdapter().size() - 1);
+      releasesRecyclerView.getAdapter().notifyItemRemoved(getReleasesFromAdapter().size() - 1);
+      return obj != null;
+    }
+    return false;
+  }
+
+  class ArtistBroadcastReceiver extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+      Log.d("delete", "artists updated");
+      Artist artist = intent.getParcelableExtra(ArtistDetailActivity.ARTIST_INTENT);
+      //removes all the releases of the unfollowed artists
+      if (!artist.isFollowing()) {
+        ListIterator iterator = getReleasesFromAdapter().listIterator();
+        int oldSize = getReleasesFromAdapter().size();
+        while (iterator.hasNext()) {
+          Object obj = iterator.next();
+          if (obj instanceof Release && ((Release) obj).getArtist().getMbid().equals(artist
+              .getMbid())) {
+            iterator.remove();
+          }
+        }
+        //loads additional data to "fill" the items deleted
+        if (oldSize > getReleasesFromAdapter().size()) {
+          releasesRecyclerView.getAdapter().notifyDataSetChanged();
+          (new LoadReleasesAsyncTask(LoadType.ENDLESS)).execute();
+        }
+      } else { //resets the list, we dont know the releases of the artists added
+        getReleasesFromAdapter().clear();
+        hasMore = false;
+        releasesRecyclerView.getAdapter().notifyDataSetChanged();
+        (new LoadReleasesAsyncTask(LoadType.ENDLESS)).execute();
+      }
+
+    }
+  }
+
+
+}

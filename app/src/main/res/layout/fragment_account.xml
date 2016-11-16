@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * Copyright (C) 2012-2016 Daniel Medina <http://danielme.com>
+ *
+ * This file is part of "Muspy for Android".
+ *
+ * "Muspy for Android" is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * "Muspy for Android" is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License version 3
+ * along with this program.  If not, see <http://www.gnu.org/licenses/gpl-3.0.html/>
+ */
+-->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/grey_background">
+
+    <ScrollView
+        android:id="@+id/form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:fillViewport="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/AppTheme.TextViewFormTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:text="@string/email"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_input_layout_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                app:errorTextAppearance="@style/AppTheme.EditTextError"
+                app:hintEnabled="false">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/editTextEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:paddingTop="0dp"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <View style="@style/AppTheme.FormSeparator"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/AppTheme.TextViewFormTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/notifications"/>
+
+
+            <CheckBox
+                android:id="@+id/checkBoxNotifications"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:text="@string/notificationsInfo"
+                android:theme="@style/AppTheme.Checkbox"/>
+
+            </LinearLayout>
+
+            <View  style="@style/AppTheme.FormSeparator"/>
+
+            <!-- ========================================================= -->
+            <!-- ==========================FILTERS======================== -->
+            <!-- ========================================================= -->
+
+            <TextView
+                android:id="@+id/textViewFilters"
+                style="@style/AppTheme.TextViewFormTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:text="@string/filters"/>
+
+
+            <android.support.v7.widget.GridLayout
+                android:id="@+id/GridLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                app:columnCount="@integer/grid_account_column"
+                app:orientation="horizontal">
+
+
+                <CheckBox
+                    android:id="@+id/checkBoxAlbum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="@string/filtersAlbum"
+                    android:layout_marginBottom="@dimen/form_margin_top"
+                    android:theme="@style/AppTheme.Checkbox"
+                    app:layout_columnWeight="1"/>
+
+                <CheckBox
+                    android:id="@+id/checkBoxSingle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="@string/filtersSingle"
+                    android:theme="@style/AppTheme.Checkbox"
+                    android:layout_marginBottom="@dimen/form_margin_top"
+                    app:layout_columnWeight="1"/>
+
+                <CheckBox
+                    android:id="@+id/checkBoxEP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filtersEP"
+                    android:theme="@style/AppTheme.Checkbox"
+                    android:layout_marginBottom="@dimen/form_margin_top"
+                    app:layout_columnWeight="1"/>
+
+                <CheckBox
+                    android:id="@+id/checkBoxCompilation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filtersCompilation"
+                    android:theme="@style/AppTheme.Checkbox"
+                    android:layout_marginBottom="@dimen/form_margin_top"
+                    app:layout_columnWeight="1"/>
+
+                <CheckBox
+                    android:id="@+id/checkBoxLive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filtersLive"
+                    android:theme="@style/AppTheme.Checkbox"
+                    android:layout_marginBottom="@dimen/form_margin_top"
+                    app:layout_columnWeight="1"/>
+
+                <CheckBox
+                    android:id="@+id/checkBoxRemix"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filtersRemix"
+                    android:theme="@style/AppTheme.Checkbox"
+                    android:layout_marginBottom="@dimen/form_margin_top"
+                    app:layout_columnWeight="1"/>
+
+
+                <CheckBox
+                    android:id="@+id/checkBoxOther"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/filtersOther"
+                    android:theme="@style/AppTheme.Checkbox"
+                    android:layout_marginBottom="@dimen/form_margin_top"
+                    app:layout_columnWeight="1"/>
+
+            </android.support.v7.widget.GridLayout>
+
+            <View
+                style="@style/AppTheme.FormSeparator"
+                />
+
+            <Button
+                android:id="@+id/buttonOptions"
+                style="@style/AppTheme.FlatButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/moreoptions"
+                android:layout_gravity="center_horizontal"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <Button
+        android:id="@+id/button_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/refresh_button"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/textView_message"
+        style="@style/AppTheme.TextViewCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_refresh"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        tools:text="test"
+        android:visibility="gone"
+        />
+
+    <ProgressBar
+        android:id="@+id/progress_circular_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:indeterminateTint="@color/colorPrimary"
+        android:indeterminateTintMode="src_in"
+        android:visibility="gone"
+        tools:targetApi="lollipop"/>
+
+</RelativeLayout>
+

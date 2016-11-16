@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * Copyright (C) 2012-2016 Daniel Medina <http://danielme.com>
+ *
+ * This file is part of "Muspy for Android".
+ *
+ * "Muspy for Android" is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * "Muspy for Android" is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License version 3
+ * along with this program.  If not, see <http://www.gnu.org/licenses/gpl-3.0.html/>
+ */
+--><RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    style="@style/AppTheme.LayoutRecyclerView">
+
+    <ImageView
+        android:id="@+id/cover"
+        android:layout_width="155dp"
+        android:layout_height="155dp"
+        android:contentDescription="@string/cover"
+        android:layout_below="@+id/artist"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="@dimen/activity_vertical_margin"/>
+
+    <!-- ######################## -->
+    <!-- ######## DETAILS ####### -->
+    <!-- ######################## -->
+
+    <TextView
+        android:id="@+id/country"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/cover"
+        android:layout_marginLeft="@dimen/standard_separation"
+        android:textSize="14sp"
+        android:layout_toRightOf="@+id/cover"
+        android:text="@string/country" />
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/country"
+        android:textSize="14sp"
+        android:layout_below="@+id/country"
+        android:layout_marginTop="@dimen/form_margin_top_half"
+        android:text="@string/label" />
+
+    <TextView
+        android:id="@+id/format"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/label"
+        android:layout_below="@+id/label"
+        android:textSize="14sp"
+        android:layout_marginTop="@dimen/form_margin_top_half"
+        android:text="@string/format" />
+
+    <TextView
+        android:id="@+id/countryContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
+        android:textSize="14sp"
+        tools:text="US"
+        android:layout_marginLeft="@dimen/standard_separation"
+        android:layout_alignTop="@+id/country"
+        android:layout_toRightOf="@+id/country"
+        android:layout_toEndOf="@+id/country"/>
+
+    <TextView
+        android:id="@+id/labelContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/standard_separation"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
+        tools:text="LABEL"
+        android:textSize="14sp"
+        android:layout_above="@+id/format"
+        android:layout_toRightOf="@+id/label"
+        android:layout_toEndOf="@+id/label"/>
+
+    <TextView
+        android:id="@+id/formatContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
+        tools:text="CD"
+        android:textSize="14sp"
+        android:layout_marginLeft="@dimen/standard_separation"
+        android:layout_alignTop="@+id/format"
+        android:layout_toRightOf="@+id/format"
+        android:layout_toEndOf="@+id/format"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bullet"
+        android:id="@+id/dot"
+        android:layout_marginLeft="@dimen/standard_separation"
+        android:layout_marginRight="@dimen/standard_separation"
+        android:layout_below="@+id/title"
+        android:textSize="16sp"
+        android:layout_toRightOf="@+id/date"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        tools:text="The Very Best Of"
+        android:id="@+id/title"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="1999"
+        android:id="@+id/date"
+        android:textSize="16sp"
+        android:layout_below="@+id/title"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:id="@+id/textViewType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/type"
+        android:layout_marginTop="@dimen/form_margin_top_half"
+        android:layout_below="@+id/format"
+        android:layout_alignLeft="@+id/format"
+        android:layout_alignStart="@+id/format"/>
+
+    <TextView
+        tools:text="Compilation"
+        android:id="@+id/typeContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
+        android:layout_marginLeft="@dimen/standard_separation"
+        android:layout_alignTop="@+id/textViewType"
+        android:layout_toRightOf="@+id/textViewType"
+        android:layout_toEndOf="@+id/textViewType"/>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/length"
+        android:layout_marginTop="@dimen/form_margin_top_half"
+        android:layout_below="@+id/textViewType"
+        android:layout_alignLeft="@+id/textViewType"
+        android:layout_alignStart="@+id/textViewType"/>
+
+    <TextView
+        tools:text="01:14:23"
+        android:id="@+id/length"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:layout_marginLeft="@dimen/standard_separation"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_toEndOf="@+id/textView3"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/cover"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/textView3"
+        android:layout_alignBottom="@+id/cover"
+        android:gravity="center_horizontal|bottom">
+
+        <Button
+            android:id="@+id/searchInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search"/>
+
+    </LinearLayout>
+
+    <TextView
+        tools:text="Saxon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/artist"
+        android:textSize="16sp"
+        android:layout_below="@+id/title"
+        android:layout_toRightOf="@+id/dot"
+        android:layout_toEndOf="@+id/dot"/>
+
+
+</RelativeLayout>

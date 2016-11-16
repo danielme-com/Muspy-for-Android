@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Android Application Rules"
+    xmlns="http://pmd.sf.net/ruleset/1.0.0"
+    xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd"
+    xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd">
+
+    <description>Ruleset PMD 5.4.1</description>
+	
+	<exclude-pattern>.*/R.java</exclude-pattern>
+    <exclude-pattern>.*/gen/.*</exclude-pattern>	
+	
+    <rule ref="rulesets/java/android.xml" />
+	
+    <rule ref="rulesets/java/clone.xml" />
+    <rule ref="rulesets/java/finalizers.xml" />   
+    <rule ref="rulesets/java/logging-java.xml" />    
+    <rule ref="rulesets/java/unusedcode.xml" />    
+    <rule ref="rulesets/java/junit.xml" />
+    <rule ref="rulesets/java/braces.xml" />
+    <rule ref="rulesets/java/empty.xml"/>
+
+	<rule ref="rulesets/java/codesize.xml/NPathComplexity"/>
+
+    <rule ref="rulesets/java/optimizations.xml/UseArrayListInsteadOfVector"/>
+    <rule ref="rulesets/java/optimizations.xml/SimplifyStartsWith"/>
+    <rule ref="rulesets/java/optimizations.xml/UseStringBufferForStringAppends"/>
+    <rule ref="rulesets/java/optimizations.xml/UseArraysAsList"/>
+    <rule ref="rulesets/java/optimizations.xml/AvoidArrayLoops"/>
+    <rule ref="rulesets/java/optimizations.xml/UnnecessaryWrapperObjectCreation"/>
+    <rule ref="rulesets/java/optimizations.xml/AddEmptyString"/>
+    <rule ref="rulesets/java/optimizations.xml/RedundantFieldInitializer"/>
+
+    <rule ref="rulesets/java/unnecessary.xml/UnnecessaryConversionTemporary"/>
+    <rule ref="rulesets/java/unnecessary.xml/UnnecessaryReturn"/>
+    <rule ref="rulesets/java/unnecessary.xml/UnnecessaryFinalModifier"/>
+    <rule ref="rulesets/java/unnecessary.xml/UselessOverridingMethod"/>
+    <rule ref="rulesets/java/unnecessary.xml/UselessOperationOnImmutable"/>
+    <rule ref="rulesets/java/unnecessary.xml/UnusedNullCheckInEquals"/>
+    <rule ref="rulesets/java/unnecessary.xml/UselessParentheses"/>
+    <rule ref="rulesets/java/unnecessary.xml/UselessQualifiedThis"/>
+
+    <rule ref="rulesets/java/design.xml/UseUtilityClass"/>
+    <rule ref="rulesets/java/design.xml/SimplifyBooleanReturns"/>
+    <rule ref="rulesets/java/design.xml/SimplifyBooleanExpressions"/>
+    <rule ref="rulesets/java/design.xml/SwitchStmtsShouldHaveDefault"/>
+    <rule ref="rulesets/java/design.xml/AvoidDeeplyNestedIfStmts"/>
+
+    <rule ref="rulesets/java/design.xml/AvoidReassigningParameters"/>
+    <rule ref="rulesets/java/design.xml/SwitchDensity"/>
+    <rule ref="rulesets/java/design.xml/ConstructorCallsOverridableMethod"/>
+    <rule ref="rulesets/java/design.xml/AccessorClassGeneration"/>
+    <rule ref="rulesets/java/design.xml/FinalFieldCouldBeStatic"/>
+    <rule ref="rulesets/java/design.xml/NonStaticInitializer"/>
+    <rule ref="rulesets/java/design.xml/DefaultLabelNotLastInSwitchStmt"/>
+    <rule ref="rulesets/java/design.xml/NonCaseLabelInSwitchStatement"/>
+    <rule ref="rulesets/java/design.xml/OptimizableToArrayCall"/>
+    <rule ref="rulesets/java/design.xml/BadComparison"/>
+    <rule ref="rulesets/java/design.xml/EqualsNull"/>
+    <rule ref="rulesets/java/design.xml/InstantiationToGetClass"/>
+    <rule ref="rulesets/java/design.xml/IdempotentOperations"/>
+    <rule ref="rulesets/java/design.xml/ImmutableField"/>
+    <rule ref="rulesets/java/design.xml/AvoidProtectedFieldInFinalClass"/>
+    <rule ref="rulesets/java/design.xml/MissingStaticMethodInNonInstantiatableClass"/>
+    <rule ref="rulesets/java/design.xml/MissingBreakInSwitch"/>
+    <rule ref="rulesets/java/design.xml/UseNotifyAllInsteadOfNotify"/>
+    <rule ref="rulesets/java/design.xml/AvoidInstanceofChecksInCatchClause"/>
+    <rule ref="rulesets/java/design.xml/AbstractClassWithoutAbstractMethod"/>
+    <rule ref="rulesets/java/design.xml/SimplifyConditional"/>
+    <rule ref="rulesets/java/design.xml/CompareObjectsWithEquals"/>
+    <rule ref="rulesets/java/design.xml/PositionLiteralsFirstInComparisons"/>
+    <rule ref="rulesets/java/design.xml/PositionLiteralsFirstInCaseInsensitiveComparisons"/>
+    <rule ref="rulesets/java/design.xml/UnnecessaryLocalBeforeReturn"/>
+    <rule ref="rulesets/java/design.xml/SingleMethodSingleton"/>
+    <rule ref="rulesets/java/design.xml/SingletonClassReturningNewInstance"/>
+    <rule ref="rulesets/java/design.xml/UncommentedEmptyMethodBody"/>
+    <rule ref="rulesets/java/design.xml/UncommentedEmptyConstructor"/>
+    <rule ref="rulesets/java/design.xml/AvoidConstantsInterface"/>
+    <rule ref="rulesets/java/design.xml/PreserveStackTrace"/>
+    <rule ref="rulesets/java/design.xml/UseCollectionIsEmpty"/>
+    <rule ref="rulesets/java/design.xml/ClassWithOnlyPrivateConstructorsShouldBeFinal"/>
+    <rule ref="rulesets/java/design.xml/EmptyMethodInAbstractClassShouldBeAbstract"/>
+    <rule ref="rulesets/java/design.xml/SingularField"/>
+    <rule ref="rulesets/java/design.xml/AbstractClassWithoutAnyMethod"/>
+    <rule ref="rulesets/java/design.xml/LogicInversion"/>
+    <rule ref="rulesets/java/design.xml/UseVarargs"/>
+    <rule ref="rulesets/java/design.xml/FieldDeclarationsShouldBeAtStartOfClass"/>
+
+    <rule ref="rulesets/java/strings.xml/StringToString"/>
+    <rule ref="rulesets/java/strings.xml/StringInstantiation"/>
+    <rule ref="rulesets/java/strings.xml/InefficientStringBuffering"/>
+    <rule ref="rulesets/java/strings.xml/UnnecessaryCaseChange"/>
+    <rule ref="rulesets/java/strings.xml/UseStringBufferLength"/>
+    <rule ref="rulesets/java/strings.xml/AppendCharacterWithChar"/>
+    <rule ref="rulesets/java/strings.xml/ConsecutiveAppendsShouldReuse"/>
+    <rule ref="rulesets/java/strings.xml/ConsecutiveLiteralAppends"/>
+    <rule ref="rulesets/java/strings.xml/UseIndexOfChar"/>
+    <rule ref="rulesets/java/strings.xml/InefficientEmptyStringCheck"/>
+    <rule ref="rulesets/java/strings.xml/UselessStringValueOf"/>
+    <rule ref="rulesets/java/strings.xml/StringBufferInstantiationWithChar"/>
+    <rule ref="rulesets/java/strings.xml/UseEqualsToCompareStrings"/>
+    <rule ref="rulesets/java/strings.xml/AvoidStringBufferField"/>
+
+    <rule ref="rulesets/java/basic.xml/JumbledIncrementer" />
+    <rule ref="rulesets/java/basic.xml/ForLoopShouldBeWhileLoop" />
+    <rule ref="rulesets/java/basic.xml/OverrideBothEqualsAndHashcode" />
+    <rule ref="rulesets/java/basic.xml/DoubleCheckedLocking" />
+    <rule ref="rulesets/java/basic.xml/ReturnFromFinallyBlock" />
+    <rule ref="rulesets/java/basic.xml/UnconditionalIfStatement" />
+    <rule ref="rulesets/java/basic.xml/BooleanInstantiation" />
+    <rule ref="rulesets/java/basic.xml/ClassCastExceptionWithToArray" />
+    <rule ref="rulesets/java/basic.xml/AvoidDecimalLiteralsInBigDecimalConstructor" />
+    <rule ref="rulesets/java/basic.xml/MisplacedNullCheck" />
+    <rule ref="rulesets/java/basic.xml/AvoidThreadGroup" />
+    <rule ref="rulesets/java/basic.xml/BrokenNullCheck" />
+    <rule ref="rulesets/java/basic.xml/BigIntegerInstantiation" />
+    <rule ref="rulesets/java/basic.xml/AvoidUsingOctalValues" />
+    <rule ref="rulesets/java/basic.xml/CheckResultSet" />
+    <rule ref="rulesets/java/basic.xml/AvoidMultipleUnaryOperators" />
+   
+</ruleset>

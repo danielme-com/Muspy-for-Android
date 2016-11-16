@@ -1,0 +1,137 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        // The Fabric Gradle plugin uses an open ended version to react
+        // quickly to Android tooling updates
+        classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+    }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+apply plugin: 'checkstyle'
+apply plugin: 'pmd'
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.1"
+
+    defaultConfig {
+        applicationId "com.danielme.muspyforandroid"
+        minSdkVersion 18
+        targetSdkVersion 22
+        versionCode 5
+        versionName "2.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+task checkstyle(type: Checkstyle) {
+    group 'verification'
+    source 'src'
+    configFile file("${project.rootDir}/quality/checkstyle.xml")
+    include '**/*.java'
+    exclude '**/gen/**'
+    exclude '**/build/**'
+    exclude '**/bin/**'
+    exclude '**/libs/**'
+    exclude '**/test/**'
+    exclude '**/androidTest/**'
+    classpath = files()
+    showViolations true
+    reports {
+        xml.destination "$project.buildDir/reports/checkstyle.xml"
+        html.destination "$project.buildDir/reports/checkstyle.html"
+    }
+}
+
+task pmd(type: Pmd) {
+    group 'verification'
+    ruleSetFiles = files("${project.rootDir}/quality/pmd.xml")
+    ignoreFailures = false
+    ruleSets = []
+
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+    exclude '**/test/**'
+    exclude '**/androidTest/**'
+    exclude '**/build/**'
+    reports {
+        xml.enabled = true
+        html.enabled = true
+        xml {
+            destination "$project.buildDir/reports/pmd.xml"
+        }
+        html {
+            destination "$project.buildDir/reports/pmd.html"
+        }
+    }
+}
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'com.android.support:design:24.2.0'
+    compile 'com.android.support:customtabs:24.2.0'
+    compile 'com.android.support:gridlayout-v7:24.2.0'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.3.0'
+    compile ('com.github.franmontiel:PersistentCookieJar:v0.9.3') {
+        exclude module: 'com.square'
+    }
+    compile 'com.android.support:support-annotations:24.2.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:support-v4:24.2.0'
+    compile group: 'org.jsoup', name: 'jsoup', version: '1.8.3'
+    compile 'com.scottyab:secure-preferences-lib:0.1.4'
+    compile 'com.google.dagger:dagger:2.6.1'
+    apt 'com.google.dagger:dagger-compiler:2.6.1'
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.2@aar') {
+        transitive = true;
+    }
+    testCompile 'junit:junit:4.12'
+    androidTestCompile ('com.android.support.test:runner:0.3') {
+        exclude module: 'support-annotations'
+    }
+    androidTestCompile ('com.android.support.test:rules:0.3') {
+        exclude module: 'support-annotations'
+    }
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2') {
+        // Necessary to avoid version conflicts
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude module: 'recyclerview-v7'
+    }
+    androidTestCompile ('com.android.support.test.espresso:espresso-core:2.2') {
+        exclude module: 'support-annotations'
+    }
+    checkstyle('com.puppycrawl.tools:checkstyle:6.19')
+    pmd(
+            'net.sourceforge.pmd:pmd-core:5.4.1',
+            'net.sourceforge.pmd:pmd-java:5.4.1'
+    )
+}

@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * Copyright (C) 2012-2016 Daniel Medina <http://danielme.com>
+ *
+ * This file is part of "Muspy for Android".
+ *
+ * "Muspy for Android" is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3.
+ *
+ * "Muspy for Android" is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License version 3
+ * along with this program.  If not, see <http://www.gnu.org/licenses/gpl-3.0.html/>
+ */
+-->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Muspy for Android</string>
+    <string name="logo">muspy logo</string>
+    <string name="email">Email</string>
+    <string name="password">Contraseña</string>
+    <string name="signin">Acceder</string>
+    <string name="forgot_pass">¿Olvidaste tu contraseña?</string>
+    <string name="dont_have">¿No tienes una cuenta?</string>
+    <string name="resetit"><u>Reiniciar</u></string>
+    <string name="createone"><u>Crea una</u></string>
+    <string name="noemail">Debes proporcionar un email</string>
+    <string name="emailsentreset">Se ha enviado un email a %1$s con las instrucciones para
+        obtener tu nueva contraseña</string>
+    <string name="nopass">Debes proporcionar la contraseña</string>
+    <string name="repeat_password">Repetir contraseña</string>
+    <string name="signup">Registrarse</string>
+    <string name="instructions_create">Únete a Muspy, ¡la forma más fácil de seguir a tus artistas favoritos!</string>
+    <string name="emailsentsignup">Tu cuenta está pendiente de confirmación. Debes validar tu dirección de email para recibir notificaciones usando el correo que te hemos enviado.</string>
+    <string name="pass_nomatch">Las contraseñas no coinciden</string>
+    <string name="title_sigup">Registro</string>
+    <string name="pass_length">La contraseña es demasiado corta</string>
+    <string name="info_save_success">La configuración se ha guardado</string>
+    <string name="title_activity_search_artist">Buscar artista</string>
+    <string name="invalid_email">Debes proporcionar un email válido</string>
+    <string name="instructions_reset">Introduce tu email. Te enviaremos un correo con un enlace
+        para reiniciar tu contraseña.</string>
+    <string name="title_reset">Reiniciar contraseña</string>
+    <string name="privacy_policy"><u>Condiciones de privacidad</u></string>
+    <string name="unknown_error">Se ha producido un error</string>
+    <string name="unknown_error_reset">Se ha producido un error. Comprueba la dirección de correo.</string>
+    <string name="invalid_credentials">Credenciales erróneas</string>
+    <string name="loading">Cargando&#8230;</string>
+    <string name="noconnection">La conexión a Internet no se encuentra disponible</string>
+    <string name="invalid_credentials_reset">Credenciales erróneas. ¿Quieres solicitar una nueva contraseña?.</string>
+    <string name="email_duplicate">El email ya se encuentra registrado.</string>    
+    <string name="action_logout">Salir</string>
+    <string name="action_import">Importar desde Last.fm</string>
+    <string name="action_about">Acerca de</string>
+    <string name="cover">Portada</string>
+    <string name="refresh_button">Actualizar</string>
+    <string name="invalid_autologin">Tu cuenta se ha creado pero se ha producido un error al intentar acceder.</string>
+    <string name="noartists">¡No tienes ninguno! Busca y agrega a tus artistas favoritos</string>
+    <string name="action_follow">Seguir</string>
+    <string name="action_unfollow">No seguir</string>
+    <string name="follow_success">Estás siguiendo a %1$s</string>
+    <string name="follow_error">Se ha producido un error intentado seguir a %1$s</string>
+    <string name="unfollow_success">No estás siguiendo a %1s</string>
+    <string name="unfollow_error">Se ha producido un error al dejar de seguir a %1s</string>
+    <string name="action_search">Buscar</string>
+    <string name="search_artist">Buscar artista</string>
+    <string name="notifications">Notificaciones</string>
+    <string name="notificationsInfo">Recibe por email las notificaciones de nuevos lanzamientos.</string>
+    <string name="filters">Filtros</string>
+    <string name="filtersAlbum">Álbum</string>
+    <string name="filtersSingle">Single</string>
+    <string name="filtersEP">EP</string>
+    <string name="filtersLive">En vivo</string>
+    <string name="filtersCompilation">Recopilatorio</string>
+    <string name="filtersRemix">Remezcla</string>
+    <string name="filtersOther">Otro</string>
+    <string name="moreoptions">Más opciones</string>
+    <string name="action_save">Guardar</string>
+    <string name="nodata">No hay resultados</string>
+    <string name="retry_button">Volver a intentar</string>
+    <string name="sending">Enviando datos</string>
+    <string name="bullet">\u2022</string>
+    <string name="lastfm_user">Usuario de Last.fm</string>
+    <string name="top_artists">Artistas principales</string>
+    <string name="period">Periodo</string>
+    <plurals
+        name="results">
+        <item quantity="one">un resultado</item>
+        <item quantity="other">%1d resultados</item>
+    </plurals>
+    <plurals
+        name="following">
+        <item quantity="one">Estás siguiendo a un artista</item>
+        <item quantity="other">Estás siguiendo a %1d artistas</item>
+    </plurals>
+    <string name="title_lastfm">Last.fm</string>
+
+    <string name="periodOverall">todo</string>
+    <string name="period6month">en los últimos 6 meses</string>
+    <string name="period3month">en los últimos 3 meses</string>
+    <string name="period7day">en los últimos 7 días</string>
+    <string name="period12month">en los últimos 12 meses</string>
+    <string name="buttom_import">Importar</string>
+    <string name="invalid_user_lastfm">Introduce un usuario de Last.fm</string>
+    <string name="dialog_info_title">Información</string>
+    <string name="info_import_success">Tus artistas serán importados en unos minutos.</string>
+    <string name="lastfm_user_unknown">Usuario no encontrado</string>    
+    <string name="country">País: </string>
+    <string name="label">Sello: </string>
+    <string name="format">Formato: </string>
+    <string name="type">Tipo: </string>
+    <string name="release" tools:keep="@string/release">lanzamiento</string>
+    <string name="length">Duración:</string>
+    <string name="search">buscar</string>
+    <string name="action_share">Compartir</string>
+    <string name="action_agenda">agenda</string>
+    <string name="share_title">Compartir con</string>
+    <string name="pick_agenda">Selecciona tu agenda</string>
+
+
+    <string name="Album">Álbum</string>
+    <string name="Single">Single</string>
+    <string name="EP">EP</string>
+    <string name="Live">En vivo</string>
+    <string name="Compilation">Recopilatorio</string>
+    <string name="Remix">Remezcla</string>
+    <string name="Other">Otro</string>
+
+    <string name="youtube">Youtube</string>
+    <string name="google">Google</string>
+    <string name="musicbrainz">MusicBrainz</string>
+    <string name="amazon">Amazon</string>
+    <string name="google_play">Google Play</string>
+    <string name="title_activity_about">Acerca de</string>
+    <string name="tab_details">Detalles</string>
+    <string name="tab_license">Licencia</string>
+    <string name="title_activity_release">Lanzamiento</string>
+    <string name="buttom_google_play">Google Play</string>
+    <string name="data_not_available">Datos no disponibles en estos momentos</string>
+    <string name="logout_question">¿Realmente quieres salir?</string>
+    <string name="nocredentials">Tienes que acceder a Muspy for Android</string>
+
+    <string name="com.crashlytics.CrashSubmissionPromptTitle" tools:keep="@string/com_crashlytics_CrashSubmissionPromptTitle">
+          Informe de error</string>
+    <string name="com.crashlytics.CrashSubmissionPromptMessage">
+          ¡Parece que Muspy ha fallado! Por favor ayúdanos a resolver el problema enviando un
+        informe de errores. No recopilamos datos personales.</string>
+    <string name="com.crashlytics.CrashSubmissionSendTitle" tools:keep="@string/com_crashlytics_CrashSubmissionSendTitle">
+          Enviar</string>
+    <string name="com.crashlytics.CrashSubmissionAlwaysSendTitle">
+          Enviar siempre</string>
+    <string name="com.crashlytics.CrashSubmissionCancelTitle" tools:keep="@string/com_crashlytics_CrashSubmissionCancelTitle">
+          No enviar</string>
+
+    <string
+        name="about_muspy"><![CDATA[<a href="https://muspy.com">Muspy</a> es un servicio gratuito que te notifica cuando tus artistas favoritos publican un nuevo disco. Muspy fue creado y es mantenido por <a href="http://kojevnikov.com/">Alexander Kojevnikov</a> y Olga Vasylevska.]]></string>
+
+     <string
+         name="about_muspy_android"><![CDATA[Muspy for Android es un proyecto de código abierto desarrollado por Daniel Medina. Puedes encontrarme en <a href="http://danielme.com">danielme.com</a>.]]></string>
+
+    <string name="about_libraries">Esta app utiliza</string>
+    <string name="about_pp">Política de privacidad</string>
+
+    <!-- MusicBrainz countries-->
+    <string name="AF" tools:keep="@string/AF">Afganistán</string>
+    <string name="AX">Islas Åland</string>
+    <string name="AL" tools:keep="@string/AL">Albania</string>
+    <string name="DZ" tools:keep="@string/DZ">Argelia</string>
+    <string name="AS" tools:keep="@string/AS">American Samoa</string>
+    <string name="AD" tools:keep="@string/AD">Andorra</string>
+    <string name="AO" tools:keep="@string/AO">Angola</string>
+    <string name="AI" tools:keep="@string/AI">Anguila</string>
+    <string name="AQ" tools:keep="@string/AQ">Antártida</string>
+    <string name="AG" tools:keep="@string/AG">Antigua y Barbuda</string>
+    <string name="AR" tools:keep="@string/AR">Argentina</string>
+    <string name="AM" tools:keep="@string/AM">Armenia</string>
+    <string name="AW" tools:keep="@string/AW">Aruba</string>
+    <string name="AU" tools:keep="@string/AU">Australia</string>
+    <string name="AT" tools:keep="@string/AT">Austria</string>
+    <string name="AZ" tools:keep="@string/AZ">Azerbaiyán</string>
+    <string name="BS" tools:keep="@string/BS">Bahamas</string>
+    <string name="BH" tools:keep="@string/BH">Bahréin</string>
+    <string name="BD" tools:keep="@string/BD">Bangladesh</string>
+    <string name="BB" tools:keep="@string/BB">Barbados</string>
+    <string name="BY" tools:keep="@string/BY">Bielorrusia</string>
+    <string name="BE" tools:keep="@string/BE">Bélgica</string>
+    <string name="BZ" tools:keep="@string/BZ">Belice</string>
+    <string name="BJ" tools:keep="@string/BJ">Benín</string>
+    <string name="BM" tools:keep="@string/BM">Islas Bermudas</string>
+    <string name="BT" tools:keep="@string/BT">Bután</string>
+    <string name="BO" tools:keep="@string/BO">Bolivia</string>
+    <string name="BA" tools:keep="@string/BA">Bosnia y Herzegovina</string>
+    <string name="BW" tools:keep="@string/BW">Botsuana</string>
+    <string name="BV" tools:keep="@string/BV">Isla Bouvet</string>
+    <string name="BR" tools:keep="@string/BR">Brasil</string>
+    <string name="IO" tools:keep="@string/IO">British Indian Ocean Territory</string>
+    <string name="BN" tools:keep="@string/BN">Brunei Darussalam</string>
+    <string name="BG" tools:keep="@string/BG">Bulgaria</string>
+    <string name="BF" tools:keep="@string/BF">Burkina Faso</string>
+    <string name="BI" tools:keep="@string/BI">Burundi</string>
+    <string name="KH" tools:keep="@string/KH">Camboya</string>
+    <string name="CM" tools:keep="@string/CM">Camerún</string>
+    <string name="CA" tools:keep="@string/CA">Canadá</string>
+    <string name="CV" tools:keep="@string/CV">Cabo Verde</string>
+    <string name="KY" tools:keep="@string/KY">islas Caimán</string>
+    <string name="TD" tools:keep="@string/TD">Chad</string>
+    <string name="CL" tools:keep="@string/CL">Chile</string>
+    <string name="CN" tools:keep="@string/CN">China</string>
+    <string name="CX" tools:keep="@string/CX">Isla de Navidad</string>
+    <string name="CC" tools:keep="@string/CC">Islas Cocos</string>
+    <string name="CO" tools:keep="@string/CO">Colombia</string>
+    <string name="KM" tools:keep="@string/KM">Comoras</string>
+    <string name="CG" tools:keep="@string/CG">Congo</string>
+    <string name="CD" tools:keep="@string/CD">Congo, República
+        Democrática</string>
+    <string name="CK" tools:keep="@string/CK">Islas Cook</string>
+    <string name="CR" tools:keep="@string/CR">Costa Rica</string>
+    <string name="CI" tools:keep="@string/CI">Costa de Marfil</string>
+    <string name="HR" tools:keep="@string/HR">Croacia</string>
+    <string name="CU" tools:keep="@string/CU">Cuba</string>
+    <string name="CY" tools:keep="@string/CY">Chipre</string>
+    <string name="XC" tools:keep="@string/XC">Checoslovaquia</string>
+    <string name="CZ" tools:keep="@string/CZ">República Checa</string>
+    <string name="DK" tools:keep="@string/DK">Dinamarca</string>
+    <string name="DJ" tools:keep="@string/DJ">Yibuti</string>
+    <string name="DM" tools:keep="@string/DM">Dominica</string>
+    <string name="DO" tools:keep="@string/DO">República Dominica</string>
+    <string name="XG" tools:keep="@string/XG">Alemania del Este</string>
+    <string name="EC" tools:keep="@string/EC">Ecuador</string>
+    <string name="EG" tools:keep="@string/EG">Egipto</string>
+    <string name="SV" tools:keep="@string/SV">El Salvador</string>
+    <string name="GQ" tools:keep="@string/GQ">Guinea Ecuatorial</string>
+    <string name="ER" tools:keep="@string/ER">Eritrea</string>
+    <string name="EE" tools:keep="@string/EE">Estonia</string>
+    <string name="ET" tools:keep="@string/ET">Etiopía</string>
+    <string name="XE" tools:keep="@string/XE">Europa</string>
+    <string name="FK" tools:keep="@string/FK">Islas Malvinas</string>
+    <string name="FO" tools:keep="@string/FO">Islas Feroe</string>
+    <string name="FJ" tools:keep="@string/FJ">Fiyi</string>
+    <string name="FI" tools:keep="@string/FI">Finlandia</string>
+    <string name="FR" tools:keep="@string/FR">Francia</string>
+    <string name="GF" tools:keep="@string/GF">Guayana Francesa</string>
+    <string name="PF" tools:keep="@string/PF">Polinesia Francesa</string>
+    <string name="TF" tools:keep="@string/TF">Tierras Australes y Antárticas Francesas</string>
+    <string name="GA" tools:keep="@string/GA">Gabón</string>
+    <string name="GM" tools:keep="@string/GM">Gambia</string>
+    <string name="GE" tools:keep="@string/GE">Georgia</string>
+    <string name="DE" tools:keep="@string/DE">Alemania</string>
+    <string name="GH" tools:keep="@string/GH">Ghana</string>
+    <string name="GI" tools:keep="@string/GI">Gibraltar</string>
+    <string name="GR" tools:keep="@string/GR">Grecia</string>
+    <string name="GL" tools:keep="@string/GL">Groenlandia</string>
+    <string name="GD" tools:keep="@string/GD">Granada</string>
+    <string name="GP" tools:keep="@string/GP">Guadalupe</string>
+    <string name="GU" tools:keep="@string/GU">Guam</string>
+    <string name="GT" tools:keep="@string/GT">Guatemala</string>
+    <string name="GG" tools:keep="@string/GG">Guernsey</string>
+    <string name="GN" tools:keep="@string/GN">Guinea</string>
+    <string name="GW" tools:keep="@string/GW">Guinea-Bissau</string>
+    <string name="GY" tools:keep="@string/GY">Guyana</string>
+    <string name="HT" tools:keep="@string/HT">Haití</string>
+    <string name="HM" tools:keep="@string/HM">Islas Heard y McDonald</string>
+    <string name="HN" tools:keep="@string/HN">Honduras</string>
+    <string name="HK" tools:keep="@string/HK">Hong Kong</string>
+    <string name="HU" tools:keep="@string/HU">Hungría</string>
+    <string name="IS" tools:keep="@string/IS">Islandia</string>
+    <string name="IN" tools:keep="@string/IN">India</string>
+    <string name="ID" tools:keep="@string/ID">Indonesia</string>
+    <string name="IR" tools:keep="@string/IR">Irán</string>
+    <string name="IQ" tools:keep="@string/IQ">Iraq</string>
+    <string name="IE" tools:keep="@string/IE">Irlanda</string>
+    <string name="IM" tools:keep="@string/IM">Isla de Man</string>
+    <string name="IL" tools:keep="@string/IL">Israel</string>
+    <string name="IT" tools:keep="@string/IT">Italia</string>
+    <string name="JM" tools:keep="@string/JM">Jamaica</string>
+    <string name="JP" tools:keep="@string/JP">Japón</string>
+    <string name="JE" tools:keep="@string/JE">Jersey</string>
+    <string name="JO" tools:keep="@string/JO">Jordania</string>
+    <string name="KZ" tools:keep="@string/KZ">Kazajistán</string>
+    <string name="KE" tools:keep="@string/KE">Kenia</string>
+    <string name="KI" tools:keep="@string/KI">Kiribati</string>
+    <string name="KP" tools:keep="@string/KP">Corea del Norte</string>
+    <string name="KR" tools:keep="@string/KR">Korea del Sur</string>
+    <string name="KW" tools:keep="@string/KW">Kuwait</string>
+    <string name="KG" tools:keep="@string/KG">Kirguistán</string>
+    <string name="LA" tools:keep="@string/LA">Laos</string>
+    <string name="LV" tools:keep="@string/LV">Letonia</string>
+    <string name="LB" tools:keep="@string/LB">Líbano</string>
+    <string name="LS" tools:keep="@string/LS">Lesoto</string>
+    <string name="LR" tools:keep="@string/LR">Liberia</string>
+    <string name="LY" tools:keep="@string/LY">Libia</string>
+    <string name="LI" tools:keep="@string/LI">Liechtenstein</string>
+    <string name="LT" tools:keep="@string/LT">Lituania</string>
+    <string name="LU" tools:keep="@string/LU">Luxemburgo</string>
+    <string name="MO" tools:keep="@string/MO">Macao</string>
+    <string name="MK" tools:keep="@string/MK">Macedonia</string>
+    <string name="MG" tools:keep="@string/MG">Madagascar</string>
+    <string name="MW" tools:keep="@string/MW">Malawi</string>
+    <string name="MY" tools:keep="@string/MY">Malasia</string>
+    <string name="MV" tools:keep="@string/MV">Maldivas</string>
+    <string name="ML" tools:keep="@string/ML">Mali</string>
+    <string name="MT" tools:keep="@string/MT">Malta</string>
+    <string name="MH" tools:keep="@string/MH">Islas Marshall</string>
+    <string name="MQ" tools:keep="@string/MQ">Martinica</string>
+    <string name="MR" tools:keep="@string/MR">Mauritania</string>
+    <string name="MU" tools:keep="@string/MU">República de Mauricio</string>
+    <string name="YT" tools:keep="@string/YT">Mayotte</string>
+    <string name="MX" tools:keep="@string/MX">México</string>
+    <string name="FM" tools:keep="@string/FM">Micronesia</string>
+    <string name="MD" tools:keep="@string/MD">República de Moldavia</string>
+    <string name="MC" tools:keep="@string/MC">Mónaco</string>
+    <string name="MN" tools:keep="@string/MN">Mongolia</string>
+    <string name="ME" tools:keep="@string/ME">Montenegro</string>
+    <string name="MS" tools:keep="@string/MS">Montserrat</string>
+    <string name="MA" tools:keep="@string/MA">Marruecos</string>
+    <string name="MZ" tools:keep="@string/MZ">Mozambique</string>
+    <string name="MM" tools:keep="@string/MM">Birmania</string>
+    <string name="NA" tools:keep="@string/NA">Namibia</string>
+    <string name="NR" tools:keep="@string/NR">Nauru</string>
+    <string name="NP" tools:keep="@string/NP">Nepal</string>
+    <string name="NL" tools:keep="@string/NL">Países Bajos</string>
+    <string name="AN" tools:keep="@string/AN">Antillas Neerlandesas</string>
+    <string name="NC" tools:keep="@string/NC">Nueva Caledonia</string>
+    <string name="NZ" tools:keep="@string/NZ">Nueva Zelanda</string>
+    <string name="NI" tools:keep="@string/NI">Nicaragua</string>
+    <string name="NE" tools:keep="@string/NE">Níger</string>
+    <string name="NG" tools:keep="@string/NG">Nigeria</string>
+    <string name="NU" tools:keep="@string/NU">Niue</string>
+    <string name="NF" tools:keep="@string/NF">Isla Norfolk</string>
+    <string name="MP" tools:keep="@string/MP">Islas Marianas del Norte</string>
+    <string name="NO" tools:keep="@string/NO">Noruega</string>
+    <string name="OM" tools:keep="@string/OM">Sultanía de Omán</string>
+    <string name="PK" tools:keep="@string/PK">Pakistán</string>
+    <string name="PW" tools:keep="@string/PW">Palau</string>
+    <string name="PS" tools:keep="@string/PS">Territorio Palestino</string>
+    <string name="PA" tools:keep="@string/PA">Panamá</string>
+    <string name="PG" tools:keep="@string/PG">Papúa y Nueva Guinea</string>
+    <string name="PY" tools:keep="@string/PY">Paraguay</string>
+    <string name="PE" tools:keep="@string/PE">Perú</string>
+    <string name="PH" tools:keep="@string/PH">Filipinas</string>
+    <string name="PN" tools:keep="@string/PN">Islas Pitcairn</string>
+    <string name="PL" tools:keep="@string/PL">Polonia</string>
+    <string name="PT" tools:keep="@string/PT">Portugal</string>
+    <string name="PR" tools:keep="@string/PR">Puerto Rico</string>
+    <string name="QA" tools:keep="@string/QA">Qatar</string>
+    <string name="RE" tools:keep="@string/RE">Isla de la Reunión</string>
+    <string name="RO" tools:keep="@string/RO">Rumanía</string>
+    <string name="RU" tools:keep="@string/RU">Rusia</string>
+    <string name="RW" tools:keep="@string/RW">Ruanda</string>
+    <string name="BL" tools:keep="@string/BL">San Bartolomé</string>
+    <string name="SH" tools:keep="@string/SH">Isla Santa Elena</string>
+    <string name="KN" tools:keep="@string/KN">San Cristóbal y Nieves</string>
+    <string name="LC" tools:keep="@string/LC">Santa Lucía</string>
+    <string name="MF" tools:keep="@string/MF">Isla de San Martín</string>
+    <string name="PM" tools:keep="@string/PM">San Pedro y Miquelón</string>
+    <string name="VC" tools:keep="@string/VC">San Vicente y las Granadinas</string>
+    <string name="WS" tools:keep="@string/WS">Samoa</string>
+    <string name="SM" tools:keep="@string/SM">San Marino</string>
+    <string name="ST" tools:keep="@string/ST">Santo Tomé y Príncipe</string>
+    <string name="SA" tools:keep="@string/SA">Arabia Saudí</string>
+    <string name="SN" tools:keep="@string/SN">Senegal</string>
+    <string name="RS" tools:keep="@string/RS">Serbia</string>
+    <string name="CS" tools:keep="@string/CS">Serbia y Montenegro</string>
+    <string name="SC" tools:keep="@string/SC">Seychelles</string>
+    <string name="SL" tools:keep="@string/SL">Sierra Leona</string>
+    <string name="SG" tools:keep="@string/SG">Singapur</string>
+    <string name="SK" tools:keep="@string/SK">Eslovaquia</string>
+    <string name="SI" tools:keep="@string/SI">Eslovenia</string>
+    <string name="SB" tools:keep="@string/SB">Islas Salomón</string>
+    <string name="SO" tools:keep="@string/SO">Somalia</string>
+    <string name="ZA" tools:keep="@string/ZA">Sudáfrica</string>
+    <string name="GS" tools:keep="@string/GS">Islas Georgias del Sur y Sandwich del Sur</string>
+    <string name="SU" tools:keep="@string/SU">Unión Soviética</string>
+    <string name="ES" tools:keep="@string/ES">España</string>
+    <string name="LK" tools:keep="@string/LK">Sri Lanka</string>
+    <string name="SD" tools:keep="@string/SD">Sudán</string>
+    <string name="SR" tools:keep="@string/SR">Surinam</string>
+    <string name="SJ" tools:keep="@string/SJ">Svalbard y Jan Mayen</string>
+    <string name="SZ" tools:keep="@string/SZ">Suazilandia</string>
+    <string name="SE" tools:keep="@string/SE">Suecia</string>
+    <string name="CH" tools:keep="@string/CH">Suiza</string>
+    <string name="SY" tools:keep="@string/SY">Siria</string>
+    <string name="TW" tools:keep="@string/TW">Isla de Taiwán</string>
+    <string name="TJ" tools:keep="@string/TJ">Tayikistán</string>
+    <string name="TZ" tools:keep="@string/TZ">Tanzania</string>
+    <string name="TH" tools:keep="@string/TH">Tailandia</string>
+    <string name="TL" tools:keep="@string/TL">Timor Oriental</string>
+    <string name="TG" tools:keep="@string/TG">Togo</string>
+    <string name="TK" tools:keep="@string/TK">Tokelau</string>
+    <string name="TO" tools:keep="@string/TO">Tonga</string>
+    <string name="TT" tools:keep="@string/TT">Trinidad y Tobago</string>
+    <string name="TN" tools:keep="@string/TN">Túnez</string>
+    <string name="TR" tools:keep="@string/TR">Turquía</string>
+    <string name="TM" tools:keep="@string/TM">República de Turkmenistán</string>
+    <string name="TC" tools:keep="@string/TC">Islas Turcas y Caicos</string>
+    <string name="TV" tools:keep="@string/TV">Tuvalu</string>
+    <string name="UG" tools:keep="@string/UG">Uganda</string>
+    <string name="UA" tools:keep="@string/UA">Ucrania</string>
+    <string name="AE" tools:keep="@string/AE">Emiratos Árabes Unidos</string>
+    <string name="GB" tools:keep="@string/GB">Reino Unido</string>
+    <string name="US" tools:keep="@string/US">Estados Unidos</string>
+    <string name="UY" tools:keep="@string/UY">Uruguay</string>
+    <string name="UZ" tools:keep="@string/UZ">Uzbekistán</string>
+    <string name="VU" tools:keep="@string/VU">Vanuatu</string>
+    <string name="VA" tools:keep="@string/VA">Ciudad del Vaticano</string>
+    <string name="VE" tools:keep="@string/VE">Venezuela</string>
+    <string name="VN" tools:keep="@string/VN">Vietnam</string>
+    <string name="VG" tools:keep="@string/VG">Islas Vírgenes Británicas</string>
+    <string name="VI" tools:keep="@string/VI">Islas Vírgenes de los Estados Unidos</string>
+    <string name="WF" tools:keep="@string/WF">Wallis y Futuna</string>
+    <string name="EH" tools:keep="@string/EH">Sahara Occidental</string>
+    <string name="XW" tools:keep="@string/XW">(Mundial)</string>
+    <string name="YE" tools:keep="@string/YE">Yemen</string>
+    <string name="YU" tools:keep="@string/YU">Yugoslavia</string>
+    <string name="ZM" tools:keep="@string/ZM">Zambia</string>
+    <string name="ZW" tools:keep="@string/ZW">Zimbabue</string>
+
+</resources>
