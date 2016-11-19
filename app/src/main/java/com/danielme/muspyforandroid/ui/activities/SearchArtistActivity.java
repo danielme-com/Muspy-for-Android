@@ -79,6 +79,19 @@ public class SearchArtistActivity extends AbstractBaseActivity {
     if (closeIcon != null) {
       //close icon is only enabled if the text field is not empty
       closeIcon.setEnabled(false);
+      closeIcon.setOnClickListener(new View.OnClickListener() {
+        //cancels the current search
+        @Override
+        public void onClick(View v) {
+          SearchArtistFragment fragment =
+              (SearchArtistFragment) getSupportFragmentManager().findFragmentByTag(FRG_TAG);
+          if (fragment != null) {
+            fragment.cancelSearch();
+          }
+          searchView.setQuery(null, false);
+
+        }
+      });
     }
 
     searchView.setQueryHint(getString(R.string.search_artist));
