@@ -130,11 +130,14 @@ public class ReleaseServiceImpl implements ReleaseService {
           break;
         case HttpURLConnection.HTTP_UNAVAILABLE:
           attemps++;
-          try {
-            Thread.sleep(WAIT_ATTEMP);
-          } catch (InterruptedException ex) {
-            Log.e(this.getClass().getCanonicalName(), "getReleasesAndTracklist: sleep", ex);
+          if (attemps <= MAX_ATTEMPS) {
+            try {
+              Thread.sleep(WAIT_ATTEMP);
+            } catch (InterruptedException ex) {
+              Log.e(this.getClass().getCanonicalName(), "getReleasesAndTracklist: sleep", ex);
+            }
           }
+
           break;
         default:
           throw new HttpStatusException(response.code());
