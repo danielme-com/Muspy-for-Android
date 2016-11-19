@@ -19,12 +19,14 @@
  */
 package com.danielme.muspyforandroid.service.impl;
 
+import android.util.Log;
+
 import com.danielme.muspyforandroid.exceptions.ForbiddenUnauthorizedException;
-import com.danielme.muspyforandroid.repository.rest.muspy.resources.ArtistResource;
 import com.danielme.muspyforandroid.exceptions.HttpStatusException;
 import com.danielme.muspyforandroid.model.Artist;
 import com.danielme.muspyforandroid.model.ArtistMb;
 import com.danielme.muspyforandroid.model.Credential;
+import com.danielme.muspyforandroid.repository.rest.muspy.resources.ArtistResource;
 import com.danielme.muspyforandroid.service.ArtistService;
 import com.danielme.muspyforandroid.service.UserService;
 
@@ -48,6 +50,8 @@ public class ArtistServiceImpl implements ArtistService {
 
   private static final String DISAMBIGUATION_INFO = "if you don";
   private static final String IMPORT_LASTFM = "last.fm";
+  private static final int MAX_ATTEMPS = 2;
+  private static final long WAIT_ATTEMP = 2500;
 
   private final ArtistResource artistResource;
   private final UserService userService;
@@ -56,8 +60,9 @@ public class ArtistServiceImpl implements ArtistService {
 
   @Inject
   public ArtistServiceImpl(ArtistResource artistResource,
-             com.danielme.muspyforandroid.repository.rest.musicbrainz.resources.ArtistResource
-                           artistResourceMB, UserService userService) {
+                           com.danielme.muspyforandroid.repository.rest.musicbrainz.resources
+                               .ArtistResource
+                               artistResourceMB, UserService userService) {
     this.artistResource = artistResource;
     this.artistResourceMB = artistResourceMB;
     this.userService = userService;
@@ -89,13 +94,36 @@ public class ArtistServiceImpl implements ArtistService {
   @Override
   public ArtistMb searchArtists(String name, int offset, int max) throws IOException,
       HttpStatusException {
-    Call<ArtistMb> call = artistResourceMB.getArtists(name, max, offset);
+    ArtistMb ret = null;
 
-    Response<ArtistMb> response = call.execute();
-    if (response.code() != HttpURLConnection.HTTP_OK) {
-      throw new HttpStatusException(response.code());
+    boolean ok = false;
+    int attemps = 1;
+
+    while (!ok && attemps <= MAX_ATTEMPS) {
+      Call<ArtistMb> call = artistResourceMB.getArtists(name, max, offset);
+      Response<ArtistMb> response = call.execute();
+      switch (response.code()) {
+        case HttpURLConnection.HTTP_OK:
+          ok = true;
+          ret = response.body();
+          break;
+        case HttpURLConnection.HTTP_UNAVAILABLE: //rate limit, two attemps
+          attemps++;
+          if (attemps > MAX_ATTEMPS) { //the last attemp
+            throw new HttpStatusException(response.code());
+          }
+          try {
+            Thread.sleep(WAIT_ATTEMP);
+          } catch (InterruptedException ex) {
+            Log.e(this.getClass().getCanonicalName(), "searchArtists: sleep", ex);
+          }
+          break;
+        default:
+          throw new HttpStatusException(response.code());
+      }
     }
-    return response.body();
+
+    return ret;
   }
 
   /**
@@ -127,7 +155,7 @@ public class ArtistServiceImpl implements ArtistService {
   @Override
   public List<Artist> artistConversor(ArtistMb artistMb) {
     List<Artist> artists = new ArrayList<>();
-    if (artistMb.getArtists() != null) {
+    if (artistMb != null && artistMb.getArtists() != null) {
       for (ArtistMb.Artist artistmb : artistMb.getArtists()) {
         Artist artist = new Artist();
         artist.setMbid(artistmb.getId());
