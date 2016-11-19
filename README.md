@@ -35,7 +35,7 @@ This project uses the following libraries:
     </ul>
 ## Quality
 
-There are Gradle tasks in the verification group for using <a href="https://pmd.github.io/">pmd</a> and <a href="http://checkstyle.sourceforge.net/">checkstyle</a>. The configuration files can be found in the /quality folder.
+There are Gradle tasks in the verification group for using <a href="https://pmd.github.io/">pmd</a> and <a href="http://checkstyle.sourceforge.net/">checkstyle</a>. The ruleset files can be found in the /quality folder.
 
 # License
 Copyright (C) 2012-2016 Daniel Medina <http://danielme.com>
