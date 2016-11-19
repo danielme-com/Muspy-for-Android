@@ -25,7 +25,7 @@ public class HttpStatusException extends Exception {
   private final int code;
 
   public HttpStatusException(int code) {
-    super();
+    super(String.valueOf(code));
     this.code = code;
   }
 
