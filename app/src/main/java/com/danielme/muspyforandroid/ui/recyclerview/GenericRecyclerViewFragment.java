@@ -356,9 +356,9 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
     DialogFragment errorDialogFragment = DialogFragment.newInstance(title, msg, getString(android
         .R.string.ok), null, null);
 
-    errorDialogFragment.show(fm, DialogFragment.TAG);
-    //ensures that isAnyDialoFragmentAdded returns true after this methos
-    getFragmentManager().executePendingTransactions();
+    //ensures that isAnyDialoFragmentAdded returns true after this method
+    //avoids state loss
+    fm.beginTransaction().add(errorDialogFragment, DialogFragment.TAG).commitNowAllowingStateLoss();
   }
 
   protected boolean isAnyDialoFragmentAdded() {
