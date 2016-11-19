@@ -100,6 +100,15 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
   }
 
   /**
+   * Cancels the asynctask.
+   */
+  protected void cancel(boolean mayInterruptRunning)  {
+    if (loadDataAsyncTask != null) {
+      loadDataAsyncTask.cancel(mayInterruptRunning);
+    }
+  }
+
+  /**
    * Adds all the results at the bottom of the recyclerView.
    */
   protected void addBotton(Results results) {
