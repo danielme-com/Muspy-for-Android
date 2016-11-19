@@ -85,6 +85,7 @@
     <string name="top_artists">Top artists</string>
     <string name="bullet">\u2022</string>
     <string name="period">Period</string>
+    <string name="service_not_available">The service is not available at this moment</string>
     <plurals
         name="results">
         <item quantity="one">One result</item>

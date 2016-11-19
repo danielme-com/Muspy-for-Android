@@ -87,6 +87,9 @@
     <string name="lastfm_user">Usuario de Last.fm</string>
     <string name="top_artists">Artistas principales</string>
     <string name="period">Periodo</string>
+    <string name="service_not_available">El servicio no se encuentra disponible en estos
+        momentos</string>
+
     <plurals
         name="results">
         <item quantity="one">un resultado</item>
