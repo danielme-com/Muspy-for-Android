@@ -55,7 +55,8 @@ public class SearchArtistFragment extends GenericRecyclerViewFragment {
         .setEnableRefreshNoData(false)
         .setSupportEndless(true)
         .setSwipeColorScheme(ViewUtils.getSwipeColorScheme())
-        .setDividerId(R.drawable.divider);
+        .setDividerId(R.drawable.divider)
+        .setMsgUnknownError(R.string.service_not_available);
     return builder.build();
   }
 
@@ -115,17 +116,20 @@ public class SearchArtistFragment extends GenericRecyclerViewFragment {
   protected void onPostExecuteAddtionalActions(Boolean success, Results results) {
     if (success && results != null) {
       ResultsSearchArtist resultsSearchArtist = (ResultsSearchArtist) results;
-      int count = resultsSearchArtist.getArtistMb().getCount();
-      if (count > 0) {
-        String text = getResources().getQuantityString(R.plurals.results,
-            count, count);
+      if (resultsSearchArtist.getArtistMb() != null) {
+        int count = resultsSearchArtist.getArtistMb().getCount();
+        if (count > 0) {
+          String text = getResources().getQuantityString(R.plurals.results,
+              count, count);
 
-        if (getDataFromAdapter().get(0) instanceof ResultsItem) {
-          ((ResultsItem) getDataFromAdapter().get(0)).setText(text);
-        } else {
-          ResultsItem resultsItem = new ResultsItem(text);
-          getDataFromAdapter().add(0, resultsItem);
+          if (getDataFromAdapter().get(0) instanceof ResultsItem) {
+            ((ResultsItem) getDataFromAdapter().get(0)).setText(text);
+          } else {
+            ResultsItem resultsItem = new ResultsItem(text);
+            getDataFromAdapter().add(0, resultsItem);
+          }
         }
+
       }
     }
   }
@@ -138,6 +142,10 @@ public class SearchArtistFragment extends GenericRecyclerViewFragment {
     view.requestFocus();
 
     super.refresh(null);
+  }
+
+  public void cancelSearch() {
+    super.cancel(false);
   }
 
   public static class ResultsSearchArtist implements Results {
