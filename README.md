@@ -1,4 +1,5 @@
 # Muspy for Android
+<img src=https://danielmedotcom.files.wordpress.com/2016/11/mpa.jpg width=300px>
 
 Android client for <a href="https://github.com/alexkay/muspy">muspy</a> released under the GPL 3 license. This is a Gradle-based project developed with Android Studio.
 
