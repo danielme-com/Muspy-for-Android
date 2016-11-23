@@ -38,14 +38,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * This fragment handles the form for importing the artists of a lastfm user.
+ * This fragment handles the form for importing the artists from a lastfm user.
  */
 public class LastfmFragment extends Fragment {
 
   private static final int DEFAULT_SEEKBAR = 25;
   private static final int USERNAME_MIN = 3;
   private static final int USERNAME_MAX = 15;
-  //perido label myspy api
+  //period label in myspy api
   private static final String[] PERIOD = {"overall", "12month", "6month", "3month", "7day"};
 
   @Inject
@@ -70,6 +70,8 @@ public class LastfmFragment extends Fragment {
   private ProgressDialog progressDialog;
   private ImportAsyncTask importAsyncTask;
 
+  //the keyboard should only be displayed if the edittext is focused so this listener hides it when
+  //another form input is clicked
   private final View.OnTouchListener touchListener = new View.OnTouchListener() {
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -166,11 +168,7 @@ public class LastfmFragment extends Fragment {
     });
   }
 
-  class ImportAsyncTask extends AsyncTask<Void, Void, Integer> {
-
-    private static final int OK = 0;
-    private static final int NO_USER = 1;
-    private static final int EXC = 2;
+  class ImportAsyncTask extends AsyncTask<Void, Void, ArtistService.IMPORT_RESULT> {
 
     private final String user;
     private final String top;
@@ -197,63 +195,61 @@ public class LastfmFragment extends Fragment {
     }
 
     @Override
-    protected Integer doInBackground(Void... params) {
+    protected ArtistService.IMPORT_RESULT doInBackground(Void... params) {
       try {
         if (userService.checkLastfmUser(user)) {
-          if (!isCancelled() && artistService.importLastfm(user, PERIOD[periodPostion], top)) {
-            return OK;
-          } else {
-            return EXC;
-          }
+          return artistService.importLastfm(user, PERIOD[periodPostion], top);
         } else {
-          return NO_USER;
+          return null;
         }
       } catch (ForbiddenUnauthorizedException ex) {
-          userService.deleteCredentials();
-          cancel(false);
-          navController.gotoLogin(getActivity());
-          return EXC;
+        userService.deleteCredentials();
+        cancel(false);
+        navController.gotoLogin(getActivity());
+        return ArtistService.IMPORT_RESULT.ERROR;
       } catch (IOException ex) {
-          Log.e(this.getClass().toString(), "exception importing form lastfm", ex);
-          return EXC;
+        Log.e(this.getClass().toString(), "exception importing from lastfm", ex);
+        return ArtistService.IMPORT_RESULT.ERROR;
       }
     }
 
     @Override
-    protected void onPostExecute(Integer result) {
+    protected void onPostExecute(ArtistService.IMPORT_RESULT result) {
       progressDialog.dismiss();
-      switch (result) {
-        case OK:
-          ViewUtils.showYesDialogFragment(LastfmFragment.this, R.string.dialog_info_title, R.string
-              .info_import_success, new DialogFragment.OkDialogFragmentListener() {
-            @Override
-            public void onOkDialogFragment() {
-              if (getActivity() != null) {
-                getActivity().finish();
-              }
-            }
 
-            @Override
-            public int describeContents() {
-              return 0;
+      if (result == ArtistService.IMPORT_RESULT.SUCCESS) {
+        ViewUtils.showYesDialogFragment(LastfmFragment.this, R.string.dialog_info_title, R.string
+            .info_import_success, new DialogFragment.OkDialogFragmentListener() {
+          @Override
+          public void onOkDialogFragment() {
+            if (getActivity() != null) {
+              getActivity().finish();
             }
+          }
 
-            @Override
-            public void writeToParcel(Parcel dest, int flags) {
-              //nothing here
-            }
-          });
-          break;
-        case NO_USER:
-          ViewUtils.showYesDialogFragment(LastfmFragment.this, android.R.string
-              .dialog_alert_title, R.string.lastfm_user_unknown, null);
-          break;
-        default:
-          ViewUtils.showYesDialogFragment(LastfmFragment.this, android.R.string
-              .dialog_alert_title, R.string.unknown_error, null);
-          break;
+          @Override
+          public int describeContents() {
+            return 0;
+          }
+
+          @Override
+          public void writeToParcel(Parcel dest, int flags) {
+            //nothing here
+          }
+        });
+      } else if (result == null) {
+        ViewUtils.showYesDialogFragment(LastfmFragment.this, android.R.string
+            .dialog_alert_title, R.string.lastfm_user_unknown, null);
+      } else if (result == ArtistService.IMPORT_RESULT.PENDING) {
+        ViewUtils.showYesDialogFragment(LastfmFragment.this, android.R.string
+            .dialog_alert_title, R.string.lastfm_pending_import, null);
+      } else {
+        ViewUtils.showYesDialogFragment(LastfmFragment.this, android.R.string
+            .dialog_alert_title, R.string.unknown_error, null);
       }
+
     }
+
 
   }
 

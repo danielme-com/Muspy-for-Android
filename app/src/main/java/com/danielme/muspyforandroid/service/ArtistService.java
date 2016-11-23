@@ -31,6 +31,10 @@ import java.util.List;
 
 public interface ArtistService {
 
+  enum IMPORT_RESULT {
+    SUCCESS, ERROR, PENDING
+  }
+
   ArrayList<Artist> getUserArtist() throws IOException;
 
   ArtistMb searchArtists(String name, int offset, int max) throws IOException, HttpStatusException;
@@ -41,6 +45,6 @@ public interface ArtistService {
 
   List<Artist> artistConversor(ArtistMb artistMb);
 
-  boolean importLastfm(String user, String period, String top) throws
+  IMPORT_RESULT importLastfm(String user, String period, String top) throws
       IOException;
 }

@@ -53,6 +53,8 @@ public class ArtistServiceImpl implements ArtistService {
   private static final int MAX_ATTEMPS = 2;
   private static final long WAIT_ATTEMP = 2500;
 
+  private static final String PENDING_MESSAGE = "The user already has a pending import";
+
   private final ArtistResource artistResource;
   private final UserService userService;
   private final com.danielme.muspyforandroid.repository.rest.musicbrainz.resources.ArtistResource
@@ -115,7 +117,7 @@ public class ArtistServiceImpl implements ArtistService {
           try {
             Thread.sleep(WAIT_ATTEMP);
           } catch (InterruptedException ex) {
-            Log.e(this.getClass().getCanonicalName(), "searchArtists: sleep", ex);
+            Log.e(this.getClass().getSimpleName(), "searchArtists: sleep", ex);
           }
           break;
         default:
@@ -171,14 +173,23 @@ public class ArtistServiceImpl implements ArtistService {
   }
 
   /**
-   * Import the artists of a lastfm user into the muspy logged user.
+   * Import the artists of a lastfm user into the muspy logged user account.
    */
   @Override
-  public boolean importLastfm(String user, String period, String top) throws IOException {
+  public IMPORT_RESULT importLastfm(String user, String period, String top) throws IOException {
     Credential credential = userService.getCredentials();
     Call<Void> followCall = artistResource.importFromLastfm(credential.getBasicToken(),
         credential.getUserId(), IMPORT_LASTFM, user, top, period);
-    return followCall.execute().code() == HttpURLConnection.HTTP_OK;
+    Response<Void> response = followCall.execute();
+
+    if (response.code() == HttpURLConnection.HTTP_OK) {
+      return IMPORT_RESULT.SUCCESS;
+    } else if (response.code() == HttpURLConnection.HTTP_UNAVAILABLE && response.errorBody()
+        .string().contains(PENDING_MESSAGE)) {
+      Log.i(this.getClass().getSimpleName(), PENDING_MESSAGE);
+      return IMPORT_RESULT.PENDING;
+    }
+    return IMPORT_RESULT.ERROR;
   }
 
 }

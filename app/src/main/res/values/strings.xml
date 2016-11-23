@@ -108,6 +108,7 @@
     <string name="dialog_info_title">Information</string>
     <string name="info_import_success">Your artists will be imported in a few minutes.</string>
     <string name="lastfm_user_unknown">User not found</string>
+    <string name="lastfm_pending_import">You already have a pending import.</string>
     <string name="info_save_success">Your settings have been saved</string>
     <string name="country">Country: </string>
     <string name="label">Label: </string>
@@ -419,6 +420,5 @@
     <string name="YU" tools:keep="@string/YU">Yugoslavia</string>
     <string name="ZM">Zambia</string>
     <string name="ZW" tools:keep="@string/ZW">Zimbabwe</string>
-
 
 </resources>

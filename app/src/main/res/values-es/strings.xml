@@ -109,6 +109,7 @@
     <string name="period12month">en los últimos 12 meses</string>
     <string name="buttom_import">Importar</string>
     <string name="invalid_user_lastfm">Introduce un usuario de Last.fm</string>
+    <string name="lastfm_pending_import">Ya tienes una importación en curso.</string>
     <string name="dialog_info_title">Información</string>
     <string name="info_import_success">Tus artistas serán importados en unos minutos.</string>
     <string name="lastfm_user_unknown">Usuario no encontrado</string>    
