@@ -88,8 +88,11 @@ public class SearchArtistActivity extends AbstractBaseActivity {
           if (fragment != null) {
             fragment.cancelSearch();
           }
+          //unfortunally I have to implement the default behaviour
           searchView.setQuery(null, false);
-
+          searchView.requestFocus();
+          ViewUtils.showKeyboard(searchView.findViewById(R.id.search_src_text),
+              SearchArtistActivity.this);
         }
       });
     }

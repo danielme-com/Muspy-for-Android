@@ -20,6 +20,7 @@ package com.danielme.muspyforandroid.ui;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -98,6 +99,18 @@ public final class ViewUtils {
     InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(
         Context.INPUT_METHOD_SERVICE);
     inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+  }
+
+  public static void showKeyboard(@NonNull View view, @NonNull Context context) {
+    InputMethodManager imm = (InputMethodManager) context.getSystemService(Context
+        .INPUT_METHOD_SERVICE);
+    if (context.getResources().getConfiguration().orientation
+        == Configuration.ORIENTATION_LANDSCAPE){
+      imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
+      imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
+    } else {
+      imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+    }
   }
 
   public static Toolbar initDefaultToolbarUpNavigationListener(
@@ -281,6 +294,7 @@ public final class ViewUtils {
   public static int[] getSwipeColorScheme() {
     return new int[]{R.color.indigo, R.color.green, R.color.orange};
   }
+
 
   public static class ReleaseDate {
 
