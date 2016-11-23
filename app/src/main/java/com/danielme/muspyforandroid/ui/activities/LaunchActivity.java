@@ -20,14 +20,11 @@ package com.danielme.muspyforandroid.ui.activities;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.crashlytics.android.Crashlytics;
 import com.danielme.muspyforandroid.MuspyApplication;
 import com.danielme.muspyforandroid.NavigationController;
 import com.danielme.muspyforandroid.service.UserService;
 
 import javax.inject.Inject;
-
-import io.fabric.sdk.android.Fabric;
 
 
 /**
@@ -44,7 +41,7 @@ public class LaunchActivity extends Activity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    Fabric.with(this, new Crashlytics());
+
     ((MuspyApplication) getApplication()).getApplicationDaggerComponent().inject(this);
 
     if (userService.userHasCredentials()) {
