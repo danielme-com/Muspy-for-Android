@@ -260,7 +260,7 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
 
     if (configuration.getDividerId() != null) {
       recyclerViewGeneric.addItemDecoration(new DividerItemDecoration(getContext(),
-          configuration.getDividerId()));
+          configuration.getDividerId(),  configuration.getDividerExclusions()));
     }
 
     recyclerViewGeneric.setAdapter(adapter);

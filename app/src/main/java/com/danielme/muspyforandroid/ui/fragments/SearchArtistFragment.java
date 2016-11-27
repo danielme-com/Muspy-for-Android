@@ -23,6 +23,7 @@ import com.danielme.muspyforandroid.ui.adapters.ArtistAdapter;
 import com.danielme.muspyforandroid.ui.adapters.RecyclerViewOnItemClickListener;
 import com.danielme.muspyforandroid.ui.adapters.ResultsItem;
 import com.danielme.muspyforandroid.ui.recyclerview.Adapter;
+import com.danielme.muspyforandroid.ui.recyclerview.DividerItemDecoration;
 import com.danielme.muspyforandroid.ui.recyclerview.GenericRecyclerViewConfiguration;
 import com.danielme.muspyforandroid.ui.recyclerview.GenericRecyclerViewFragment;
 import com.danielme.muspyforandroid.ui.recyclerview.Results;
@@ -56,6 +57,12 @@ public class SearchArtistFragment extends GenericRecyclerViewFragment {
         .setSupportEndless(true)
         .setSwipeColorScheme(ViewUtils.getSwipeColorScheme())
         .setDividerId(R.drawable.divider)
+        .setDividerExclusions(new DividerItemDecoration.DividerExclusions() {
+          @Override
+          public boolean applyDivider(View view) {
+            return view.getId() != R.id.layoutresults;
+          }
+        })
         .setMsgUnknownError(R.string.service_not_available);
     return builder.build();
   }

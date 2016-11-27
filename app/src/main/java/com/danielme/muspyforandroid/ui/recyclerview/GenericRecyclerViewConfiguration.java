@@ -20,8 +20,8 @@ package com.danielme.muspyforandroid.ui.recyclerview;
 import com.danielme.muspyforandroid.R;
 
 /**
- * This class provides a builder to configurate a fragment that extends
- * {@link GenericRecyclerViewFragment}.
+ * This class provides a builder to configurate a fragment that extends {@link
+ * GenericRecyclerViewFragment}.
  */
 public class GenericRecyclerViewConfiguration {
 
@@ -36,6 +36,7 @@ public class GenericRecyclerViewConfiguration {
   private final int pageSize;
   private final int[] swipeColorScheme;
   private final Integer dividerId; //null: no divider
+  private final DividerItemDecoration.DividerExclusions dividerExclusions;
 
   private final int msgNoConnection;
   private final int msgNoData;
@@ -57,6 +58,8 @@ public class GenericRecyclerViewConfiguration {
                                            int pageSize,
                                            int[] swipeColorScheme,
                                            Integer dividerId,
+                                           DividerItemDecoration.DividerExclusions
+                                               dividerExclusions,
                                            int msgNoConnection,
                                            int msgNoData,
                                            int msgRetryButton,
@@ -78,6 +81,7 @@ public class GenericRecyclerViewConfiguration {
     this.msgRefreshButton = msgRefreshButton;
     this.msgNoConnection = msgNoConnection;
     this.cancelOnDestroy = cancelOnDestroy;
+    this.dividerExclusions = dividerExclusions;
   }
 
   public boolean isAutoscrollToFooter() {
@@ -114,6 +118,10 @@ public class GenericRecyclerViewConfiguration {
 
   public final Integer getDividerId() {
     return dividerId;
+  }
+
+  public final DividerItemDecoration.DividerExclusions getDividerExclusions() {
+    return dividerExclusions;
   }
 
   public int getMsgNoData() {
@@ -157,6 +165,7 @@ public class GenericRecyclerViewConfiguration {
     private int pageSize = 20;
     private int[] swipeColorScheme;
     private Integer dividerId;
+    private DividerItemDecoration.DividerExclusions dividerExclusions;
 
     private int msgNoConnection = R.string.noconnection;
     private int msgNoData = R.string.nodata;
@@ -216,6 +225,11 @@ public class GenericRecyclerViewConfiguration {
       return this;
     }
 
+    public Builder setDividerExclusions(DividerItemDecoration.DividerExclusions dividerExclusions) {
+      this.dividerExclusions = dividerExclusions;
+      return this;
+    }
+
     public Builder setMsgNoConnection(int msgNoConnection) {
       this.msgNoConnection = msgNoConnection;
       return this;
@@ -249,9 +263,8 @@ public class GenericRecyclerViewConfiguration {
     public GenericRecyclerViewConfiguration build() {
       return new GenericRecyclerViewConfiguration(autoscrollToFooter, autoscrollAfterSwipe,
           supportSwipe, enableRefreshNoData, loadOnCreate, hasOptionsMenu, supportEndless,
-          cancelOnDestroy, pageSize, swipeColorScheme, dividerId, msgNoConnection, msgNoData,
-          msgRetryButton, msgUnknownError,
-          msgRefreshButton);
+          cancelOnDestroy, pageSize, swipeColorScheme, dividerId, dividerExclusions,
+          msgNoConnection, msgNoData, msgRetryButton, msgUnknownError, msgRefreshButton);
     }
   }
 
