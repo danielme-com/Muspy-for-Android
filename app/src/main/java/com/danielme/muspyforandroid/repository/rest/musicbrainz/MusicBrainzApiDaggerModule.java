@@ -22,6 +22,7 @@ package com.danielme.muspyforandroid.repository.rest.musicbrainz;
 import android.app.Application;
 import android.support.annotation.NonNull;
 
+import com.danielme.muspyforandroid.repository.rest.CacheConfiguration;
 import com.danielme.muspyforandroid.repository.rest.RetrofitFactory;
 import com.danielme.muspyforandroid.repository.rest.musicbrainz.resources.ArtistResource;
 import com.danielme.muspyforandroid.repository.rest.musicbrainz.resources.ReleaseResource;
@@ -42,23 +43,26 @@ public final class MusicBrainzApiDaggerModule {
 
   private static final String AGENT = "MuspyForAndroid/2.0 ( danielme_com@yahoo.com )";
   private static final String URL = "https://musicbrainz.org/ws/2/";
+  private static final int CACHE_TIME = 12 * 60 * 60; //12 hours
 
   @Provides
   @Singleton
-  public ArtistResource providesArtistResource() {
-    return createResource(ArtistResource.class, null);
+  public ArtistResource providesArtistResource(Application application) {
+    return createResource(ArtistResource.class, application);
   }
 
   @Provides
   @Singleton
   public  ReleaseResource createReleaseResource(Application application) {
-    return createResource(ReleaseResource.class, application.getCacheDir().getAbsolutePath());
+    return createResource(ReleaseResource.class, application);
   }
 
-  private <T> T createResource(@NonNull Class<T> resourceClass, String cachePath) {
+  private <T> T createResource(@NonNull Class<T> resourceClass, Application application) {
     Map<String, String> headers = new HashMap<>(1);
     headers.put("User-Agent", AGENT);
-    return RetrofitFactory.getResource(resourceClass, URL, null, headers, cachePath);
+    CacheConfiguration cacheConfiguration = new CacheConfiguration(application.getCacheDir()
+        .getAbsolutePath(), CACHE_TIME);
+    return RetrofitFactory.getResource(resourceClass, URL, null, headers, cacheConfiguration);
   }
 
 }

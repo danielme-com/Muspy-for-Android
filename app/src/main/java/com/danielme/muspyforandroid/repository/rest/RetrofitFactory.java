@@ -21,6 +21,8 @@ package com.danielme.muspyforandroid.repository.rest;
 
 import android.support.annotation.NonNull;
 
+import com.danielme.muspyforandroid.BuildConfig;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -32,6 +34,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -42,8 +45,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public final class RetrofitFactory {
 
   private static final int TIMEOUT = 20; //seconds
-  private static final int CACHE_TIME = 2 * 24 * 60 * 60; //2 days
-  private static final int CACHE_SIZE = 3 * 1024 * 1024; //3 MB
+  private static final int CACHE_SIZE = 3 * 1024 * 1024; //5 MB
 
   private static final Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
       .addConverterFactory(GsonConverterFactory.create());
@@ -62,11 +64,11 @@ public final class RetrofitFactory {
    * @param url          base url
    * @param interceptors optional interceptors
    * @param headers      optional headers FOR ALL REQUESTS
-   * @param diskCachePath enables the disk lru cache if a path is provided
+   * @param cacheConfiguration enables the disk lru cache with the provided configuration
    */
   public static <T> T getResource(@NonNull Class<T> resourceClass, @NonNull String url,
                                   List<Interceptor> interceptors, Map<String, String> headers,
-                                  String diskCachePath) {
+                                  CacheConfiguration cacheConfiguration) {
     retrofitBuilder.baseUrl(url);
     OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
     if (interceptors != null) {
@@ -75,8 +77,8 @@ public final class RetrofitFactory {
       }
     }
 
-    if (diskCachePath != null) {
-       applyCache(httpClientBuilder, diskCachePath);
+    if (cacheConfiguration != null) {
+       applyCache(httpClientBuilder, cacheConfiguration);
     }
 
     httpClientBuilder.addInterceptor(forbiddenInteceptor);
@@ -88,11 +90,11 @@ public final class RetrofitFactory {
     httpClientBuilder.readTimeout(TIMEOUT, TimeUnit.SECONDS);
     httpClientBuilder.connectTimeout(TIMEOUT, TimeUnit.SECONDS);
 
-    //logging UNCOMMENT ONLY FOR TESTING!!!
-
-    /*HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-    loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-    httpClientBuilder.addInterceptor(loggingInterceptor);*/
+    if (BuildConfig.DEBUG) {
+      HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+      loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+      httpClientBuilder.addInterceptor(loggingInterceptor);
+    }
 
     OkHttpClient okHttpClient = httpClientBuilder.build();
 
@@ -104,9 +106,9 @@ public final class RetrofitFactory {
   /**
    * http://stackoverflow.com/questions/29891139/retrofit-okhttp-response-cache-not-working
    */
-  private static void applyCache(OkHttpClient.Builder httpClientBuilder, String diskCachePath) {
+  private static void applyCache(OkHttpClient.Builder httpClientBuilder, final CacheConfiguration cacheConfiguration) {
     if (cache == null) {
-      File httpCacheDirectory = new File(diskCachePath, "responses");
+      File httpCacheDirectory = new File(cacheConfiguration.getCachePath(), "responses");
       cache = new Cache(httpCacheDirectory, CACHE_SIZE);
     }
 
@@ -134,7 +136,7 @@ public final class RetrofitFactory {
             .removeHeader("Connection")
             .removeHeader("Accept-Ranges")
             .removeHeader("Transfer-Encoding")
-            .header("Cache-Control", "public, max-age=" + CACHE_TIME)
+            .header("Cache-Control", "public, max-age=" + cacheConfiguration.getSeconds())
             .build();
       }
     });
