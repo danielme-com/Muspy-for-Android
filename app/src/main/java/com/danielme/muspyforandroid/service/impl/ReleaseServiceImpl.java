@@ -37,16 +37,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import retrofit2.Call;
 import retrofit2.Response;
 
 /**
  * Singleton (Dagger) that handles the releases.
  */
-@Singleton
 public class ReleaseServiceImpl implements ReleaseService {
 
   private static final int WAIT_ATTEMP = 2000; //wait 2 seconds to retry the call to MB
@@ -57,11 +53,9 @@ public class ReleaseServiceImpl implements ReleaseService {
   private final com.danielme.muspyforandroid.repository.rest.musicbrainz.resources.ReleaseResource
       releaseResourceMB;
 
-  @Inject
   public ReleaseServiceImpl(ReleaseResource releaseResource,
                             com.danielme.muspyforandroid.repository.rest.musicbrainz.resources
-                                .ReleaseResource
-                                releaseResourceMB, UserService userService) {
+                                .ReleaseResource releaseResourceMB, UserService userService) {
     this.releaseResource = releaseResource;
     this.releaseResourceMB = releaseResourceMB;
     this.userService = userService;

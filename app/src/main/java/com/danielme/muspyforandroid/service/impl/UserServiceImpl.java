@@ -43,9 +43,6 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -56,7 +53,6 @@ import retrofit2.Response;
 /**
  * Singleton that handles the users. Logged users credentials are stored in Shared Preferences.
  */
-@Singleton
 public class UserServiceImpl implements UserService {
 
   private static final String ACTIVATE = "1";
@@ -74,7 +70,6 @@ public class UserServiceImpl implements UserService {
       userResourceLfm;
   private final SecurePreferences securePreferences;
 
-  @Inject
   public UserServiceImpl(SecurePreferences securePreferences, UserResource userResource,
                          com.danielme.muspyforandroid.repository.rest.lastfm.resources.UserResource
                              userResourceLfm) {

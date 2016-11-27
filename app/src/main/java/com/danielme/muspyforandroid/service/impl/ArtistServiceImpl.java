@@ -36,16 +36,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
 import retrofit2.Call;
 import retrofit2.Response;
 
 /**
  * Singleton class (Dagger) that handles the artists.
  */
-@Singleton
 public class ArtistServiceImpl implements ArtistService {
 
   private static final String DISAMBIGUATION_INFO = "if you don";
@@ -60,11 +56,9 @@ public class ArtistServiceImpl implements ArtistService {
   private final com.danielme.muspyforandroid.repository.rest.musicbrainz.resources.ArtistResource
       artistResourceMB;
 
-  @Inject
   public ArtistServiceImpl(ArtistResource artistResource,
                            com.danielme.muspyforandroid.repository.rest.musicbrainz.resources
-                               .ArtistResource
-                               artistResourceMB, UserService userService) {
+                               .ArtistResource artistResourceMB, UserService userService) {
     this.artistResource = artistResource;
     this.artistResourceMB = artistResourceMB;
     this.userService = userService;
