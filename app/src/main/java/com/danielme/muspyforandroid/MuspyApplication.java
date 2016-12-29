@@ -18,6 +18,7 @@
 package com.danielme.muspyforandroid;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.crashlytics.android.Crashlytics;
 import com.squareup.leakcanary.LeakCanary;
@@ -47,6 +48,10 @@ public class MuspyApplication extends Application {
     applicationDaggerComponent = DaggerApplicationDaggerComponent.builder()
         .applicationDaggerModule(new ApplicationDaggerModule(this))
         .build();
+
+    //avoids memory leak, the Connectivity manager is asociated to the application context instead
+    //of an Activity
+    getSystemService(Context.CONNECTIVITY_SERVICE);
   }
 
   public ApplicationDaggerComponent getApplicationDaggerComponent() {
