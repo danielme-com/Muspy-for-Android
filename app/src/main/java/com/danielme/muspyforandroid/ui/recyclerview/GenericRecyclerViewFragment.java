@@ -23,6 +23,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -102,7 +103,7 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
   /**
    * Cancels the asynctask.
    */
-  protected void cancel(boolean mayInterruptRunning)  {
+  protected void cancel(boolean mayInterruptRunning) {
     if (loadDataAsyncTask != null) {
       loadDataAsyncTask.cancel(mayInterruptRunning);
     }
@@ -173,12 +174,20 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
     return rootView;
   }
 
+
   @Override
-  public void onDestroy() {
-    super.onDestroy();
-    if (configuration.isCancelOnDestroy() && loadDataAsyncTask != null) {
+  public void onDestroyView() {
+    super.onDestroyView();
+    //avoids memory leaks when the activity is destroyed
+    if (loadDataAsyncTask != null) {
       loadDataAsyncTask.cancel(false);
     }
+    progressBar = null;
+    loadDataAsyncTask = null;
+    recyclerViewGeneric = null;
+    swipeRefreshGeneric = null;
+    buttonRefresh = null;
+    textViewMessage = null;
   }
 
   protected Adapter getAdapter() {
@@ -260,14 +269,25 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
 
     if (configuration.getDividerId() != null) {
       recyclerViewGeneric.addItemDecoration(new DividerItemDecoration(getContext(),
-          configuration.getDividerId(),  configuration.getDividerExclusions()));
+          configuration.getDividerId(), configuration.getDividerExclusions()));
     }
 
     recyclerViewGeneric.setAdapter(adapter);
     recyclerViewGeneric.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     if (configuration.isSupportEndless()) {
-     addOnscrollerListener();
+      addOnscrollerListener();
+    }
+
+    if (configuration.getMsgInitialScreen() != -1) {
+      textViewMessage.setText(getString(configuration.getMsgInitialScreen()));
+      textViewMessage.setVisibility(View.VISIBLE);
+    }
+    if (configuration.getImageViewinitialScreen() != -1) {
+      //add drawable on top of the text
+      textViewMessage.setCompoundDrawablesWithIntrinsicBounds(null,
+          ContextCompat.getDrawable(getContext(), configuration.getImageViewinitialScreen()) ,
+          null, null);
     }
   }
 
@@ -332,6 +352,7 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
   protected void hideMessage() {
     textViewMessage.setVisibility(View.GONE);
     buttonRefresh.setVisibility(View.GONE);
+    textViewMessage.setCompoundDrawables(null, null, null, null);
     swipeRefreshGeneric.setVisibility(View.VISIBLE);
   }
 
@@ -428,10 +449,10 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
               .getPageSize(), this);
           return Boolean.TRUE;
         } catch (ForbiddenUnauthorizedException ex) {
-            Log.e(this.getClass().getCanonicalName(), ex.getMessage(), ex);
-            userService.deleteCredentials();
-            navController.gotoLogin(getActivity());
-           //dont cancel here!! cancel is performed in onDestroy
+          Log.e(this.getClass().getCanonicalName(), ex.getMessage(), ex);
+          userService.deleteCredentials();
+          navController.gotoLogin(getActivity());
+          //dont cancel here!! cancel is performed in onDestroy
         } catch (UnknownHostException ex) {
           //this is not really an error, just a networking issue
           return Boolean.FALSE;
@@ -446,12 +467,14 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
 
     @Override
     protected void onPostExecute(Boolean success) {
-      if (success) {
-        onPostExecuteSuccess();
-      } else {
-        onPostExecuteError();
+      if (isAdded()) {
+        if (success) {
+          onPostExecuteSuccess();
+        } else {
+          onPostExecuteError();
+        }
+        onPostExecuteAddtionalActions(success, results);
       }
-      onPostExecuteAddtionalActions(success, results);
     }
 
     private void onPostExecuteError() {
@@ -503,8 +526,8 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
     }
 
     /**
-     * Ensures the ovescroll effect is only applied when all the recyclerview data don't fit in
-     * the screen.
+     * Ensures the ovescroll effect is only applied when all the recyclerview data don't fit in the
+     * screen.
      */
     private void setupOverscrollMode() {
       recyclerViewGeneric.post(new Runnable() {
@@ -528,7 +551,9 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
     @Override
     protected void onCancelled() {
       super.onCancelled();
-      removeLoadingIndicators(loadType);
+      if (isAdded()) {
+        removeLoadingIndicators(loadType);
+      }
     }
 
   }
