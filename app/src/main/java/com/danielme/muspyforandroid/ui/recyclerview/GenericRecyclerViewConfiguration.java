@@ -32,7 +32,6 @@ public class GenericRecyclerViewConfiguration {
   private final boolean enableRefreshNoData;
   private final boolean loadOnCreate;
   private final boolean hasOptionsMenu;
-  private final boolean cancelOnDestroy;
   private final int pageSize;
   private final int[] swipeColorScheme;
   private final Integer dividerId; //null: no divider
@@ -43,6 +42,9 @@ public class GenericRecyclerViewConfiguration {
   private final int msgRetryButton;
   private final int msgUnknownError;
   private final int msgRefreshButton;
+  private final int msgInitialScreen;
+
+  private final int imageViewinitialScreen;
 
   /**
    * Private, use builder instead.
@@ -54,7 +56,6 @@ public class GenericRecyclerViewConfiguration {
                                            boolean loadOnCreate,
                                            boolean hasOptionsMenu,
                                            boolean supportEndless,
-                                           boolean cancelOnDestroy,
                                            int pageSize,
                                            int[] swipeColorScheme,
                                            Integer dividerId,
@@ -64,7 +65,9 @@ public class GenericRecyclerViewConfiguration {
                                            int msgNoData,
                                            int msgRetryButton,
                                            int msgUnknownError,
-                                           int msgRefreshButton) {
+                                           int msgRefreshButton,
+                                           int msgInitialScreen,
+                                           int imageViewinitialScreen) {
     this.autoscrollToFooter = autoscrollToFooter;
     this.autoscrollAfterSwipe = autoscrollAfterSwipe;
     this.supportSwipe = supportSwipe;
@@ -80,8 +83,9 @@ public class GenericRecyclerViewConfiguration {
     this.msgUnknownError = msgUnknownError;
     this.msgRefreshButton = msgRefreshButton;
     this.msgNoConnection = msgNoConnection;
-    this.cancelOnDestroy = cancelOnDestroy;
     this.dividerExclusions = dividerExclusions;
+    this.msgInitialScreen = msgInitialScreen;
+    this.imageViewinitialScreen = imageViewinitialScreen;
   }
 
   public boolean isAutoscrollToFooter() {
@@ -148,8 +152,12 @@ public class GenericRecyclerViewConfiguration {
     return msgNoConnection;
   }
 
-  public boolean isCancelOnDestroy() {
-    return cancelOnDestroy;
+  public int getMsgInitialScreen() {
+    return msgInitialScreen;
+  }
+
+  public int getImageViewinitialScreen() {
+    return imageViewinitialScreen;
   }
 
   public static class Builder {
@@ -161,7 +169,6 @@ public class GenericRecyclerViewConfiguration {
     private boolean enableRefreshNoData = true;
     private boolean loadOnCreate = true;
     private boolean hasOptionsMenu;
-    private boolean cancelOnDestroy = true;
     private int pageSize = 20;
     private int[] swipeColorScheme;
     private Integer dividerId;
@@ -172,6 +179,9 @@ public class GenericRecyclerViewConfiguration {
     private int msgRetryButton = R.string.retry_button;
     private int msgUnknownError = R.string.unknown_error;
     private int msgRefreshButton = R.string.refresh_button;
+    //optional, default is not display
+    private int msgInitialScreen = -1;
+    private int imageViewinitialScreen = -1;
 
     public Builder setAutoscrollToFooter(boolean autoscrollToFooter) {
       this.autoscrollToFooter = autoscrollToFooter;
@@ -255,16 +265,22 @@ public class GenericRecyclerViewConfiguration {
       return this;
     }
 
-    public Builder setCancelOnDestroy(boolean cancelOnDestroy) {
-      this.cancelOnDestroy = cancelOnDestroy;
+    public Builder setMsgInitialScreen(int msgInitialScreen) {
+      this.msgInitialScreen = msgInitialScreen;
       return this;
     }
+
+    public Builder setImageViewinitialScreen(int imageViewinitialScreen) {
+      this.imageViewinitialScreen = imageViewinitialScreen;
+      return this;
+    }
+
 
     public GenericRecyclerViewConfiguration build() {
       return new GenericRecyclerViewConfiguration(autoscrollToFooter, autoscrollAfterSwipe,
           supportSwipe, enableRefreshNoData, loadOnCreate, hasOptionsMenu, supportEndless,
-          cancelOnDestroy, pageSize, swipeColorScheme, dividerId, dividerExclusions,
-          msgNoConnection, msgNoData, msgRetryButton, msgUnknownError, msgRefreshButton);
+          pageSize, swipeColorScheme, dividerId, dividerExclusions, msgNoConnection, msgNoData,
+          msgRetryButton, msgUnknownError, msgRefreshButton, msgInitialScreen, imageViewinitialScreen);
     }
   }
 

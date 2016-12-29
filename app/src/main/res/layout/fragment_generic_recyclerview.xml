@@ -44,6 +44,16 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
+
+    <TextView
+        android:id="@+id/textView_message"
+        style="@style/AppTheme.TextViewCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/search"
+        android:layout_above="@+id/button_refresh"
+        tools:text="@string/noconnection"/>
+
     <Button
         android:id="@+id/button_refresh"
         android:layout_width="wrap_content"
@@ -52,15 +62,6 @@
         android:layout_centerVertical="true"
         android:visibility="gone"
         android:text="@string/refresh_button"/>
-
-    <TextView
-        android:id="@+id/textView_message"
-        style="@style/AppTheme.TextViewCenter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button_refresh"
-        android:visibility="gone"
-        tools:text="La conexión a Internet no se enceuntra disponible"/>
 
     <ProgressBar
         android:id="@+id/progress_circular_center"
@@ -72,6 +73,8 @@
         android:indeterminateTintMode="src_in"
         android:visibility="gone"
         tools:targetApi="lollipop"/>
+
+
 
 </RelativeLayout>
 
