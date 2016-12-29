@@ -105,7 +105,7 @@ public class SearchArtistActivity extends AbstractBaseActivity {
           ViewUtils.hideKeyboard(SearchArtistActivity.this, searchView);
           SearchArtistFragment fragment = (SearchArtistFragment) getSupportFragmentManager()
               .findFragmentByTag(FRG_TAG);
-          fragment.refresh();
+          fragment.refresh(query.trim());
         }
         return true;
       }

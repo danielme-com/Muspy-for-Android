@@ -46,6 +46,9 @@ public class SearchArtistFragment extends GenericRecyclerViewFragment {
   private ArrayList<Parcelable> followedArtists;
   private MyArtistBroadcastReceiver myArtistBroadcastReceiver;
 
+  //set this value when the user taps search
+  private String query;
+
   @Override
   protected GenericRecyclerViewConfiguration buildConfiguration() {
     GenericRecyclerViewConfiguration.Builder builder = new GenericRecyclerViewConfiguration
@@ -63,7 +66,9 @@ public class SearchArtistFragment extends GenericRecyclerViewFragment {
             return view.getId() != R.id.layoutresults;
           }
         })
-        .setMsgUnknownError(R.string.service_not_available);
+        .setMsgUnknownError(R.string.service_not_available)
+        .setMsgInitialScreen(R.string.search_info)
+        .setImageViewinitialScreen(R.drawable.search);
     return builder.build();
   }
 
@@ -110,9 +115,8 @@ public class SearchArtistFragment extends GenericRecyclerViewFragment {
 
   @Override
   protected Results doInBackground(int offset, int i, AsyncTask asyncTask) throws Exception {
-    SearchArtistActivity searchArtistActivity = (SearchArtistActivity) getActivity();
-    ArtistMb artistMb = artistService.searchArtists(searchArtistActivity.getSearchView()
-        .getQuery().toString(), offset, getConfiguration().getPageSize());
+    ArtistMb artistMb = artistService.searchArtists(this.query, offset,
+        getConfiguration().getPageSize());
     return new ResultsSearchArtist(artistMb, artistService.artistConversor(artistMb));
   }
 
@@ -141,13 +145,13 @@ public class SearchArtistFragment extends GenericRecyclerViewFragment {
     }
   }
 
-  public void refresh() {
+  public void refresh(String query) {
     //removes the cursor from the searchview in the toolbar
     View view = getView().findViewById(R.id.genericrecyclerview_parentlayout);
     view.setFocusable(true);
     view.setFocusableInTouchMode(true);
     view.requestFocus();
-
+    this.query = query;
     super.refresh(null);
   }
 
