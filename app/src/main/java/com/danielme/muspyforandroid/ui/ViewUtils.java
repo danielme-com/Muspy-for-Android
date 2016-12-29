@@ -41,6 +41,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.crashlytics.android.Crashlytics;
 import com.danielme.muspyforandroid.R;
 import com.danielme.muspyforandroid.ui.recyclerview.DialogFragment;
 
@@ -105,8 +106,8 @@ public final class ViewUtils {
     InputMethodManager imm = (InputMethodManager) context.getSystemService(Context
         .INPUT_METHOD_SERVICE);
     if (context.getResources().getConfiguration().orientation
-        == Configuration.ORIENTATION_LANDSCAPE){
-      imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
+        == Configuration.ORIENTATION_LANDSCAPE) {
+      imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
       imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
     } else {
       imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
@@ -120,7 +121,13 @@ public final class ViewUtils {
     toolbar.setNavigationOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        activity.onBackPressed();
+        try {
+          activity.onBackPressed();
+        } catch (IllegalStateException ex) {
+          Log.e(this.getClass().getSimpleName(), ex.getMessage(), ex);
+          Crashlytics.logException(ex);
+          activity.finish();
+        }
       }
     });
     return toolbar;
@@ -240,11 +247,11 @@ public final class ViewUtils {
           releaseDate.setString(simpleDateFormat.format(date));
           return releaseDate;
         } catch (Exception ex) {
-            Log.e(ViewUtils.class.getCanonicalName(), ex.getMessage(), ex);
+          Log.e(ViewUtils.class.getCanonicalName(), ex.getMessage(), ex);
         }
       } else {
-          releaseDate.setString(dateString);
-          return releaseDate;
+        releaseDate.setString(dateString);
+        return releaseDate;
       }
     }
     releaseDate.setString("");
