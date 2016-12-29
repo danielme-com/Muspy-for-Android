@@ -67,6 +67,7 @@
     <string name="unfollow_success">No estás siguiendo a %1s</string>
     <string name="unfollow_error">Se ha producido un error al dejar de seguir a %1s</string>
     <string name="action_search">Buscar</string>
+    <string name="search_info">Búsqueda de artistas</string>
     <string name="search_artist">Buscar artista</string>
     <string name="notifications">Notificaciones</string>
     <string name="notificationsInfo">Recibe por email las notificaciones de nuevos lanzamientos.</string>

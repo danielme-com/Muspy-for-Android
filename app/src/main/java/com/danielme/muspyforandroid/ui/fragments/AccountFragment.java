@@ -87,7 +87,7 @@ public class AccountFragment extends Fragment {
   private boolean reloadData = true;
 
   /**
-   * This listener hides the keyboard when the user taps a form input other than an edittext..
+   * This listener hides the keyboard when the user taps a form input other than an edittext.
    */
   private final View.OnTouchListener touchListener = new View.OnTouchListener() {
     @Override

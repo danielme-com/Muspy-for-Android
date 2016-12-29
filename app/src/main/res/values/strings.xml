@@ -66,6 +66,7 @@
     <string name="action_search">Search</string>
     <string name="title_activity_search_artist">Search artist</string>
     <string name="search_artist">Search artist</string>
+    <string name="search_info">Search for artists</string>
     <string name="notifications">Notifications</string>
     <string name="notificationsInfo">Receive new release notifications by email</string>
     <string name="filters">Filters</string>

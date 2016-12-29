@@ -49,6 +49,9 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     }
   }
 
+  /**
+   * Applies a criteria for displaying the divider for a given row.
+   */
   public interface DividerExclusions {
     boolean applyDivider(View view);
   }

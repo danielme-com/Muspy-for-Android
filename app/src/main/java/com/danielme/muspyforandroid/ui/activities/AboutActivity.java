@@ -76,8 +76,7 @@ public class AboutActivity extends AbstractBaseActivity {
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     this.menu = menu;
-    MenuInflater inflater = getMenuInflater();
-    inflater.inflate(R.menu.activity_about_menu, menu);
+    getMenuInflater().inflate(R.menu.activity_about_menu, menu);
     return super.onCreateOptionsMenu(menu);
   }
 
