@@ -82,15 +82,7 @@ public class ReleasesAdapter extends Adapter {
   public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     if (holder instanceof ReleaseViewHolder) {
       ReleaseViewHolder rvh = (ReleaseViewHolder) holder;
-      Release release = (Release) getData().get(position);
-      String date = ViewUtils.localizedDate(release.getDate()).getString();
-      rvh.getTextViewDate().setText(date);
-      rvh.getTextViewRelease().setText(release.getName());
-      rvh.getTextViewArtist().setText(release.getArtist().getName());
-
-      Glide.with(rvh.getImageViewCover().getContext()).load(release.getCoverUrl())
-          .crossFade().diskCacheStrategy(DiskCacheStrategy.ALL)
-          .into(rvh.getImageViewCover());
+      rvh.setRelease((Release) getData().get(position));
     }
     //else FOOTER, do nothing
   }
@@ -115,6 +107,17 @@ public class ReleasesAdapter extends Adapter {
       super(itemView);
       ButterKnife.bind(this, itemView);
       itemView.setOnClickListener(this);
+    }
+
+    public void setRelease(Release release) {
+      String date = ViewUtils.localizedDate(release.getDate()).getString();
+      textViewDate.setText(date);
+      textViewRelease.setText(release.getName());
+      textViewArtist.setText(release.getArtist().getName());
+
+      Glide.with(imageViewCover.getContext()).load(release.getCoverUrl())
+          .crossFade().diskCacheStrategy(DiskCacheStrategy.ALL)
+          .into(imageViewCover);
     }
 
     public TextView getTextViewRelease() {

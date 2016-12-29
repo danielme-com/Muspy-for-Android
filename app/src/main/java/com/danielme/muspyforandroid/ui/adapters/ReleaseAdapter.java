@@ -99,39 +99,15 @@ public class ReleaseAdapter extends Adapter {
   public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     if (holder instanceof TrackViewHolder) {
       TrackViewHolder vh = (TrackViewHolder) holder;
-      Track track = (Track) getData().get(position);
-      vh.getTextViewTitle().setText(track.getTitle());
-      vh.getTextViewPosition().setText(track.getNumber());
-      vh.getTextViewLength().setText(ViewUtils.formatMilliseconds(track.getLength()));
+      vh.setTrack((Track) getData().get(position));
+
     } else if (holder instanceof ReleaseViewHolder) {
       ReleaseViewHolder vh = (ReleaseViewHolder) holder;
-      ReleaseMB release = (ReleaseMB) getData().get(position);
-      vh.getTextViewTitle().setText(release.getTitle());
-      vh.getTextViewLabel().setText(release.getLabel());
-      vh.getTextViewArtist().setText(release.getArtist());
-      vh.getTextViewDate().setText(ViewUtils.localizedDate(release.getDate()).getString());
-      vh.getTextViewType().setText(release.getType());
-      vh.getTextViewFormat().setText(release.getFormat());
-      vh.getTextViewCountry().setText(release.getCountryName());
-      vh.getTextViewLength().setText(ViewUtils.formatMilliseconds(release.getTotalLength()));
-      Glide.with(vh.getImageViewCover().getContext()).load(release.getCover())
-          .crossFade().diskCacheStrategy(DiskCacheStrategy.ALL)
-          .into(vh.getImageViewCover());
+      vh.setRelease((ReleaseMB) getData().get(position));
+
     } else if (holder instanceof MediaViewHolder) {
       MediaViewHolder vh = (MediaViewHolder) holder;
-      Media media = (Media) getData().get(position);
-      vh.getTextViewFormat().setText(media.getFormatWithNumber());
-      vh.getTextViewLength().setText(ViewUtils.formatMilliseconds(media.getTotalLength()));
-      //the media only displays its name if it's different than the release title.
-      if (!TextUtils.isEmpty(media.getTitle())
-          && !media.getTitle().toUpperCase().equals(((ReleaseMB) getData().get(0)).getTitle()
-          .toUpperCase())) {
-        vh.getTextViewTitle().setText(media.getTitle());
-        vh.getTextViewTitle().setVisibility(View.VISIBLE);
-      } else {
-        vh.getTextViewTitle().setText(null);
-        vh.getTextViewTitle().setVisibility(View.GONE);
-      }
+      vh.setMedia((Media) getData().get(position));
     } else {
       throw new IllegalArgumentException("unknown holder type");
     }
@@ -170,6 +146,20 @@ public class ReleaseAdapter extends Adapter {
       textViewCountry.setSelected(true);
       textViewFormat.setSelected(true);
       textViewLabel.setSelected(true);
+    }
+
+    public void setRelease(ReleaseMB release) {
+      textViewTitle.setText(release.getTitle());
+      textViewLabel.setText(release.getLabel());
+      textViewArtist.setText(release.getArtist());
+      textViewDate.setText(ViewUtils.localizedDate(release.getDate()).getString());
+      textViewType.setText(release.getType());
+      textViewFormat.setText(release.getFormat());
+      textViewCountry.setText(release.getCountryName());
+      textViewLength.setText(ViewUtils.formatMilliseconds(release.getTotalLength()));
+      Glide.with(imageViewCover.getContext()).load(release.getCover())
+          .crossFade().diskCacheStrategy(DiskCacheStrategy.ALL)
+          .into(imageViewCover);
     }
 
     @OnClick(R.id.searchInfo)
@@ -254,7 +244,7 @@ public class ReleaseAdapter extends Adapter {
 
   }
 
-  public static class MediaViewHolder extends RecyclerView.ViewHolder {
+  public class MediaViewHolder extends RecyclerView.ViewHolder {
 
     @Bind(R.id.format)
     TextView textViewFormat;
@@ -268,6 +258,20 @@ public class ReleaseAdapter extends Adapter {
       ButterKnife.bind(this, itemView);
     }
 
+    public void setMedia(Media media) {
+      textViewFormat.setText(media.getFormatWithNumber());
+      textViewLength.setText(ViewUtils.formatMilliseconds(media.getTotalLength()));
+      //the media only displays its name if it's different than the release title.
+      if (!TextUtils.isEmpty(media.getTitle())
+          && !media.getTitle().toUpperCase().equals(((ReleaseMB) getData().get(0)).getTitle()
+          .toUpperCase())) {
+        textViewTitle.setText(media.getTitle());
+        textViewTitle.setVisibility(View.VISIBLE);
+      } else {
+        textViewTitle.setText(null);
+        textViewTitle.setVisibility(View.GONE);
+      }
+    }
     public TextView getTextViewFormat() {
       return textViewFormat;
     }
@@ -305,6 +309,12 @@ public class ReleaseAdapter extends Adapter {
     public TrackViewHolder(View itemView) {
       super(itemView);
       ButterKnife.bind(this, itemView);
+    }
+
+    public void setTrack(Track track) {
+      textViewTitle.setText(track.getTitle());
+      textViewPosition.setText(track.getNumber());
+      textViewLength.setText(ViewUtils.formatMilliseconds(track.getLength()));
     }
 
     public TextView getTextViewLength() {
