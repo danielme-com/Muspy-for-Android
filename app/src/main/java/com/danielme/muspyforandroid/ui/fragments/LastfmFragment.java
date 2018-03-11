@@ -34,7 +34,7 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -55,16 +55,16 @@ public class LastfmFragment extends Fragment {
   @Inject
   NavigationController navController;
 
-  @Bind(R.id.seekBar)
+  @BindView(R.id.seekBar)
   SeekBar seekBar;
   //Seekbar label
-  @Bind(R.id.textViewNumber)
+  @BindView(R.id.textViewNumber)
   TextView textViewNumber;
-  @Bind(R.id.spinner)
+  @BindView(R.id.spinner)
   Spinner spinnerPeriod;
-  @Bind(R.id.editTextLastfm)
+  @BindView(R.id.editTextLastfm)
   EditText editTextLastfm;
-  @Bind(R.id.text_input_layout_lastfm)
+  @BindView(R.id.text_input_layout_lastfm)
   TextInputLayout textInputLayout;
 
   private ProgressDialog progressDialog;

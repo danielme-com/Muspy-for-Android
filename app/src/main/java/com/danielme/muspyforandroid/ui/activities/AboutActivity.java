@@ -38,7 +38,7 @@ import com.danielme.muspyforandroid.R;
 import com.danielme.muspyforandroid.ui.ViewUtils;
 import com.danielme.muspyforandroid.ui.fragments.WebViewFragment;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
@@ -46,9 +46,9 @@ public class AboutActivity extends AbstractBaseActivity {
 
   private static final int NUM_TABS = 2;
 
-  @Bind(R.id.tabs)
+  @BindView(R.id.tabs)
   TabLayout tabLayout;
-  @Bind(R.id.viewpager)
+  @BindView(R.id.viewpager)
   ViewPager viewPager;
 
   private Menu menu;

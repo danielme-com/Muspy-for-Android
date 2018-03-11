@@ -41,7 +41,7 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -56,9 +56,9 @@ public class ResetActivity extends AbstractBaseActivity {
   @Inject
   UserService userService;
 
-  @Bind(R.id.editTextEmail)
+  @BindView(R.id.editTextEmail)
   EditText editTextEmail;
-  @Bind(R.id.text_input_layout_email)
+  @BindView(R.id.text_input_layout_email)
   TextInputLayout textInputLayoutEmail;
 
   private ProgressDialog progressDialog;

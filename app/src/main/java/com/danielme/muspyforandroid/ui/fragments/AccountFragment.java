@@ -33,7 +33,7 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -50,33 +50,33 @@ public class AccountFragment extends Fragment {
   @Inject
   NavigationController navController;
 
-  @Bind(R.id.editTextEmail)
+  @BindView(R.id.editTextEmail)
   EditText editTextEmail;
-  @Bind(R.id.text_input_layout_email)
+  @BindView(R.id.text_input_layout_email)
   TextInputLayout textInputLayoutEmail;
-  @Bind(R.id.checkBoxNotifications)
+  @BindView(R.id.checkBoxNotifications)
   CheckBox checkBoxNotifications;
-  @Bind(R.id.checkBoxAlbum)
+  @BindView(R.id.checkBoxAlbum)
   CheckBox checkBoxAlbum;
-  @Bind(R.id.checkBoxSingle)
+  @BindView(R.id.checkBoxSingle)
   CheckBox checkBoxSingle;
-  @Bind(R.id.checkBoxEP)
+  @BindView(R.id.checkBoxEP)
   CheckBox checkBoxEp;
-  @Bind(R.id.checkBoxCompilation)
+  @BindView(R.id.checkBoxCompilation)
   CheckBox checkBoxCompilation;
-  @Bind(R.id.checkBoxLive)
+  @BindView(R.id.checkBoxLive)
   CheckBox checkBoxLive;
-  @Bind(R.id.checkBoxOther)
+  @BindView(R.id.checkBoxOther)
   CheckBox checkBoxOther;
-  @Bind(R.id.checkBoxRemix)
+  @BindView(R.id.checkBoxRemix)
   CheckBox checkBoxRemix;
-  @Bind(R.id.button_refresh)
+  @BindView(R.id.button_refresh)
   Button buttonRefresh;
-  @Bind(R.id.textView_message)
+  @BindView(R.id.textView_message)
   TextView textViewMessage;
-  @Bind(R.id.progress_circular_center)
+  @BindView(R.id.progress_circular_center)
   ProgressBar progressBar;
-  @Bind(R.id.form)
+  @BindView(R.id.form)
   ViewGroup viewForm;
 
   private MenuItem menuSave;

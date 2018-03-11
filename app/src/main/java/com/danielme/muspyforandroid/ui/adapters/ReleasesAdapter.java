@@ -35,7 +35,7 @@ import com.danielme.muspyforandroid.ui.recyclerview.Footer;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -94,13 +94,13 @@ public class ReleasesAdapter extends Adapter {
 
   public class ReleaseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    @Bind(R.id.cover)
+    @BindView(R.id.cover)
     ImageView imageViewCover;
-    @Bind(R.id.date)
+    @BindView(R.id.date)
     TextView textViewDate;
-    @Bind(R.id.artist)
+    @BindView(R.id.artist)
     TextView textViewArtist;
-    @Bind(R.id.release)
+    @BindView(R.id.release)
     TextView textViewRelease;
 
     public ReleaseViewHolder(View itemView) {

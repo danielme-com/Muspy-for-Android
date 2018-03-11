@@ -26,7 +26,7 @@ import com.danielme.muspyforandroid.R;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -68,7 +68,7 @@ public abstract class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHold
    */
   public static class FooterViewHolder extends RecyclerView.ViewHolder {
 
-    @Bind(R.id.footer)
+    @BindView(R.id.footer)
     ProgressBar progressBar;
 
     public FooterViewHolder(View itemView) {

@@ -44,7 +44,7 @@ import com.danielme.muspyforandroid.ui.recyclerview.Adapter;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -120,23 +120,23 @@ public class ReleaseAdapter extends Adapter {
 
   public class ReleaseViewHolder extends RecyclerView.ViewHolder {
 
-    @Bind(R.id.artist)
+    @BindView(R.id.artist)
     TextView textViewArtist;
-    @Bind(R.id.title)
+    @BindView(R.id.title)
     TextView textViewTitle;
-    @Bind(R.id.countryContent)
+    @BindView(R.id.countryContent)
     TextView textViewCountry;
-    @Bind(R.id.labelContent)
+    @BindView(R.id.labelContent)
     TextView textViewLabel;
-    @Bind(R.id.formatContent)
+    @BindView(R.id.formatContent)
     TextView textViewFormat;
-    @Bind(R.id.typeContent)
+    @BindView(R.id.typeContent)
     TextView textViewType;
-    @Bind(R.id.date)
+    @BindView(R.id.date)
     TextView textViewDate;
-    @Bind(R.id.cover)
+    @BindView(R.id.cover)
     ImageView imageViewCover;
-    @Bind(R.id.length)
+    @BindView(R.id.length)
     TextView textViewLength;
 
     public ReleaseViewHolder(View itemView) {
@@ -246,11 +246,11 @@ public class ReleaseAdapter extends Adapter {
 
   public class MediaViewHolder extends RecyclerView.ViewHolder {
 
-    @Bind(R.id.format)
+    @BindView(R.id.format)
     TextView textViewFormat;
-    @Bind(R.id.length)
+    @BindView(R.id.length)
     TextView textViewLength;
-    @Bind(R.id.title)
+    @BindView(R.id.title)
     TextView textViewTitle;
 
     public MediaViewHolder(View itemView) {
@@ -299,11 +299,11 @@ public class ReleaseAdapter extends Adapter {
 
   public static class TrackViewHolder extends RecyclerView.ViewHolder {
 
-    @Bind(R.id.title)
+    @BindView(R.id.title)
     TextView textViewTitle;
-    @Bind(R.id.position)
+    @BindView(R.id.position)
     TextView textViewPosition;
-    @Bind(R.id.length)
+    @BindView(R.id.length)
     TextView textViewLength;
 
     public TrackViewHolder(View itemView) {

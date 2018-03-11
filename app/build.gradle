@@ -3,13 +3,10 @@ buildscript {
         mavenCentral()
         maven { url 'https://maven.fabric.io/public' }
     }
-
     dependencies {
-        // The Fabric Gradle plugin uses an open ended version to react
-        // quickly to Android tooling updates
-        classpath 'io.fabric.tools:gradle:1.+'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'io.fabric.tools:gradle:1.25.1'
     }
+
 }
 
 apply plugin: 'com.android.application'
@@ -20,11 +17,10 @@ repositories {
 
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
-apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "com.danielme.muspyforandroid"
@@ -91,26 +87,27 @@ task pmd(type: Pmd) {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:design:24.2.0'
-    compile 'com.android.support:customtabs:24.2.0'
-    compile 'com.android.support:gridlayout-v7:24.2.0'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.3.0'
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:customtabs:24.2.1'
+    compile 'com.android.support:gridlayout-v7:24.2.1'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     compile ('com.github.franmontiel:PersistentCookieJar:v0.9.3') {
         exclude module: 'com.square'
     }
-    compile 'com.android.support:support-annotations:24.2.0'
+    compile 'com.android.support:support-annotations:24.2.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.android.support:support-v4:24.2.0'
+    compile 'com.android.support:support-v4:24.2.1'
     compile group: 'org.jsoup', name: 'jsoup', version: '1.8.3'
     compile 'com.scottyab:secure-preferences-lib:0.1.4'
-    compile 'com.google.dagger:dagger:2.6.1'
-    apt 'com.google.dagger:dagger-compiler:2.6.1'
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.2@aar') {
-        transitive = true;
+    compile 'com.google.dagger:dagger:2.14.1'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true
     }
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'

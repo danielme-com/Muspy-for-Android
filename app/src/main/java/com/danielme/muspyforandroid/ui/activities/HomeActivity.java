@@ -41,7 +41,7 @@ import java.util.NoSuchElementException;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -57,9 +57,9 @@ public class HomeActivity extends AbstractBaseActivity {
   @Inject
   UserService userService;
 
-  @Bind(R.id.tabs)
+  @BindView(R.id.tabs)
   TabLayout tabLayout;
-  @Bind(R.id.viewpager)
+  @BindView(R.id.viewpager)
   ViewPager viewPager;
 
   private Menu menu;

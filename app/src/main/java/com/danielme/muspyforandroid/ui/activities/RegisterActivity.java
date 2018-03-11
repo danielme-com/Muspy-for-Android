@@ -43,7 +43,7 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -59,17 +59,17 @@ public class RegisterActivity extends AbstractBaseActivity {
   @Inject
   UserService userService;
 
-  @Bind(R.id.editTextEmail)
+  @BindView(R.id.editTextEmail)
   EditText editTextEmail;
-  @Bind(R.id.editTextPassword)
+  @BindView(R.id.editTextPassword)
   EditText editTextPassword;
-  @Bind(R.id.editTextRepeatPassword)
+  @BindView(R.id.editTextRepeatPassword)
   EditText editTextRepeatPassword;
-  @Bind(R.id.text_input_layout_email)
+  @BindView(R.id.text_input_layout_email)
   TextInputLayout textInputLayoutEmail;
-  @Bind(R.id.text_input_layout_pass)
+  @BindView(R.id.text_input_layout_pass)
   TextInputLayout textInputLayoutPass;
-  @Bind(R.id.text_input_layout_repeat_pass)
+  @BindView(R.id.text_input_layout_repeat_pass)
   TextInputLayout textInputLayoutRepeatPass;
 
   private ProgressDialog progressDialog;

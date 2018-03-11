@@ -49,7 +49,7 @@ import java.util.ListIterator;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -70,15 +70,15 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
   @Inject
   NavigationController navController;
 
-  @Bind(R.id.recyclerView_generic)
+  @BindView(R.id.recyclerView_generic)
   protected RecyclerView recyclerViewGeneric;
-  @Bind(R.id.swipeLayout_generic)
+  @BindView(R.id.swipeLayout_generic)
   protected SwipeRefreshLayout swipeRefreshGeneric;
-  @Bind(R.id.button_refresh)
+  @BindView(R.id.button_refresh)
   protected Button buttonRefresh;
-  @Bind(R.id.textView_message)
+  @BindView(R.id.textView_message)
   protected TextView textViewMessage;
-  @Bind(R.id.progress_circular_center)
+  @BindView(R.id.progress_circular_center)
   protected ProgressBar progressBar;
 
   private boolean hasMore = true;

@@ -32,7 +32,7 @@ import com.danielme.muspyforandroid.ui.recyclerview.Footer;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -105,7 +105,7 @@ public class ArtistAdapter extends Adapter {
   public class ArtistViewHolder extends RecyclerView.ViewHolder implements View
       .OnClickListener {
 
-    @Bind(R.id.artist)
+    @BindView(R.id.artist)
     TextView textViewArtist;
 
     public ArtistViewHolder(View itemView) {
@@ -131,7 +131,7 @@ public class ArtistAdapter extends Adapter {
 
   public static class HeaderViewHolder extends RecyclerView.ViewHolder {
 
-    @Bind(R.id.textViewResults)
+    @BindView(R.id.textViewResults)
     TextView textViewResults;
 
     public HeaderViewHolder(View itemView) {
