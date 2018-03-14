@@ -499,6 +499,10 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
         throw new IllegalArgumentException("results cannot be null!! Please check doInBackground");
       }
       if (results.getData().isEmpty()) {
+        if (loadType != LoadType.ENDLESS) {
+          getDataFromAdapter().clear();
+          getAdapter().notifyDataSetChanged();
+        }
         if (getDataFromAdapter() == null || getDataFromAdapter().isEmpty()) {
           displayMsg(configuration.getMsgNoData());
           buttonRefresh.setText(getString(configuration.getMsgRefreshButton()));
