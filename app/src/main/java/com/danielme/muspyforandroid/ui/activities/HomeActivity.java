@@ -77,6 +77,10 @@ public class HomeActivity extends AbstractBaseActivity {
     viewPager.setAdapter(new HomePageAdapter(getSupportFragmentManager()));
     viewPager.setOffscreenPageLimit(NUM_TABS);
 
+    viewPager.setPageMargin(getResources()
+            .getDimensionPixelSize(R.dimen.view_pager_margin));
+    viewPager.setPageMarginDrawable(R.drawable.view_page_margin);
+
     tabLayout.setTabMode(TabLayout.MODE_FIXED);
     tabLayout.setupWithViewPager(viewPager);
     tabLayout.getTabAt(0).setIcon(R.drawable.tab_releases);

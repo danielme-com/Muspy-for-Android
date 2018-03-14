@@ -43,4 +43,6 @@
     <dimen name="spinner_padding">10dp</dimen>
     <dimen name="bigbutton_min_height">56dp</dimen>
 
+    <dimen name="view_pager_margin">18dp</dimen>
+
 </resources>
