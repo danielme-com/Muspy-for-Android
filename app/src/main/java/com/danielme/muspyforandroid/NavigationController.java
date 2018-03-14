@@ -48,7 +48,6 @@ import javax.inject.Singleton;
 /**
  * Handles the navigation between activities inside the app.
  */
-@Singleton
 public class NavigationController {
 
   @Inject
