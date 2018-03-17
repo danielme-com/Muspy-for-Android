@@ -102,7 +102,7 @@ dependencies {
         exclude module: 'com.square'
     }
     compile 'com.android.support:support-annotations:24.2.1'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.bumptech.glide:glide:3.8.0'
     compile 'com.android.support:support-v4:24.2.1'
     compile group: 'org.jsoup', name: 'jsoup', version: '1.8.3'
     compile 'com.scottyab:secure-preferences-lib:0.1.4'
