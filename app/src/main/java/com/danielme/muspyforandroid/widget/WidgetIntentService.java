@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.IBinder;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -43,7 +44,9 @@ import com.danielme.muspyforandroid.ui.activities.ReleaseActivity;
 import com.securepreferences.SecurePreferences;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -116,7 +119,7 @@ public class WidgetIntentService extends IntentService {
     int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
     intentRefresh.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
     PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),
-        appWidgetId, intentRefresh, PendingIntent.FLAG_UPDATE_CURRENT);
+            appWidgetId, intentRefresh, PendingIntent.FLAG_UPDATE_CURRENT);
     remoteViews.setOnClickPendingIntent(R.id.buttonRefresh, pendingIntent);
 
     //dont forget to update the widget!!!
@@ -124,8 +127,6 @@ public class WidgetIntentService extends IntentService {
     appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
     Log.d(TAG, "updating widget");
     stopSelf();
-
-
   }
 
   private void loadReleasesFromMuspy(RemoteViews remoteViews) {
@@ -138,13 +139,13 @@ public class WidgetIntentService extends IntentService {
         remoteViews.setViewVisibility(R.id.msgLayout, View.GONE);
         securePreferences.edit().putInt(WIDGET_MSG, -1).apply();
         showRelease(remoteViews, releases.get(0), R.id.textViewRelease1Date1, R.id.textViewRelease1,
-            R.id.cover1, R.id.dataLayout1);
+                R.id.cover1, R.id.dataLayout1);
         if (releases.size() > 1) {
           showRelease(remoteViews, releases.get(1), R.id.textViewRelease1Date2,
-              R.id.textViewRelease2, R.id.cover2, R.id.dataLayout2);
+                  R.id.textViewRelease2, R.id.cover2, R.id.dataLayout2);
           if (releases.size() > 2) {
             showRelease(remoteViews, releases.get(2), R.id.textViewDate3, R.id.textViewRelease3,
-                R.id.cover3, R.id.dataLayout3);
+                    R.id.cover3, R.id.dataLayout3);
           } else {
             hideRelease(remoteViews, R.id.dataLayout3);
           }
@@ -159,6 +160,9 @@ public class WidgetIntentService extends IntentService {
       Log.e(TAG, ex.getMessage(), ex);
       userService.deleteCredentials();
       showMessageWidget(remoteViews, R.string.nocredentials, getApplicationContext());
+    } catch (UnknownHostException  | SocketTimeoutException ex) {
+      Log.e(TAG, ex.getMessage(), ex);
+      showMessageWidget(remoteViews, R.string.noconnection, getApplicationContext());
     } catch (Exception ex) {
       Log.e(TAG, ex.getMessage(), ex);
       Crashlytics.logException(ex);
@@ -174,26 +178,16 @@ public class WidgetIntentService extends IntentService {
                            int textViewRelease, int cover, int layout) throws IOException {
     remoteViews.setViewVisibility(layout, View.VISIBLE);
     remoteViews.setTextViewText(textViewRelease1Date, ViewUtils.localizedDate(
-        release.getDate()).getString());
+            release.getDate()).getString());
     remoteViews.setTextViewText(textViewRelease, release.getArtist().getName());
-    URL newurl = new URL(release.getCoverUrl());
-    Bitmap bitmap = null;
-    try {
-      bitmap = BitmapFactory.decodeStream(newurl
-          .openConnection()
-          .getInputStream());
-    } catch (Exception ex) {
-      Log.e(TAG, ex.getMessage(), ex);
-      bitmap = BitmapFactory.decodeResource(this.getResources(),
-          R.drawable.cover_example);
-    }
-    remoteViews.setImageViewBitmap(cover, bitmap);
+
+    setCover(remoteViews, release, cover);
 
     //Intent for showing release details inside Muspy app when clicking the release in the widget
     Intent intentRelease = new Intent(this, ReleaseActivity.class);
     intentRelease.putExtra(ReleaseActivity.RELEASE_INTENT, release);
     remoteViews.setOnClickPendingIntent(layout, PendingIntent.getActivity(
-        getApplicationContext(), layout, intentRelease, PendingIntent.FLAG_UPDATE_CURRENT));
+            getApplicationContext(), layout, intentRelease, PendingIntent.FLAG_UPDATE_CURRENT));
   }
 
   private void showMessageWidget(RemoteViews remoteView, int id, Context context) {
@@ -204,6 +198,25 @@ public class WidgetIntentService extends IntentService {
     remoteView.setViewVisibility(R.id.msgLayout, View.VISIBLE);
 
     securePreferences.edit().putInt(WIDGET_MSG, id).apply();
+  }
+
+  public void setCover(RemoteViews remoteViews, Release release, int coverId) {
+    String link = releaseService.getCover(release.getMbid());
+    if (TextUtils.isEmpty(link)) {
+      link = release.getCoverUrl();
+    }
+
+    Bitmap bitmap;
+    try {
+      bitmap = BitmapFactory.decodeStream(new URL(link)
+              .openConnection()
+              .getInputStream());
+    } catch (Exception ex) {
+      Log.e(TAG, ex.getMessage(), ex);
+      bitmap = BitmapFactory.decodeResource(this.getResources(),
+              R.drawable.cover_example);
+    }
+    remoteViews.setImageViewBitmap(coverId, Bitmap.createScaledBitmap(bitmap, 120, 120, false));
   }
 
 }
