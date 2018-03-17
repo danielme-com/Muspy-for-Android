@@ -130,7 +130,7 @@ public class HomeActivity extends AbstractBaseActivity {
           @Override
           public void onOkDialogFragment() {
             userService.deleteCredentials();
-            navController.gotoLogin(HomeActivity.this);
+            navController.gotoWelcome(HomeActivity.this);
           }
 
           @Override

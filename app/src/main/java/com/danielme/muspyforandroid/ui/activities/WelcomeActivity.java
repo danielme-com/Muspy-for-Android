@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2016 Daniel Medina <http://danielme.com>
+ * Copyright (C) 2012-2018 Daniel Medina <http://danielme.com>
  *
  * This file is part of "Muspy for Android".
  *
@@ -17,38 +17,37 @@
  */
 package com.danielme.muspyforandroid.ui.activities;
 
-import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.View;
 
 import com.danielme.muspyforandroid.MuspyApplication;
-import com.danielme.muspyforandroid.NavigationController;
-import com.danielme.muspyforandroid.service.UserService;
+import com.danielme.muspyforandroid.R;
 
-import javax.inject.Inject;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-
-/**
- * Entry point of the app. Checks the credentials an redirects to the correct screen.
- * Important: this activity doesn't have an UI so it should use a transparent theme.
- */
-public class LaunchActivity extends Activity {
-
-  @Inject
-  UserService userService;
-  @Inject
-  NavigationController navController;
+public class WelcomeActivity extends AbstractBaseActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_welcome);
 
-    ((MuspyApplication) getApplication()).getApplicationDaggerComponent().inject(this);
-
-    if (userService.userHasCredentials()) {
-      navController.gotoHome(this);
-    } else {
-      navController.gotoWelcome(this);
+    ((MuspyApplication) getApplicationContext()).getApplicationDaggerComponent().inject(this);
+    ButterKnife.bind(this);
+    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+      findViewById(R.id.imageViewLogo).setVisibility(View.GONE);
     }
   }
 
+  @OnClick(R.id.buttonSignIn)
+  public void signin() {
+    navController.gotoLogin(this);
+  }
+
+  @OnClick(R.id.buttonSignUp)
+  public void signup() {
+    navController.gotoRegister(this);
+  }
 }

@@ -75,6 +75,8 @@ public class LoginActivity extends AbstractBaseActivity {
     ButterKnife.bind(this);
     ((MuspyApplication) getApplicationContext()).getApplicationDaggerComponent().inject(this);
 
+    ViewUtils.initDefaultToolbarUpNavigationListener(this);
+
     editTextEmail.addTextChangedListener(new ViewUtils.ClearErrorInputLayout(textInputLayoutEmail));
     editTextPassword.addTextChangedListener(
         new ViewUtils.ClearErrorInputLayout(textInputLayoutPass));
@@ -90,6 +92,7 @@ public class LoginActivity extends AbstractBaseActivity {
         return action;
       }
     });
+    editTextEmail.requestFocus();
   }
 
   @Override
@@ -136,11 +139,6 @@ public class LoginActivity extends AbstractBaseActivity {
   @OnClick(R.id.TextViewReset)
   public void reset(@Nullable View view) {
     navController.gotoReset(this, editTextEmail.getText().toString());
-  }
-
-  @OnClick(R.id.TextViewCreate)
-  public void create(View view) {
-    navController.gotoRegister(this);
   }
 
   private class LoginAsyncTask extends AsyncTask<Void, Void, Boolean> {

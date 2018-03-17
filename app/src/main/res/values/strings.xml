@@ -20,21 +20,17 @@
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Muspy for Android</string>
-    <string name="logo">muspy logo</string>
+    <string name="welcome_info">Muspy is the easiest way to follow your favourite artists! With Muspy you won\'t miss music releases anymore.</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="signin">Sign In</string>
     <string name="forgot_pass">Forgot your password?</string>
-    <string name="dont_have">Don\'t have an account?</string>
     <string name="resetit"><u>Reset it</u></string>
-    <string name="createone"><u>Create one</u></string>
     <string name="emailsentreset">An email has been sent to %1$s describing how to obtain your new password</string>
     <string name="noemail">You must supply a valid email (username)</string>
     <string name="nopass">You must supply your password</string>
     <string name="repeat_password">Repeat password</string>
     <string name="signup">Sign up</string>
-    <string name="instructions_create">Join Muspy, the easiest way to follow your favourite
-        artists!</string>
     <string name="emailsentsignup">Your account is awaiting email confirmation. You need to activate your address to receive email notifications.</string>
     <string name="pass_nomatch">The passwords do not match</string>
     <string name="title_sigup">Sign up</string>

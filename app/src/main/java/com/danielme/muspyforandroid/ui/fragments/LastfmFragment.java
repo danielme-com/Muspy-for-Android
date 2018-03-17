@@ -205,7 +205,7 @@ public class LastfmFragment extends Fragment {
       } catch (ForbiddenUnauthorizedException ex) {
         userService.deleteCredentials();
         cancel(false);
-        navController.gotoLogin(getActivity());
+        navController.gotoWelcome(getActivity());
         return ArtistService.IMPORT_RESULT.ERROR;
       } catch (IOException ex) {
         Log.e(this.getClass().toString(), "exception importing from lastfm", ex);

@@ -134,7 +134,7 @@ public class ArtistDetailActivity extends AbstractBaseActivity {
           }
         } catch (ForbiddenUnauthorizedException ex) {
             userService.deleteCredentials();
-            navController.gotoLogin(ArtistDetailActivity.this);
+            navController.gotoWelcome(ArtistDetailActivity.this);
         } catch (Exception ex) {
             Log.e(ArtistDetailActivity.class.getCanonicalName(), "error adding a new artist "
                 + artist.getMbid(), ex);

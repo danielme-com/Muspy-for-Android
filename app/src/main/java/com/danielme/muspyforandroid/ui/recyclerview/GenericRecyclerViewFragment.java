@@ -451,7 +451,7 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
         } catch (ForbiddenUnauthorizedException ex) {
           Log.e(this.getClass().getCanonicalName(), ex.getMessage(), ex);
           userService.deleteCredentials();
-          navController.gotoLogin(getActivity());
+          navController.gotoWelcome(getActivity());
           //dont cancel here!! cancel is performed in onDestroy
         } catch (UnknownHostException ex) {
           //this is not really an error, just a networking issue

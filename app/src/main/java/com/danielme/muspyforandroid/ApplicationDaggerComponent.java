@@ -31,6 +31,7 @@ import com.danielme.muspyforandroid.ui.activities.LoginActivity;
 import com.danielme.muspyforandroid.ui.activities.RegisterActivity;
 import com.danielme.muspyforandroid.ui.activities.ReleaseActivity;
 import com.danielme.muspyforandroid.ui.activities.ResetActivity;
+import com.danielme.muspyforandroid.ui.activities.WelcomeActivity;
 import com.danielme.muspyforandroid.ui.fragments.AccountFragment;
 import com.danielme.muspyforandroid.ui.fragments.ArtistReleasesFragment;
 import com.danielme.muspyforandroid.ui.fragments.LastfmFragment;
@@ -71,4 +72,5 @@ public interface ApplicationDaggerComponent {
   void inject(ReleaseActivity releaseActivity);
   void inject(GenericRecyclerViewFragment genericRecyclerViewFragment);
   void inject(WidgetProvider widgetProvider);
+  void inject(WelcomeActivity welcomeActivity);
 }

@@ -21,20 +21,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Muspy for Android</string>
     <string name="logo">muspy logo</string>
+    <string name="welcome_info">¡Muspy es la forma más fácil de seguir a tus artistas favoritos! Con Muspy no te perderás ningún lanzamiento musical.</string>
     <string name="email">Email</string>
     <string name="password">Contraseña</string>
     <string name="signin">Acceder</string>
     <string name="forgot_pass">¿Olvidaste tu contraseña?</string>
-    <string name="dont_have">¿No tienes una cuenta?</string>
     <string name="resetit"><u>Reiniciar</u></string>
-    <string name="createone"><u>Crea una</u></string>
     <string name="noemail">Debes proporcionar un email</string>
     <string name="emailsentreset">Se ha enviado un email a %1$s con las instrucciones para
         obtener tu nueva contraseña</string>
     <string name="nopass">Debes proporcionar la contraseña</string>
     <string name="repeat_password">Repetir contraseña</string>
     <string name="signup">Registrarse</string>
-    <string name="instructions_create">Únete a Muspy, ¡la forma más fácil de seguir a tus artistas favoritos!</string>
     <string name="emailsentsignup">Tu cuenta está pendiente de confirmación. Debes validar tu dirección de email para recibir notificaciones usando el correo que te hemos enviado.</string>
     <string name="pass_nomatch">Las contraseñas no coinciden</string>
     <string name="title_sigup">Registro</string>

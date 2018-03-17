@@ -35,7 +35,7 @@
     </style>
 
     <!-- 21+ black status bar for login/signup/reset screen-->
-    <style name="LoginAppTheme" parent="AppTheme">
+    <style name="WelcomeAppTheme" parent="AppTheme">
         <item name="colorPrimaryDark">@android:color/black</item>
     </style>
 

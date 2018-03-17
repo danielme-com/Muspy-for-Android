@@ -229,7 +229,7 @@ public class AccountFragment extends Fragment {
       } catch (ForbiddenUnauthorizedException ex) {
         userService.deleteCredentials();
         cancel(false);
-        navController.gotoLogin(getActivity());
+        navController.gotoWelcome(getActivity());
         return UserService.CODE_ERROR;
       } catch (IOException e) {
         return UserService.CODE_ERROR;
@@ -284,7 +284,7 @@ public class AccountFragment extends Fragment {
         } catch (ForbiddenUnauthorizedException ex) {
           userService.deleteCredentials();
           cancel(false);
-          navController.gotoLogin(getActivity());
+          navController.gotoWelcome(getActivity());
         } catch (IOException ex) {
           Log.e(getActivity().getClass().getCanonicalName(), "error getting user data", ex);
         }

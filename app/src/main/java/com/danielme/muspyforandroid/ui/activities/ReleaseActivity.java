@@ -58,7 +58,7 @@ public class ReleaseActivity extends AbstractBaseActivity {
           if (userService.userHasCredentials()) {
             navController.gotoHome(ReleaseActivity.this);
           } else {
-            navController.gotoLogin(ReleaseActivity.this);
+            navController.gotoWelcome(ReleaseActivity.this);
           }
         } else {
           ReleaseActivity.this.onBackPressed();

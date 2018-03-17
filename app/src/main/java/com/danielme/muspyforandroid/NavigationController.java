@@ -39,11 +39,11 @@ import com.danielme.muspyforandroid.ui.activities.RegisterActivity;
 import com.danielme.muspyforandroid.ui.activities.ReleaseActivity;
 import com.danielme.muspyforandroid.ui.activities.ResetActivity;
 import com.danielme.muspyforandroid.ui.activities.SearchArtistActivity;
+import com.danielme.muspyforandroid.ui.activities.WelcomeActivity;
 
 import java.util.ArrayList;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 /**
  * Handles the navigation between activities inside the app.
@@ -64,12 +64,16 @@ public class NavigationController {
   }
 
   /**
-   * LoginActivity will be on top.
+   * WelcomeActivity will be on top.
    */
-  public void gotoLogin(@NonNull Activity activity) {
-    Intent intent = new Intent(activity, LoginActivity.class);
+  public void gotoWelcome(@NonNull Activity activity) {
+    Intent intent = new Intent(activity, WelcomeActivity.class);
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
     activity.startActivity(intent);
+  }
+
+  public void gotoLogin(@NonNull Activity activity) {
+    activity.startActivity(new Intent(activity, LoginActivity.class));
   }
 
   /**
