@@ -18,8 +18,10 @@
 package com.danielme.muspyforandroid.ui.activities;
 
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.danielme.muspyforandroid.MuspyApplication;
 import com.danielme.muspyforandroid.R;
@@ -39,6 +41,9 @@ public class WelcomeActivity extends AbstractBaseActivity {
     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
       findViewById(R.id.imageViewLogo).setVisibility(View.GONE);
     }
+
+    Typeface typefaceRegular = Typeface.createFromAsset(getAssets(), "ASAP_REGULAR.TTF");
+    ((TextView)findViewById(R.id.textViewWelcome)).setTypeface(typefaceRegular);
   }
 
   @OnClick(R.id.buttonSignIn)
