@@ -19,6 +19,7 @@
  */
 package com.danielme.muspyforandroid.service.impl;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.danielme.muspyforandroid.exceptions.ForbiddenUnauthorizedException;
@@ -27,9 +28,14 @@ import com.danielme.muspyforandroid.model.Credential;
 import com.danielme.muspyforandroid.model.Release;
 import com.danielme.muspyforandroid.model.ReleaseMB;
 import com.danielme.muspyforandroid.model.ReleaseMBWrapper;
+import com.danielme.muspyforandroid.repository.rest.musicbrainz.resources.HtmlResource;
 import com.danielme.muspyforandroid.repository.rest.muspy.resources.ReleaseResource;
 import com.danielme.muspyforandroid.service.ReleaseService;
 import com.danielme.muspyforandroid.service.UserService;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -37,6 +43,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -50,15 +57,17 @@ public class ReleaseServiceImpl implements ReleaseService {
 
   private final UserService userService;
   private final ReleaseResource releaseResource;
+  private final HtmlResource htmlResource;
   private final com.danielme.muspyforandroid.repository.rest.musicbrainz.resources.ReleaseResource
-      releaseResourceMB;
+          releaseResourceMB;
 
   public ReleaseServiceImpl(ReleaseResource releaseResource,
                             com.danielme.muspyforandroid.repository.rest.musicbrainz.resources
-                                .ReleaseResource releaseResourceMB, UserService userService) {
+                                    .ReleaseResource releaseResourceMB, UserService userService, HtmlResource htmlResource) {
     this.releaseResource = releaseResource;
     this.releaseResourceMB = releaseResourceMB;
     this.userService = userService;
+    this.htmlResource = htmlResource;
   }
 
   /**
@@ -66,13 +75,13 @@ public class ReleaseServiceImpl implements ReleaseService {
    */
   @Override
   public ArrayList<Release> getReleasesByUser(int offset, int limit) throws IOException,
-      HttpStatusException {
+          HttpStatusException {
     Credential credential = userService.getCredentials();
     if (credential == null) {
       throw new ForbiddenUnauthorizedException("stored credential is null");
     }
     Call<ArrayList<Release>> releasesCall = releaseResource.getReleasesByUser(
-        credential.getUserId(), offset, limit);
+            credential.getUserId(), offset, limit);
     Response<ArrayList<Release>> response = releasesCall.execute();
     if (response.code() != HttpURLConnection.HTTP_OK) {
       if (response.code() == HttpURLConnection.HTTP_GONE) {
@@ -90,9 +99,9 @@ public class ReleaseServiceImpl implements ReleaseService {
    */
   @Override
   public ArrayList<Release> getReleasesByArtist(int offset, int limit, String mbid)
-      throws IOException, HttpStatusException {
+          throws IOException, HttpStatusException {
     Call<ArrayList<Release>> releasesCall = releaseResource.getReleasesByArtist(offset, limit,
-        mbid);
+            mbid);
     Response<ArrayList<Release>> response = releasesCall.execute();
     if (response.code() != HttpURLConnection.HTTP_OK) {
       throw new HttpStatusException(response.code());
@@ -107,7 +116,7 @@ public class ReleaseServiceImpl implements ReleaseService {
    */
   @Override
   public ReleaseMB getReleasesAndTracklist(Release release) throws HttpStatusException,
-      IOException {
+          IOException {
     ReleaseMB ret = null;
 
     boolean ok = false;
@@ -139,6 +148,44 @@ public class ReleaseServiceImpl implements ReleaseService {
     }
 
     return ret;
+  }
+
+
+  @Override
+  public String getCover(String mbidGroup) {
+    String responseLink = null;
+
+    try {
+      Response<ResponseBody> response = htmlResource.getReleaseGroup(mbidGroup).execute();
+      if (response.code() == HttpURLConnection.HTTP_OK) {
+        responseLink = parseCoverArt(response.body().string());
+      }
+    } catch (IOException ex) {
+      Log.e(this.getClass().getCanonicalName(), "getCover", ex);
+    }
+
+    return responseLink;
+  }
+
+  //"extracts" the covert art link from musicbrainz html
+  private String parseCoverArt(String html) {
+    String coverLink = null;
+    Document doc = Jsoup.parse(html);
+    Elements elements = doc.select("#sidebar > div.cover-art > a > span");
+    if (!elements.isEmpty()) {
+      String link = !TextUtils.isEmpty(elements.get(0).attr("data-small-thumbnail")) ?
+              elements.get(0).attr("data-small-thumbnail") :
+              elements.get(0).attr("data-large-thumbnail");
+      if (!TextUtils.isEmpty(link)) {
+        coverLink = link;
+      }
+    } else {
+      coverLink = doc.select("#sidebar > div.cover-art > img").attr("src");
+    }
+    if (!TextUtils.isEmpty(coverLink) && coverLink.startsWith("//")) {
+      coverLink = "http:" + coverLink;
+    }
+    return coverLink;
   }
 
   /**

@@ -40,6 +40,8 @@ public class ReleaseMB {
   private String countryName;
   private String label;
 
+  private String groupMbid;
+
   public String getId() {
     return id;
   }
@@ -144,4 +146,11 @@ public class ReleaseMB {
     this.label = label;
   }
 
+  public String getGroupMbid() {
+    return groupMbid;
+  }
+
+  public void setGroupMbid(String groupMbid) {
+    this.groupMbid = groupMbid;
+  }
 }

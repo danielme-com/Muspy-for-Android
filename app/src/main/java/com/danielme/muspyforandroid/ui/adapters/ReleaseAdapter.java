@@ -17,36 +17,29 @@
  */
 package com.danielme.muspyforandroid.ui.adapters;
 
-import android.content.Context;
-import android.graphics.drawable.InsetDrawable;
+import android.app.Activity;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.danielme.muspyforandroid.R;
 import com.danielme.muspyforandroid.model.Media;
 import com.danielme.muspyforandroid.model.ReleaseMB;
 import com.danielme.muspyforandroid.model.Track;
+import com.danielme.muspyforandroid.service.ReleaseService;
 import com.danielme.muspyforandroid.ui.ViewUtils;
-import com.danielme.muspyforandroid.ui.fragments.ReleaseSearchBottomSheetFragment;
+import com.danielme.muspyforandroid.ui.adapters.vh.ReleaseViewHolder;
 import com.danielme.muspyforandroid.ui.recyclerview.Adapter;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Adapter that produces views to render the details of a Release. These views are not clickable.
@@ -57,10 +50,13 @@ public class ReleaseAdapter extends Adapter {
   private static final int TYPE_MEDIA = 1;
   private static final int TYPE_TRACK = 2;
 
-  private final Context context;
+  private final ReleaseService releaseService;
+  private final Activity context;
 
-  public ReleaseAdapter(@NonNull ArrayList<Parcelable> data, Context context) {
+  public ReleaseAdapter(@NonNull ArrayList<Parcelable> data, ReleaseService releaseService,
+                        Activity context) {
     super(data, ReleaseMB.class);
+    this.releaseService = releaseService;
     this.context = context;
   }
 
@@ -69,15 +65,15 @@ public class ReleaseAdapter extends Adapter {
 
     if (viewType == TYPE_DETAIL) {
       View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_release,
-          parent, false);
-      return new ReleaseViewHolder(item);
+              parent, false);
+      return new ReleaseViewHolder(item, releaseService, context);
     } else if (viewType == TYPE_MEDIA) {
       View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_media,
-          parent, false);
+              parent, false);
       return new MediaViewHolder(item);
     } else {
       View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_track,
-          parent, false);
+              parent, false);
       return new TrackViewHolder(item);
     }
   }
@@ -118,131 +114,7 @@ public class ReleaseAdapter extends Adapter {
     return getData().size();
   }
 
-  public class ReleaseViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.artist)
-    TextView textViewArtist;
-    @BindView(R.id.title)
-    TextView textViewTitle;
-    @BindView(R.id.countryContent)
-    TextView textViewCountry;
-    @BindView(R.id.labelContent)
-    TextView textViewLabel;
-    @BindView(R.id.formatContent)
-    TextView textViewFormat;
-    @BindView(R.id.typeContent)
-    TextView textViewType;
-    @BindView(R.id.date)
-    TextView textViewDate;
-    @BindView(R.id.cover)
-    ImageView imageViewCover;
-    @BindView(R.id.length)
-    TextView textViewLength;
-
-    public ReleaseViewHolder(View itemView) {
-      super(itemView);
-      ButterKnife.bind(this, itemView);
-
-      textViewCountry.setSelected(true);
-      textViewFormat.setSelected(true);
-      textViewLabel.setSelected(true);
-    }
-
-    public void setRelease(ReleaseMB release) {
-      textViewTitle.setText(release.getTitle());
-      textViewLabel.setText(release.getLabel());
-      textViewArtist.setText(release.getArtist());
-      textViewDate.setText(ViewUtils.localizedDate(release.getDate()).getString());
-      textViewType.setText(release.getType());
-      textViewFormat.setText(release.getFormat());
-      textViewCountry.setText(release.getCountryName());
-      textViewLength.setText(ViewUtils.formatMilliseconds(release.getTotalLength()));
-      Glide.with(imageViewCover.getContext()).load(release.getCover())
-          .crossFade().diskCacheStrategy(DiskCacheStrategy.ALL)
-          .into(imageViewCover);
-    }
-
-    @OnClick(R.id.searchInfo)
-    public void searchInfo(View view) {
-      ReleaseSearchBottomSheetFragment frg = ReleaseSearchBottomSheetFragment.newInstance(
-          textViewArtist.getText() + " " + textViewTitle.getText(),
-          ((ReleaseMB) getData().get(0)).getId());
-      frg.show(((AppCompatActivity) context).getSupportFragmentManager(), "moreInfo");
-    }
-
-    public TextView getTextViewArtist() {
-      return textViewArtist;
-    }
-
-    public void setTextViewArtist(TextView textViewArtist) {
-      this.textViewArtist = textViewArtist;
-    }
-
-    public TextView getTextViewTitle() {
-      return textViewTitle;
-    }
-
-    public void setTextViewTitle(TextView textViewTitle) {
-      this.textViewTitle = textViewTitle;
-    }
-
-    public TextView getTextViewCountry() {
-      return textViewCountry;
-    }
-
-    public void setTextViewCountry(TextView textViewCountry) {
-      this.textViewCountry = textViewCountry;
-    }
-
-    public TextView getTextViewLabel() {
-      return textViewLabel;
-    }
-
-    public void setTextViewLabel(TextView textViewLabel) {
-      this.textViewLabel = textViewLabel;
-    }
-
-    public TextView getTextViewFormat() {
-      return textViewFormat;
-    }
-
-    public void setTextViewFormat(TextView textViewFormat) {
-      this.textViewFormat = textViewFormat;
-    }
-
-    public TextView getTextViewDate() {
-      return textViewDate;
-    }
-
-    public void setTextViewDate(TextView textViewDate) {
-      this.textViewDate = textViewDate;
-    }
-
-    public ImageView getImageViewCover() {
-      return imageViewCover;
-    }
-
-    public void setImageViewCover(ImageView imageViewCover) {
-      this.imageViewCover = imageViewCover;
-    }
-
-    public TextView getTextViewType() {
-      return textViewType;
-    }
-
-    public void setTextViewType(TextView textViewType) {
-      this.textViewType = textViewType;
-    }
-
-    public TextView getTextViewLength() {
-      return textViewLength;
-    }
-
-    public void setTextViewLength(TextView textViewLength) {
-      this.textViewLength = textViewLength;
-    }
-
-  }
 
   public class MediaViewHolder extends RecyclerView.ViewHolder {
 
@@ -263,8 +135,8 @@ public class ReleaseAdapter extends Adapter {
       textViewLength.setText(ViewUtils.formatMilliseconds(media.getTotalLength()));
       //the media only displays its name if it's different than the release title.
       if (!TextUtils.isEmpty(media.getTitle())
-          && !media.getTitle().toUpperCase().equals(((ReleaseMB) getData().get(0)).getTitle()
-          .toUpperCase())) {
+              && !media.getTitle().toUpperCase().equals(((ReleaseMB) getData().get(0)).getTitle()
+              .toUpperCase())) {
         textViewTitle.setText(media.getTitle());
         textViewTitle.setVisibility(View.VISIBLE);
       } else {
@@ -272,6 +144,7 @@ public class ReleaseAdapter extends Adapter {
         textViewTitle.setVisibility(View.GONE);
       }
     }
+
     public TextView getTextViewFormat() {
       return textViewFormat;
     }

@@ -17,26 +17,21 @@
  */
 package com.danielme.muspyforandroid.ui.adapters;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.danielme.muspyforandroid.R;
 import com.danielme.muspyforandroid.model.Release;
-import com.danielme.muspyforandroid.ui.ViewUtils;
+import com.danielme.muspyforandroid.service.ReleaseService;
+import com.danielme.muspyforandroid.ui.adapters.vh.ReleasesViewHolder;
 import com.danielme.muspyforandroid.ui.recyclerview.Adapter;
 import com.danielme.muspyforandroid.ui.recyclerview.Footer;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Adapter that produces views to render the releases..
@@ -47,11 +42,17 @@ public class ReleasesAdapter extends Adapter {
   private static final int TYPE_FOOTER = 1;
 
   private final RecyclerViewOnItemClickListener recyclerViewOnItemClickListener;
+  private final ReleaseService releaseService;
+  private final Activity context;
 
   public ReleasesAdapter(@NonNull List<Object> data,
-                         @NonNull RecyclerViewOnItemClickListener recyclerViewOnItemClickListener) {
+                         @NonNull RecyclerViewOnItemClickListener recyclerViewOnItemClickListener,
+                         ReleaseService releaseService,
+                         Activity context) {
     super(data, Release.class);
     this.recyclerViewOnItemClickListener = recyclerViewOnItemClickListener;
+    this.releaseService = releaseService;
+    this.context = context;
   }
 
   @Override
@@ -59,7 +60,7 @@ public class ReleasesAdapter extends Adapter {
     if (viewType == TYPE_RELEASE) {
       View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_releases,
           parent, false);
-      return new ReleaseViewHolder(item);
+      return new ReleasesViewHolder(item, releaseService, recyclerViewOnItemClickListener, context);
     } else {
       View item = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_footer,
           parent, false);
@@ -80,8 +81,8 @@ public class ReleasesAdapter extends Adapter {
 
   @Override
   public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-    if (holder instanceof ReleaseViewHolder) {
-      ReleaseViewHolder rvh = (ReleaseViewHolder) holder;
+    if (holder instanceof ReleasesViewHolder) {
+      ReleasesViewHolder rvh = (ReleasesViewHolder) holder;
       rvh.setRelease((Release) getData().get(position));
     }
     //else FOOTER, do nothing
@@ -92,70 +93,5 @@ public class ReleasesAdapter extends Adapter {
     return getData().size();
   }
 
-  public class ReleaseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-    @BindView(R.id.cover)
-    ImageView imageViewCover;
-    @BindView(R.id.date)
-    TextView textViewDate;
-    @BindView(R.id.artist)
-    TextView textViewArtist;
-    @BindView(R.id.release)
-    TextView textViewRelease;
-
-    public ReleaseViewHolder(View itemView) {
-      super(itemView);
-      ButterKnife.bind(this, itemView);
-      itemView.setOnClickListener(this);
-    }
-
-    public void setRelease(Release release) {
-      String date = ViewUtils.localizedDate(release.getDate()).getString();
-      textViewDate.setText(date);
-      textViewRelease.setText(release.getName());
-      textViewArtist.setText(release.getArtist().getName());
-
-      Glide.with(imageViewCover.getContext()).load(release.getCoverUrl())
-          .crossFade().diskCacheStrategy(DiskCacheStrategy.ALL)
-          .into(imageViewCover);
-    }
-
-    public TextView getTextViewRelease() {
-      return textViewRelease;
-    }
-
-    public void setTextViewRelease(TextView textViewRelease) {
-      this.textViewRelease = textViewRelease;
-    }
-
-    public TextView getTextViewArtist() {
-      return textViewArtist;
-    }
-
-    public void setTextViewArtist(TextView textViewArtist) {
-      this.textViewArtist = textViewArtist;
-    }
-
-    public TextView getTextViewDate() {
-      return textViewDate;
-    }
-
-    public void setTextViewDate(TextView textViewDate) {
-      this.textViewDate = textViewDate;
-    }
-
-    public ImageView getImageViewCover() {
-      return imageViewCover;
-    }
-
-    public void setImageViewCover(ImageView imageViewCover) {
-      this.imageViewCover = imageViewCover;
-    }
-
-    @Override
-    public void onClick(View v) {
-      recyclerViewOnItemClickListener.onClick(v, getAdapterPosition());
-    }
-  }
 
 }

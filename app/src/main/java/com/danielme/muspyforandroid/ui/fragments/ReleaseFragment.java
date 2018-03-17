@@ -91,7 +91,7 @@ public class ReleaseFragment extends GenericRecyclerViewFragment {
 
   @Override
   protected Adapter createAdapter() {
-    return new ReleaseAdapter(new ArrayList(), getActivity());
+    return new ReleaseAdapter(new ArrayList(), releaseService, getActivity());
   }
 
   @Override
@@ -129,6 +129,8 @@ public class ReleaseFragment extends GenericRecyclerViewFragment {
     }
 
     selected.setCover(release.getCoverUrl());
+
+    selected.setGroupMbid(release.getMbid());
 
     mapType(selected);
     mapCountry(selected);

@@ -38,4 +38,9 @@ public interface ReleaseService {
 
   ReleaseMB getReleasesAndTracklist(Release release) throws HttpStatusException,
               IOException;
+
+  /**
+   * Gets the cover link from the musicbrainz release page parsing the html.
+   */
+  String getCover(String mbidGroup);
 }

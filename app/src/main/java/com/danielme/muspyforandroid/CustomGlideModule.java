@@ -21,18 +21,18 @@ import android.content.Context;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
-import com.bumptech.glide.load.engine.cache.InternalCacheDiskCacheFactory;
 import com.bumptech.glide.module.GlideModule;
+import com.danielme.glide.CustomCacheDiskCacheFactory;
 
 /**
  * https://github.com/bumptech/glide/wiki/Configuration
  */
 public class CustomGlideModule implements GlideModule {
 
-  private static final int CACHE_FILE = 15 * 1024 * 1024; //15 Mb
+  private static final int CACHE_FILE = 15 * 1024 * 1024; //15 Mb - 300 covers aprox
 
   @Override public void applyOptions(Context context, GlideBuilder builder) {
-    builder.setDiskCache(new InternalCacheDiskCacheFactory(context, CACHE_FILE));
+    builder.setDiskCache(new CustomCacheDiskCacheFactory(context, CACHE_FILE));
   }
 
   @Override public void registerComponents(Context context, Glide glide) {

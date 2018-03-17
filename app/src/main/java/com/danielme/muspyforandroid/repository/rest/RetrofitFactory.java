@@ -61,15 +61,19 @@ public final class RetrofitFactory {
 
   /**
    * @param resourceClass resource interface
-   * @param url          base url
+   * @param url          optional base url
    * @param interceptors optional interceptors
    * @param headers      optional headers FOR ALL REQUESTS
    * @param cacheConfiguration enables the disk lru cache with the provided configuration
    */
-  public static <T> T getResource(@NonNull Class<T> resourceClass, @NonNull String url,
+  public static <T> T getResource(@NonNull Class<T> resourceClass, String url,
                                   List<Interceptor> interceptors, Map<String, String> headers,
                                   CacheConfiguration cacheConfiguration) {
-    retrofitBuilder.baseUrl(url);
+    if (url != null) {
+      retrofitBuilder.baseUrl(url);
+    }
+
+
     OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
     if (interceptors != null) {
       for (Interceptor interceptor : interceptors) {

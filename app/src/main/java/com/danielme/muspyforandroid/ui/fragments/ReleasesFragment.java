@@ -84,7 +84,7 @@ public class ReleasesFragment extends GenericRecyclerViewFragment {
             navController.gotoReleaseDetail(getActivity(),
                 (Release) getDataFromAdapter().get(position));
           }
-        });
+        }, releaseService, getActivity());
   }
 
   @Override

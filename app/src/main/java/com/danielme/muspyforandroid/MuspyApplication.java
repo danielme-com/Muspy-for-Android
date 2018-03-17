@@ -24,6 +24,9 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.squareup.leakcanary.LeakCanary;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.fabric.sdk.android.Fabric;
 
 /**
@@ -32,6 +35,9 @@ import io.fabric.sdk.android.Fabric;
 public class MuspyApplication extends Application {
 
   private ApplicationDaggerComponent applicationDaggerComponent;
+
+  //cache with the covers url in MB resolved via scraping
+  private static final Map<String, String> coversUrl = new HashMap<>();
 
   @Override
   public void onCreate() {
@@ -63,6 +69,14 @@ public class MuspyApplication extends Application {
 
   public ApplicationDaggerComponent getApplicationDaggerComponent() {
     return applicationDaggerComponent;
+  }
+
+  public static String getCoverUrl(String mbid) {
+    return coversUrl.get(mbid);
+  }
+
+  public static synchronized void addCoverUrl(String mbid, String url) {
+    coversUrl.put(mbid, url);
   }
 
 }

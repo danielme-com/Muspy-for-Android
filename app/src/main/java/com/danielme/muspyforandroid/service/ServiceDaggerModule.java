@@ -20,6 +20,7 @@
 
 package com.danielme.muspyforandroid.service;
 
+import com.danielme.muspyforandroid.repository.rest.musicbrainz.resources.HtmlResource;
 import com.danielme.muspyforandroid.repository.rest.muspy.resources.ArtistResource;
 import com.danielme.muspyforandroid.repository.rest.muspy.resources.ReleaseResource;
 import com.danielme.muspyforandroid.repository.rest.muspy.resources.UserResource;
@@ -42,24 +43,25 @@ public class ServiceDaggerModule {
   @Provides
   @Singleton
   ArtistService providesArtistService(ArtistResource artistResource,
-              com.danielme.muspyforandroid.repository.rest.musicbrainz.resources.ArtistResource
-                                          artistResourceMB, UserService userService) {
+                                      com.danielme.muspyforandroid.repository.rest.musicbrainz.resources.ArtistResource
+                                              artistResourceMB, UserService userService) {
     return new ArtistServiceImpl(artistResource, artistResourceMB, userService);
   }
 
   @Provides
   @Singleton
   ReleaseService providesReleaseService(ReleaseResource releaseResource,
-             com.danielme.muspyforandroid.repository.rest.musicbrainz.resources.ReleaseResource
-                                            releaseResourceMB, UserService userService) {
-    return new ReleaseServiceImpl(releaseResource, releaseResourceMB, userService);
+                                        com.danielme.muspyforandroid.repository.rest.musicbrainz.resources.ReleaseResource
+                                                releaseResourceMB, UserService userService,
+                                        HtmlResource htmlResource) {
+    return new ReleaseServiceImpl(releaseResource, releaseResourceMB, userService, htmlResource);
   }
 
   @Provides
   @Singleton
   UserService providesUserService(SecurePreferences securePreferences, UserResource userResource,
-            com.danielme.muspyforandroid.repository.rest.lastfm.resources.UserResource
-                userResourceLfm) {
+                                  com.danielme.muspyforandroid.repository.rest.lastfm.resources.UserResource
+                                          userResourceLfm) {
     return new UserServiceImpl(securePreferences, userResource, userResourceLfm);
   }
 

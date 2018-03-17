@@ -76,7 +76,7 @@ public class ArtistReleasesFragment extends GenericRecyclerViewFragment {
             navController.gotoReleaseDetail(getActivity(),
                 (Release) getDataFromAdapter().get(position));
           }
-        });
+        }, releaseService, getActivity());
   }
 
   @Override
