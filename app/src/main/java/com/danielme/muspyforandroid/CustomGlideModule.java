@@ -29,7 +29,7 @@ import com.danielme.glide.CustomCacheDiskCacheFactory;
  */
 public class CustomGlideModule implements GlideModule {
 
-  private static final int CACHE_FILE = 15 * 1024 * 1024; //15 Mb - 300 covers aprox
+  private static final int CACHE_FILE = 30 * 1024 * 1024; //30 Mb - 300 covers aprox
 
   @Override public void applyOptions(Context context, GlideBuilder builder) {
     builder.setDiskCache(new CustomCacheDiskCacheFactory(context, CACHE_FILE));
