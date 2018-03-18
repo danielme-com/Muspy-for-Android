@@ -24,19 +24,17 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.danielme.muspyforandroid.MuspyApplication;
 import com.danielme.muspyforandroid.R;
 import com.danielme.muspyforandroid.service.ReleaseService;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
@@ -81,14 +79,23 @@ public class ReleaseCoverViewHolder extends RecyclerView.ViewHolder {
           new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-              if (isValidContextForGlide(actContext.get())
-                      && imageViewCover.getTag(R.id.cover).equals(id)) {
-                Glide.with(actContext.get())
+              if (isValidContextForGlide(actContext.get())) {
+                Glide
+                        .with(imageViewCover.getContext())
                         .load(link)
+                        .asBitmap()
                         .placeholder(R.drawable.loadingcover)
                         .error(R.drawable.loadingcover)
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .into(imageViewCover);
+                        .into(new SimpleTarget<Bitmap>(100, 100) {
+                          @Override
+                          public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
+                            if (imageViewCover.getTag(R.id.cover).equals(id)) { //update the right view
+                              imageViewCover.setImageBitmap(resource);
+                            }
+                          }
+                        });
+
               }
             }
           });
