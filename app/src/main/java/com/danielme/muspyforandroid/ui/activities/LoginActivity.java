@@ -126,7 +126,7 @@ public class LoginActivity extends AbstractBaseActivity {
 
     if (!haserror) {
       if (ViewUtils.isNetworkConnected(this)) {
-        new LoginAsyncTask(editTextEmail.getText().toString(), editTextPassword.getText()
+        new LoginAsyncTask(editTextEmail.getText().toString().trim(), editTextPassword.getText()
             .toString())
             .execute();
       } else {

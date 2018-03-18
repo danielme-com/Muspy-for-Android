@@ -272,7 +272,7 @@ public class RegisterActivity extends AbstractBaseActivity {
     @Override
     protected Boolean doInBackground(Void... params) {
       try {
-        Credential credential = new Credential(null, email, password);
+        Credential credential = new Credential(null, email.trim(), password);
         user = userService.getUser(credential);
         return Boolean.TRUE;
       } catch (Exception ex) {

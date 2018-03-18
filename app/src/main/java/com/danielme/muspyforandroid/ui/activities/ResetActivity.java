@@ -136,7 +136,7 @@ public class ResetActivity extends AbstractBaseActivity {
     @Override
     protected Boolean doInBackground(Void... params) {
       try {
-        return userService.reset(email, ResetActivity.this);
+        return userService.reset(email.trim(), ResetActivity.this);
       } catch (IOException ex) {
         Log.e(ResetActivity.class.getCanonicalName(), "error reset password: " + email, ex);
         return false;
