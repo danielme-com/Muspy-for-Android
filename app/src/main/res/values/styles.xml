@@ -34,9 +34,9 @@
         <item name="android:thumbTint" tools:targetApi="lollipop">@color/colorPrimary</item>
     </style>
 
-    <!-- 21+ black status bar for login/signup/reset screen-->
+    <!-- 21+ black status bar for welcome screen-->
     <style name="WelcomeAppTheme" parent="AppTheme">
-        <item name="colorPrimaryDark">@android:color/black</item>
+        <item name="colorPrimaryDark">@color/grey_status</item>
     </style>
 
     <!-- TOOLBARS -->

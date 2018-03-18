@@ -30,4 +30,5 @@
     <color name="grey_background">#efefef</color>
     <color name="form_title">#8b8b8b</color>
     <color name="grey_dark">#8b8b8b</color>
+    <color name="grey_status">#b6b4b2</color>
 </resources>
