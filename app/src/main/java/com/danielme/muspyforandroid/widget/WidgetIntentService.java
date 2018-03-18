@@ -104,7 +104,15 @@ public class WidgetIntentService extends IntentService {
     RemoteViews remoteViews = new RemoteViews(getApplicationContext().getPackageName(),
         R.layout.widget);
     if (!ViewUtils.isNetworkConnected(this)) {
-      showMessageWidget(remoteViews, R.string.noconnection, getApplicationContext());
+      if (securePreferences.getInt(WidgetIntentService.WIDGET_MSG, -1) == -1) {
+        //keep displaying the previous data
+        remoteViews.setViewVisibility(R.id.buttonRefresh, View.INVISIBLE);
+        remoteViews.setViewVisibility(R.id.dataLayout, View.VISIBLE);
+        remoteViews.setViewVisibility(R.id.textViewMessage, View.INVISIBLE);
+        remoteViews.setViewVisibility(R.id.msgLayout, View.INVISIBLE);
+      } else {
+        showMessageWidget(remoteViews, R.string.noconnection, getApplicationContext());
+      }
     } else if (userID == null) {
       showMessageWidget(remoteViews, R.string.nocredentials, getApplicationContext());
     } else {
