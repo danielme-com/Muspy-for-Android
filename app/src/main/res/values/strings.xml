@@ -128,6 +128,12 @@
     <string name="Remix" tools:keep="@string/Remix">Remix</string>
     <string name="Other" tools:keep="@string/Other">Other</string>
 
+    <string name="spotify" translatable="false">Spotify</string>
+    <string name="info">Information</string>
+    <string name="spotify_noapp">Spotify app is not installed</string>
+    <string name="deezer_noapp">Deezer app is not installed</string>
+    <string name="deezer" translatable="false">Deezer</string>
+
     <string name="youtube">Youtube</string>
     <string name="google">Google</string>
     <string name="musicbrainz">MusicBrainz</string>

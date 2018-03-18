@@ -34,8 +34,11 @@ import com.danielme.muspyforandroid.exceptions.ForbiddenUnauthorizedException;
 import com.danielme.muspyforandroid.model.Artist;
 import com.danielme.muspyforandroid.service.ArtistService;
 import com.danielme.muspyforandroid.service.UserService;
+import com.danielme.muspyforandroid.ui.ExternalSearch;
 import com.danielme.muspyforandroid.ui.ViewUtils;
 import com.danielme.muspyforandroid.ui.fragments.ArtistReleasesFragment;
+
+import java.io.UnsupportedEncodingException;
 
 import javax.inject.Inject;
 
@@ -89,14 +92,44 @@ public class ArtistDetailActivity extends AbstractBaseActivity {
 
   @Override
   public boolean onOptionsItemSelected(MenuItem menuItem) {
-    switch (menuItem.getItemId()) {
-      case R.id.action_follow:
-      case R.id.action_unfollow:
-        (new EditArtistAsyncTask(menuItem)).execute();
-        return true;
-      default:
-        return super.onOptionsItemSelected(menuItem);
+    ExternalSearch externalSearch = new ExternalSearch(artist.getName());
+    try {
+      switch (menuItem.getItemId()) {
+        case R.id.action_follow:
+        case R.id.action_unfollow:
+          (new EditArtistAsyncTask(menuItem)).execute();
+          return true;
+        case R.id.youtube:
+          externalSearch.openYoutube(this);
+          return true;
+        case R.id.spotify:
+          externalSearch.openSpotify(this);
+          return true;
+        case R.id.lastfm:
+          externalSearch.openLastFmArtists(this);
+          return true;
+        case R.id.google:
+          externalSearch.openGoogle(this);
+          return true;
+        case R.id.musicbrainz:
+          externalSearch.openMusicBrainzArtist(this, artist.getMbid());
+          return true;
+        case R.id.amazon:
+          externalSearch.openAmazon(this);
+          return true;
+        case R.id.play:
+          externalSearch.openGooglePlay(this);
+          return true;
+        case R.id.deezer:
+          externalSearch.openDeezer(this);
+          return true;
+        default:
+          return super.onOptionsItemSelected(menuItem);
+      }
+    } catch (UnsupportedEncodingException ex) {
+      Log.e(this.getClass().getSimpleName(), ex.getMessage(), ex);
     }
+    return super.onOptionsItemSelected(menuItem);
   }
 
   /**
@@ -130,14 +163,14 @@ public class ArtistDetailActivity extends AbstractBaseActivity {
           if (menuItem.getItemId() == R.id.action_follow) {
             return artistService.followArtist(artist.getMbid());
           } else {
-              return artistService.unfollowArtist(artist.getMbid());
+            return artistService.unfollowArtist(artist.getMbid());
           }
         } catch (ForbiddenUnauthorizedException ex) {
-            userService.deleteCredentials();
-            navController.gotoWelcome(ArtistDetailActivity.this);
+          userService.deleteCredentials();
+          navController.gotoWelcome(ArtistDetailActivity.this);
         } catch (Exception ex) {
-            Log.e(ArtistDetailActivity.class.getCanonicalName(), "error adding a new artist "
-                + artist.getMbid(), ex);
+          Log.e(ArtistDetailActivity.class.getCanonicalName(), "error adding a new artist "
+                  + artist.getMbid(), ex);
         }
       }
       return Boolean.FALSE;

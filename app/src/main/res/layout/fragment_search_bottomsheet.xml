@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 /*
  * Copyright (C) 2012-2016 Daniel Medina <http://danielme.com>
  *
@@ -19,48 +18,65 @@
  */
 -->
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/youtube"
-        style="@style/AppTheme.BottomSheetItem"
-        android:drawableLeft="@drawable/youtube"
-        android:text="@string/youtube"/>
+        <TextView
+            android:id="@+id/youtube"
+            style="@style/AppTheme.BottomSheetItem"
+            android:drawableLeft="@drawable/youtube"
+            android:text="@string/youtube" />
 
-    <TextView
-        android:id="@+id/lastfm"
-        style="@style/AppTheme.BottomSheetItem"
-        android:drawableLeft="@drawable/lastfm"
-        android:text="@string/title_lastfm"/>
+        <TextView
+            android:id="@+id/spotify"
+            style="@style/AppTheme.BottomSheetItem"
+            android:drawableLeft="@drawable/spotify"
+            android:text="@string/spotify" />
 
-    <TextView
-        android:id="@+id/google"
-        style="@style/AppTheme.BottomSheetItem"
-        android:drawableLeft="@drawable/google"
-        android:text="@string/google"/>
+        <TextView
+            android:id="@+id/deezer"
+            style="@style/AppTheme.BottomSheetItem"
+            android:drawableLeft="@drawable/deezer"
+            android:text="@string/deezer" />
 
-    <TextView
-        android:id="@+id/musicbrainz"
-        style="@style/AppTheme.BottomSheetItem"
-        android:drawableLeft="@drawable/musicbrainz"
-        android:text="@string/musicbrainz"/>
+        <TextView
+            android:id="@+id/lastfm"
+            style="@style/AppTheme.BottomSheetItem"
+            android:drawableLeft="@drawable/lastfm"
+            android:text="@string/title_lastfm" />
 
-    <TextView
-        android:id="@+id/amazon"
-        style="@style/AppTheme.BottomSheetItem"
-        android:drawableLeft="@drawable/amazon"
-        android:text="@string/amazon"/>
+        <TextView
+            android:id="@+id/google"
+            style="@style/AppTheme.BottomSheetItem"
+            android:drawableLeft="@drawable/google"
+            android:text="@string/google" />
 
-    <TextView
-        android:id="@+id/play"
-        style="@style/AppTheme.BottomSheetItem"
-        android:drawableLeft="@drawable/play"
-        android:text="@string/google_play"/>
+        <TextView
+            android:id="@+id/musicbrainz"
+            style="@style/AppTheme.BottomSheetItem"
+            android:drawableLeft="@drawable/musicbrainz"
+            android:text="@string/musicbrainz" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/amazon"
+            style="@style/AppTheme.BottomSheetItem"
+            android:drawableLeft="@drawable/amazon"
+            android:text="@string/amazon" />
+
+        <TextView
+            android:id="@+id/play"
+            style="@style/AppTheme.BottomSheetItem"
+            android:drawableLeft="@drawable/play"
+            android:text="@string/google_play" />
+
+    </LinearLayout>
+
+</ScrollView>

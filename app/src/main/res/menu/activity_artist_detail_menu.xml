@@ -32,4 +32,44 @@
         app:showAsAction="always"
         android:icon="@drawable/ic_delete"/>
 
+    <item
+        android:id="@+id/youtube"
+        android:title="@string/youtube"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/spotify"
+        android:title="@string/spotify"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/deezer"
+        android:title="@string/deezer"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/lastfm"
+        android:title="@string/title_lastfm"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/google"
+        android:title="@string/google"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/musicbrainz"
+        android:title="@string/musicbrainz"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/amazon"
+        android:title="@string/amazon"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/play"
+        android:title="@string/google_play"
+        app:showAsAction="never"/>
+
 </menu>

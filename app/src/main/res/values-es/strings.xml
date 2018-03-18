@@ -133,6 +133,10 @@
     <string name="Remix">Remezcla</string>
     <string name="Other">Otro</string>
 
+    <string name="info">Información</string>
+    <string name="spotify_noapp">La app Spotify no se encuentra instalada</string>
+    <string name="deezer_noapp">La app Deezer no se encuentra instalada</string>
+
     <string name="youtube">Youtube</string>
     <string name="google">Google</string>
     <string name="musicbrainz">MusicBrainz</string>
