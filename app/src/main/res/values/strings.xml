@@ -118,7 +118,7 @@
     <string name="action_agenda">agenda</string>
     <string name="share_title">Share with</string>
     <string name="pick_agenda">Select your agenda app</string>
-
+    <string name="info_agenda">Add to your agenda</string>
 
     <string name="Album" tools:keep="@string/Album">Album</string>
     <string name="Single" tools:keep="@string/Single">Single</string>

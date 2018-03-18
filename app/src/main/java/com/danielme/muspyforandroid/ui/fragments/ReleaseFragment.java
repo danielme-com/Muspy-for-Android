@@ -25,6 +25,7 @@ import com.danielme.muspyforandroid.ui.recyclerview.Adapter;
 import com.danielme.muspyforandroid.ui.recyclerview.GenericRecyclerViewConfiguration;
 import com.danielme.muspyforandroid.ui.recyclerview.GenericRecyclerViewFragment;
 import com.danielme.muspyforandroid.ui.recyclerview.Results;
+import com.securepreferences.SecurePreferences;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,15 +37,20 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
+
 /**
  * A fragment that shows the details of a release including the tracklist.
  */
 public class ReleaseFragment extends GenericRecyclerViewFragment {
 
   private static final String RELEASE_URL = "https://musicbrainz.org/release-group/";
+  private static final String PREF_AGENDA = "PREF_AGENDA";
 
   @Inject
   ReleaseService releaseService;
+  @Inject
+  SecurePreferences securePreferences;
 
   private Release release;
 
@@ -86,6 +92,18 @@ public class ReleaseFragment extends GenericRecyclerViewFragment {
         return true;
       default:
         return super.onOptionsItemSelected(item);
+    }
+  }
+
+  @Override
+  public void onPostExecuteAddtionalActions(Boolean success, Results results) {
+    if (!securePreferences.getBoolean(PREF_AGENDA, false)) {
+      securePreferences.edit().putBoolean(PREF_AGENDA, true).apply();
+      new MaterialTapTargetPrompt.Builder(getActivity())
+              .setTarget(R.id.action_agenda)
+              .setIcon(R.drawable.ic_view_agenda)
+              .setPrimaryText(getString(R.string.info_agenda))
+              .show();
     }
   }
 
