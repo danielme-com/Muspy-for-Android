@@ -89,7 +89,8 @@
             android:layout_marginLeft="@dimen/standard_separation"
             android:layout_weight="1"
             android:minHeight="@dimen/bigbutton_min_height"
-            android:text="@string/signin" />
+            android:text="@string/signin"
+            android:theme="@style/AppTheme.NoRaisedButton"/>
     </LinearLayout>
 
 </RelativeLayout>

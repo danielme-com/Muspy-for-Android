@@ -78,6 +78,13 @@
         <!--<item name="android:minHeight">60dip</item>-->
     </style>
 
+    <style name="AppTheme.NoRaisedButton" parent="Base.Widget.AppCompat.Button">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="colorButtonNormal">@color/grey_background</item>
+        <!-- min height doesnt work here-->
+        <!--<item name="android:minHeight">60dip</item>-->
+    </style>
+
     <!-- check style for Nougat-->
     <style name="AppTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/colorPrimary</item>
