@@ -20,7 +20,6 @@
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Muspy for Android</string>
-    <string name="logo">muspy logo</string>
     <string name="welcome_info">¡Muspy es la forma más fácil de seguir a tus artistas favoritos! Con Muspy no te perderás ningún lanzamiento musical.</string>
     <string name="email">Email</string>
     <string name="password">Contraseña</string>
