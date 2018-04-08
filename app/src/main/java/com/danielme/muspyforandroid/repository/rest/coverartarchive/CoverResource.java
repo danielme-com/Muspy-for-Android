@@ -15,16 +15,18 @@
  * You should have received a copy of the GNU General Public License version 3
  * along with this program.  If not, see <http://www.gnu.org/licenses/gpl-3.0.html/>
  */
-package com.danielme.muspyforandroid.repository.rest.musicbrainz.resources;
+package com.danielme.muspyforandroid.repository.rest.coverartarchive;
 
-import okhttp3.ResponseBody;
+import com.danielme.muspyforandroid.model.Cover;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-//Raw HTML for scraping
-public interface HtmlResource {
 
-  @GET("https://musicbrainz.org/release-group/{mbid}")
-  Call<ResponseBody> getReleaseGroup(@Path("mbid") String mbid);
+public interface CoverResource {
+
+  @GET("release-group/{mbid}")
+  Call<Cover> getCoversReleaseGroup(@Path("mbid") String releaseGroupMbid);
+
 }

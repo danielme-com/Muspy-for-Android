@@ -31,16 +31,16 @@ import java.util.ArrayList;
 public interface ReleaseService {
 
   ArrayList<Release> getReleasesByUser(int offset, int limit) throws IOException,
-      HttpStatusException;
+          HttpStatusException;
 
   ArrayList<Release> getReleasesByArtist(int offset, int limit, String mbid) throws IOException,
-      HttpStatusException;
+          HttpStatusException;
 
   ReleaseMB getReleasesAndTracklist(Release release) throws HttpStatusException,
-              IOException;
+          IOException;
 
   /**
-   * Gets the cover link from the musicbrainz release page parsing the html.
+   * Gets the cover link from coverartarchive.org.
    */
   String getCover(String mbidGroup);
 }

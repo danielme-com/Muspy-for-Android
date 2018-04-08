@@ -20,7 +20,7 @@
 
 package com.danielme.muspyforandroid.service;
 
-import com.danielme.muspyforandroid.repository.rest.musicbrainz.resources.HtmlResource;
+import com.danielme.muspyforandroid.repository.rest.coverartarchive.CoverResource;
 import com.danielme.muspyforandroid.repository.rest.muspy.resources.ArtistResource;
 import com.danielme.muspyforandroid.repository.rest.muspy.resources.ReleaseResource;
 import com.danielme.muspyforandroid.repository.rest.muspy.resources.UserResource;
@@ -53,8 +53,8 @@ public class ServiceDaggerModule {
   ReleaseService providesReleaseService(ReleaseResource releaseResource,
                                         com.danielme.muspyforandroid.repository.rest.musicbrainz.resources.ReleaseResource
                                                 releaseResourceMB, UserService userService,
-                                        HtmlResource htmlResource) {
-    return new ReleaseServiceImpl(releaseResource, releaseResourceMB, userService, htmlResource);
+                                        CoverResource coverResource) {
+    return new ReleaseServiceImpl(releaseResource, releaseResourceMB, userService, coverResource);
   }
 
   @Provides

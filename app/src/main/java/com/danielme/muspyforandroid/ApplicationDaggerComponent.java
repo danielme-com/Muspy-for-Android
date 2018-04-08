@@ -20,6 +20,7 @@
 
 package com.danielme.muspyforandroid;
 
+import com.danielme.muspyforandroid.repository.rest.coverartarchive.CovertArchiveApiDaggerModule;
 import com.danielme.muspyforandroid.repository.rest.lastfm.LastfmApiDaggerModule;
 import com.danielme.muspyforandroid.repository.rest.musicbrainz.MusicBrainzApiDaggerModule;
 import com.danielme.muspyforandroid.repository.rest.muspy.MuspyApiDaggerModule;
@@ -52,7 +53,8 @@ import dagger.Component;
                       MuspyApiDaggerModule.class,
                       LastfmApiDaggerModule.class,
                       MusicBrainzApiDaggerModule.class,
-                      ServiceDaggerModule.class})
+                      ServiceDaggerModule.class,
+                      CovertArchiveApiDaggerModule.class})
 public interface ApplicationDaggerComponent {
 
   void inject(HomeActivity activity);

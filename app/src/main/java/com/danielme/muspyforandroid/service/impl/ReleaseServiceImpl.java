@@ -22,13 +22,15 @@ package com.danielme.muspyforandroid.service.impl;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.danielme.muspyforandroid.BuildConfig;
 import com.danielme.muspyforandroid.exceptions.ForbiddenUnauthorizedException;
 import com.danielme.muspyforandroid.exceptions.HttpStatusException;
+import com.danielme.muspyforandroid.model.Cover;
 import com.danielme.muspyforandroid.model.Credential;
 import com.danielme.muspyforandroid.model.Release;
 import com.danielme.muspyforandroid.model.ReleaseMB;
 import com.danielme.muspyforandroid.model.ReleaseMBWrapper;
-import com.danielme.muspyforandroid.repository.rest.musicbrainz.resources.HtmlResource;
+import com.danielme.muspyforandroid.repository.rest.coverartarchive.CoverResource;
 import com.danielme.muspyforandroid.repository.rest.muspy.resources.ReleaseResource;
 import com.danielme.muspyforandroid.service.ReleaseService;
 import com.danielme.muspyforandroid.service.UserService;
@@ -43,7 +45,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -57,17 +58,18 @@ public class ReleaseServiceImpl implements ReleaseService {
 
   private final UserService userService;
   private final ReleaseResource releaseResource;
-  private final HtmlResource htmlResource;
+  private final CoverResource coverResource;
   private final com.danielme.muspyforandroid.repository.rest.musicbrainz.resources.ReleaseResource
           releaseResourceMB;
 
   public ReleaseServiceImpl(ReleaseResource releaseResource,
                             com.danielme.muspyforandroid.repository.rest.musicbrainz.resources
-                                    .ReleaseResource releaseResourceMB, UserService userService, HtmlResource htmlResource) {
+                                    .ReleaseResource releaseResourceMB, UserService userService,
+                            CoverResource coverResource) {
     this.releaseResource = releaseResource;
     this.releaseResourceMB = releaseResourceMB;
     this.userService = userService;
-    this.htmlResource = htmlResource;
+    this.coverResource = coverResource;
   }
 
   /**
@@ -150,21 +152,35 @@ public class ReleaseServiceImpl implements ReleaseService {
     return ret;
   }
 
-
   @Override
   public String getCover(String mbidGroup) {
-    String responseLink = null;
-
     try {
-      Response<ResponseBody> response = htmlResource.getReleaseGroup(mbidGroup).execute();
+      Response<Cover> response = coverResource.getCoversReleaseGroup(mbidGroup).execute();
       if (response.code() == HttpURLConnection.HTTP_OK) {
-        responseLink = parseCoverArt(response.body().string());
+        return chooseCover(response.body());
+      } else if (BuildConfig.DEBUG && response.code() == HttpURLConnection.HTTP_NOT_FOUND) {
+        Log.d(this.getClass().getCanonicalName(), "cover not found");
       }
     } catch (IOException ex) {
       Log.e(this.getClass().getCanonicalName(), "getCover", ex);
     }
 
-    return responseLink;
+    return null;
+  }
+
+  private String chooseCover(Cover cover) {
+    for (Cover.CoverImage item : cover.getImages()) {
+      if (!item.isBack()) {
+        if (!TextUtils.isEmpty(item.getThumbnail().get_250())) {
+          return item.getThumbnail().get_250();
+        } else if (!TextUtils.isEmpty(item.getThumbnail().getSmall())) {
+          return item.getThumbnail().getSmall();
+        } else if (!TextUtils.isEmpty(item.getThumbnail().get_500())) {
+          return item.getThumbnail().get_500();
+        } //too big, dont download the cover
+      }
+    }
+    return null;
   }
 
   //"extracts" the covert art link from musicbrainz html

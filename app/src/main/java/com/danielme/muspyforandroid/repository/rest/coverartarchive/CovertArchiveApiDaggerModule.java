@@ -17,15 +17,12 @@
  *  * along with this program.  If not, see <http://www.gnu.org/licenses/gpl-3.0.html/>
  *
  */
-package com.danielme.muspyforandroid.repository.rest.musicbrainz;
+package com.danielme.muspyforandroid.repository.rest.coverartarchive;
 
 import android.app.Application;
-import android.support.annotation.NonNull;
 
 import com.danielme.muspyforandroid.repository.rest.CacheConfiguration;
 import com.danielme.muspyforandroid.repository.rest.RetrofitFactory;
-import com.danielme.muspyforandroid.repository.rest.musicbrainz.resources.ArtistResource;
-import com.danielme.muspyforandroid.repository.rest.musicbrainz.resources.ReleaseResource;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,29 +36,19 @@ import dagger.Provides;
  * Dagger module.
  */
 @Module
-public final class MusicBrainzApiDaggerModule {
+public final class CovertArchiveApiDaggerModule {
 
   private static final String AGENT = "MuspyForAndroid/2.2 ( danielme_com@yahoo.com )";
-  private static final String URL = "https://musicbrainz.org/ws/2/";
-  private static final int CACHE_TIME = 72 * 60 * 60; //3 days
+  private static final String URL = "https://coverartarchive.org";
+  private static final int CACHE_TIME = 240 * 60 * 60; //10 days
 
   @Provides
   @Singleton
-  public ArtistResource providesArtistResource(Application application) {
-    return createResource(ArtistResource.class, application);
-  }
-
-  @Provides
-  @Singleton
-  public ReleaseResource createReleaseResource(Application application) {
-    return createResource(ReleaseResource.class, application);
-  }
-
-  private <T> T createResource(@NonNull Class<T> resourceClass, Application application) {
+  public CoverResource createCoverResource(Application application) {
     Map<String, String> headers = new HashMap<>(1);
     headers.put("User-Agent", AGENT);
 
-    return RetrofitFactory.getResource(resourceClass, URL, null, headers,
+    return RetrofitFactory.getResource(CoverResource.class, URL, null, headers,
             buildCache(application));
   }
 
