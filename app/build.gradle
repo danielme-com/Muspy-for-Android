@@ -28,8 +28,8 @@ android {
         applicationId "com.danielme.muspyforandroid"
         minSdkVersion 18
         targetSdkVersion 22
-        versionCode 6
-        versionName "2.1"
+        versionCode 7
+        versionName "2.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
