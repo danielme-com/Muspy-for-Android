@@ -45,7 +45,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public final class RetrofitFactory {
 
   private static final int TIMEOUT = 20; //seconds
-  private static final int CACHE_SIZE = 3 * 1024 * 1024; //5 MB
+  private static final int CACHE_SIZE = 15 * 1024 * 1024; //15 MB
 
   private static final Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
       .addConverterFactory(GsonConverterFactory.create());
