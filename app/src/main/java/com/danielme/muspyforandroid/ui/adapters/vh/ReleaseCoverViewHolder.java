@@ -75,36 +75,59 @@ public class ReleaseCoverViewHolder extends RecyclerView.ViewHolder {
         //cache the cover url in MB
         MuspyApplication.addCoverUrl(id, link);
 
-        if (!TextUtils.isEmpty(link)) {
-          new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-              if (isValidContextForGlide(actContext.get())) {
-                Glide
-                        .with(imageViewCover.getContext())
-                        .load(link)
-                        .asBitmap()
-                        .placeholder(R.drawable.loadingcover)
-                        .error(R.drawable.loadingcover)
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .into(new SimpleTarget<Bitmap>(100, 100) {
-                          @Override
-                          public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
-                            if (imageViewCover.getTag(R.id.cover).equals(id)) { //update the right view
-                              imageViewCover.setImageBitmap(resource);
-                            }
-                          }
-                        });
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+          @Override
+          public void run() {
+            if (isValidContextForGlide(actContext.get())) {
 
+              if (TextUtils.isEmpty(link)) {
+                displayNoCover(id);
+              } else {
+                loadCover(link, id);
               }
             }
-          });
-        }
+          }
+        });
 
       }
     };
 
     thread.start();
+  }
+
+  private void loadCover(String link, final String id) {
+    Glide
+            .with(actContext.get())
+            .load(link)
+            .asBitmap()
+            .placeholder(R.drawable.loadingcover)
+            .error(R.drawable.nocover)
+            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+            .into(new SimpleTarget<Bitmap>(100, 100) {
+              @Override
+              public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
+                if (imageViewCover.getTag(R.id.cover).equals(id)) {
+                  imageViewCover.setImageBitmap(resource);
+                }
+              }
+            });
+  }
+
+  private void displayNoCover(final String id) {
+    if (imageViewCover.getTag(R.id.cover).equals(id)) {
+      Glide
+              .with(actContext.get())
+              .load(R.drawable.nocover)
+              .asBitmap()
+              .into(new SimpleTarget<Bitmap>(100, 100) {
+                @Override
+                public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
+                  if (imageViewCover.getTag(R.id.cover).equals(id)) {
+                    imageViewCover.setImageBitmap(resource);
+                  }
+                }
+              });
+    }
   }
 
 

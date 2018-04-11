@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.danielme.muspyforandroid"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+    <application
+        android:name=".MuspyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- IMPORTANT: dont use local names for Glide module -->
+        <meta-data
+            android:name="com.danielme.muspyforandroid.CustomGlideModule"
+            android:value="GlideModule"/>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="CHANGE_ME"
+            />
+
+
+        <service android:name=".widget.WidgetIntentService"/>
+
+        <!-- Homescreen widget -->
+        <receiver
+            android:name=".widget.WidgetProvider"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <!-- custom intent (refresh button) -->
+            <intent-filter>
+                <action android:name="com.danielme.muspyforandroid.UPDATE_WIDGET"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/muspywidget"/>
+        </receiver>
+
+        <activity
+            android:name=".ui.activities.LaunchActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.activities.HomeActivity" />
+
+        <activity
+            android:name=".ui.activities.LoginActivity"
+            android:label="@string/signin"
+            />
+
+        <activity
+            android:name=".ui.activities.WelcomeActivity"
+            android:theme="@style/WelcomeAppTheme"/>
+
+        <activity
+            android:name=".ui.activities.ArtistDetailActivity"
+            />
+        <activity
+            android:name=".ui.activities.RegisterActivity"
+            android:label="@string/title_sigup">
+        </activity>
+        <activity
+            android:name=".ui.activities.ResetActivity"
+            android:label="@string/title_reset">
+        </activity>
+        <activity
+            android:name=".ui.activities.SearchArtistActivity"
+            android:label="@string/title_activity_search_artist"
+            android:windowSoftInputMode="adjustNothing"
+            >
+        </activity>
+
+        <activity
+            android:name=".ui.activities.LastfmActivity"
+            android:label="@string/title_lastfm">
+        </activity>
+
+        <activity
+            android:name=".ui.activities.ReleaseActivity"
+            android:label="@string/title_activity_release">
+
+        </activity>
+
+        <activity
+            android:name=".ui.activities.AboutActivity"
+            android:label="@string/title_activity_about">
+        </activity>
+
+    </application>
+
+</manifest>
