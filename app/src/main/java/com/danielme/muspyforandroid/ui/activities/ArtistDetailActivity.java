@@ -22,6 +22,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -92,7 +93,11 @@ public class ArtistDetailActivity extends AbstractBaseActivity {
 
   @Override
   public boolean onOptionsItemSelected(MenuItem menuItem) {
-    ExternalSearch externalSearch = new ExternalSearch(artist.getName());
+    String query = artist.getName();
+    if (!TextUtils.isEmpty(artist.getDisambiguation())) {
+      query += " " + artist.getDisambiguation();
+    }
+    ExternalSearch externalSearch = new ExternalSearch(query);
     try {
       switch (menuItem.getItemId()) {
         case R.id.action_follow:
