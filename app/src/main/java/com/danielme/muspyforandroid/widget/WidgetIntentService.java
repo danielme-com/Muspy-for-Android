@@ -198,14 +198,14 @@ public class WidgetIntentService extends IntentService {
             getApplicationContext(), layout, intentRelease, PendingIntent.FLAG_UPDATE_CURRENT));
   }
 
-  private void showMessageWidget(RemoteViews remoteView, int id, Context context) {
-    remoteView.setTextViewText(R.id.textViewMessage, context.getString(id));
+  private void showMessageWidget(RemoteViews remoteView, int stringId, Context context) {
+    remoteView.setTextViewText(R.id.textViewMessage, context.getString(stringId));
     remoteView.setViewVisibility(R.id.buttonRefresh, View.VISIBLE);
     remoteView.setViewVisibility(R.id.dataLayout, View.INVISIBLE);
     remoteView.setViewVisibility(R.id.textViewMessage, View.VISIBLE);
     remoteView.setViewVisibility(R.id.msgLayout, View.VISIBLE);
 
-    securePreferences.edit().putInt(WIDGET_MSG, id).apply();
+    securePreferences.edit().putInt(WIDGET_MSG, stringId).apply();
   }
 
   public void setCover(RemoteViews remoteViews, Release release, int coverId) {
