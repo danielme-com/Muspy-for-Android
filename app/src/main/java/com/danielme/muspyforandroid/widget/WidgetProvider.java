@@ -44,6 +44,8 @@ public class WidgetProvider extends AppWidgetProvider {
   @Inject
   SecurePreferences securePreferences;
 
+
+
   @Override
   public void onReceive(Context context, Intent intent) {
     super.onReceive(context, intent);
@@ -73,6 +75,8 @@ public class WidgetProvider extends AppWidgetProvider {
 
   @Override
   public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+    ((MuspyApplication) context.getApplicationContext()).getApplicationDaggerComponent()
+            .inject(this);
     for (int i = 0; i < appWidgetIds.length; i++) {
       updateWidget(context, appWidgetIds[i]);
     }
@@ -86,12 +90,16 @@ public class WidgetProvider extends AppWidgetProvider {
     AppWidgetManager manager = AppWidgetManager.getInstance(context);
     manager.updateAppWidget(appWidgetId, remoteViews);
 
-    remoteViews.setTextViewText(R.id.textViewMessage, context.getString(R.string.loading));
-    remoteViews.setViewVisibility(R.id.buttonRefresh, View.GONE);
-    remoteViews.setViewVisibility(R.id.dataLayout, View.INVISIBLE);
-    remoteViews.setViewVisibility(R.id.textViewMessage, View.VISIBLE);
-    remoteViews.setViewVisibility(R.id.msgLayout, View.VISIBLE);
-    manager.updateAppWidget(appWidgetId, remoteViews);
+    //keep displaying the releases while updating
+    if (securePreferences.getInt(WidgetIntentService.WIDGET_MSG, -1) != -1) {
+      remoteViews.setTextViewText(R.id.textViewMessage, context.getString(R.string.loading));
+      remoteViews.setViewVisibility(R.id.buttonRefresh, View.GONE);
+      remoteViews.setViewVisibility(R.id.dataLayout, View.INVISIBLE);
+      remoteViews.setViewVisibility(R.id.textViewMessage, View.VISIBLE);
+      remoteViews.setViewVisibility(R.id.msgLayout, View.VISIBLE);
+      manager.updateAppWidget(appWidgetId, remoteViews);
+    }
+
     //asynchronous service
     Intent intent = new Intent(context.getApplicationContext(), WidgetIntentService.class);
     intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
