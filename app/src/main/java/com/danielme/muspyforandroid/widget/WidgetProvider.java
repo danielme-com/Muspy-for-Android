@@ -22,6 +22,7 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -91,7 +92,13 @@ public class WidgetProvider extends AppWidgetProvider {
     manager.updateAppWidget(appWidgetId, remoteViews);
 
     //keep displaying the releases while updating
-    if (securePreferences.getInt(WidgetIntentService.WIDGET_MSG, -1) != -1) {
+    int msg = -1;
+    try {
+      msg = securePreferences.getInt(WidgetIntentService.WIDGET_MSG, -1);
+    } catch (ClassCastException ex) {
+      Log.w(WidgetProvider.class.getSimpleName(), ex);
+    }
+    if (msg != -1) {
       remoteViews.setTextViewText(R.id.textViewMessage, context.getString(R.string.loading));
       remoteViews.setViewVisibility(R.id.buttonRefresh, View.GONE);
       remoteViews.setViewVisibility(R.id.dataLayout, View.INVISIBLE);

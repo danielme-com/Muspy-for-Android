@@ -44,12 +44,14 @@ import com.danielme.muspyforandroid.ui.activities.ReleaseActivity;
 import com.securepreferences.SecurePreferences;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.net.ssl.SSLException;
 
 
 /**
@@ -102,9 +104,15 @@ public class WidgetIntentService extends IntentService {
     }
 
     RemoteViews remoteViews = new RemoteViews(getApplicationContext().getPackageName(),
-        R.layout.widget);
+            R.layout.widget);
     if (!ViewUtils.isNetworkConnected(this)) {
-      if (securePreferences.getInt(WidgetIntentService.WIDGET_MSG, -1) == -1) {
+      int msg = -1;
+      try {
+        msg = securePreferences.getInt(WidgetIntentService.WIDGET_MSG, -1);
+      } catch (ClassCastException ex) {
+        Log.w(WidgetProvider.class.getSimpleName(), ex);
+      }
+      if (msg != -1) {
         //keep displaying the previous data
         remoteViews.setViewVisibility(R.id.buttonRefresh, View.INVISIBLE);
         remoteViews.setViewVisibility(R.id.dataLayout, View.VISIBLE);
@@ -168,9 +176,12 @@ public class WidgetIntentService extends IntentService {
       Log.e(TAG, ex.getMessage(), ex);
       userService.deleteCredentials();
       showMessageWidget(remoteViews, R.string.nocredentials, getApplicationContext());
-    } catch (UnknownHostException  | SocketTimeoutException ex) {
+    } catch (UnknownHostException | SocketTimeoutException | ConnectException ex) {
       Log.e(TAG, ex.getMessage(), ex);
       showMessageWidget(remoteViews, R.string.noconnection, getApplicationContext());
+    } catch (SSLException ex) {
+      Log.e(TAG, ex.getMessage(), ex);
+      showMessageWidget(remoteViews, R.string.noserver, getApplicationContext());
     } catch (Exception ex) {
       Log.e(TAG, ex.getMessage(), ex);
       Crashlytics.logException(ex);
