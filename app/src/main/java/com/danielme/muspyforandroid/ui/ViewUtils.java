@@ -177,7 +177,11 @@ public final class ViewUtils {
     FragmentManager fm = activity.getSupportFragmentManager();
     DialogFragment errorDialogFragment = DialogFragment.newInstance(activity.getString(title),
         msg, activity.getString(android.R.string.yes), null, listener);
-    errorDialogFragment.show(fm, DialogFragment.TAG);
+    try {
+      errorDialogFragment.show(fm, DialogFragment.TAG);
+    } catch (IllegalStateException ex) {
+      Log.e(ViewUtils.class.getSimpleName(), "cannot display dialog", ex);
+    }
   }
 
   public static void showYesDialogFragment(@NonNull Fragment fragment, int
