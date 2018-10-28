@@ -43,11 +43,13 @@ import com.danielme.muspyforandroid.exceptions.ForbiddenUnauthorizedException;
 import com.danielme.muspyforandroid.service.UserService;
 import com.danielme.muspyforandroid.ui.ViewUtils;
 
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.List;
 import java.util.ListIterator;
 
 import javax.inject.Inject;
+import javax.net.ssl.SSLHandshakeException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -93,7 +95,7 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
   protected abstract Adapter createAdapter();
 
   protected abstract Results doInBackground(int offset, int pageSize, AsyncTask asyncTask)
-      throws Exception;
+          throws Exception;
 
 
   protected void onPostExecuteAddtionalActions(Boolean success, Results results) {
@@ -116,7 +118,7 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
     getDataFromAdapter().addAll(results.getData());
     int start = getDataFromAdapter().size();
     recyclerViewGeneric.getAdapter().notifyItemRangeInserted(start,
-        getDataFromAdapter().size() - 1);
+            getDataFromAdapter().size() - 1);
   }
 
   /**
@@ -154,7 +156,7 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     ((MuspyApplication) getContext().getApplicationContext()).getApplicationDaggerComponent()
-        .inject(this);
+            .inject(this);
   }
 
   @Override
@@ -215,10 +217,12 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
       swipeRefreshGeneric.post(new Runnable() {
         @Override
         public void run() {
-          swipeRefreshGeneric.setRefreshing(true);
-          //setRefreshing doesn't call OnRefreshListener
-          loadDataAsyncTask = new LoadDataAsyncTask(LoadType.REFRESH_SWIPE);
-          loadDataAsyncTask.execute();
+          if (swipeRefreshGeneric != null) {
+            swipeRefreshGeneric.setRefreshing(true);
+            //setRefreshing doesn't call OnRefreshListener
+            loadDataAsyncTask = new LoadDataAsyncTask(LoadType.REFRESH_SWIPE);
+            loadDataAsyncTask.execute();
+          }
         }
       });
     } else {
@@ -246,13 +250,13 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
         swipeRefreshGeneric.setColorSchemeResources(configuration.getSwipeColorScheme());
       }
       swipeRefreshGeneric.setOnRefreshListener(
-          new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-              loadDataAsyncTask = new LoadDataAsyncTask(LoadType.REFRESH_SWIPE);
-              loadDataAsyncTask.execute();
-            }
-          });
+              new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                  loadDataAsyncTask = new LoadDataAsyncTask(LoadType.REFRESH_SWIPE);
+                  loadDataAsyncTask.execute();
+                }
+              });
     } else {
       swipeRefreshGeneric.setEnabled(false);
     }
@@ -269,7 +273,7 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
 
     if (configuration.getDividerId() != null) {
       recyclerViewGeneric.addItemDecoration(new DividerItemDecoration(getContext(),
-          configuration.getDividerId(), configuration.getDividerExclusions()));
+              configuration.getDividerId(), configuration.getDividerExclusions()));
     }
 
     recyclerViewGeneric.setAdapter(adapter);
@@ -286,8 +290,8 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
     if (configuration.getImageViewinitialScreen() != -1) {
       //add drawable on top of the text
       textViewMessage.setCompoundDrawablesWithIntrinsicBounds(null,
-          ContextCompat.getDrawable(getContext(), configuration.getImageViewinitialScreen()) ,
-          null, null);
+              ContextCompat.getDrawable(getContext(), configuration.getImageViewinitialScreen()),
+              null, null);
     }
   }
 
@@ -298,9 +302,9 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
         super.onScrolled(recyclerView, dx, dy);
         if (hasMore && !hasFooter() && !isAnyDialoFragmentAdded()) {
           LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView
-              .getLayoutManager();
+                  .getLayoutManager();
           if (layoutManager.findLastCompletelyVisibleItemPosition() == layoutManager
-              .getItemCount() - 1) {
+                  .getItemCount() - 1) {
             //displays the footer
             getDataFromAdapter().add(new Footer());
             Handler handler = new Handler();
@@ -372,10 +376,10 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
   }
 
   protected void showAlert(Fragment fragment, String
-      title, String msg) {
+          title, String msg) {
     FragmentManager fm = fragment.getFragmentManager();
     DialogFragment errorDialogFragment = DialogFragment.newInstance(title, msg, getString(android
-        .R.string.ok), null, null);
+            .R.string.ok), null, null);
 
     //ensures that isAnyDialoFragmentAdded returns true after this method
     //avoids state loss
@@ -430,8 +434,8 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
           //no connection but the fragment is already displaying some data, we keep these data on
           // screen
           showAlert(GenericRecyclerViewFragment.this,
-              getString(android.R.string.dialog_alert_title),
-              getString(configuration.getMsgNoConnection()));
+                  getString(android.R.string.dialog_alert_title),
+                  getString(configuration.getMsgNoConnection()));
         }
         cancel(true);
       }
@@ -446,15 +450,15 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
             offset = getAdapter().countRealData();
           }
           results = GenericRecyclerViewFragment.this.doInBackground(offset, configuration
-              .getPageSize(), this);
+                  .getPageSize(), this);
           return Boolean.TRUE;
         } catch (ForbiddenUnauthorizedException ex) {
           Log.e(this.getClass().getCanonicalName(), ex.getMessage(), ex);
           userService.deleteCredentials();
           navController.gotoWelcome(getActivity());
           //dont cancel here!! cancel is performed in onDestroy
-        } catch (UnknownHostException ex) {
-          //this is not really an error, just a networking issue
+        } catch (UnknownHostException | SSLHandshakeException | SocketTimeoutException ex) {
+          //this is not really an error, just a networking\server issue
           return Boolean.FALSE;
         } catch (Exception ex) {
           Log.e(this.getClass().getCanonicalName(), ex.getMessage(), ex);
@@ -484,8 +488,8 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
       } else {
         if (!isAnyDialoFragmentAdded()) {
           showAlert(GenericRecyclerViewFragment.this,
-              getString(android.R.string.dialog_alert_title),
-              getString(configuration.getMsgUnknownError()));
+                  getString(android.R.string.dialog_alert_title),
+                  getString(configuration.getMsgUnknownError()));
         }
       }
       removeLoadingIndicators(loadType);
@@ -537,12 +541,12 @@ public abstract class GenericRecyclerViewFragment extends Fragment {
       recyclerViewGeneric.post(new Runnable() {
         public void run() {
           LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerViewGeneric
-              .getLayoutManager();
+                  .getLayoutManager();
           //the first and last row are displayed at the same time
           if (!getDataFromAdapter().isEmpty()
-              && layoutManager.findFirstCompletelyVisibleItemPosition() == 0
-              && layoutManager.findLastCompletelyVisibleItemPosition()
-              == getDataFromAdapter().size() - 1) {
+                  && layoutManager.findFirstCompletelyVisibleItemPosition() == 0
+                  && layoutManager.findLastCompletelyVisibleItemPosition()
+                  == getDataFromAdapter().size() - 1) {
             recyclerViewGeneric.setOverScrollMode(View.OVER_SCROLL_NEVER);
           } else {
             recyclerViewGeneric.setOverScrollMode(View.OVER_SCROLL_ALWAYS);
