@@ -186,13 +186,15 @@ public class ReleaseFragment extends GenericRecyclerViewFragment {
       }
 
       //tracks for the media
-      int totalLengthMedia = 0;
-      for (Track track : media.getTracks()) {
-        data.add(track);
-        totalLengthMedia += track.getLength();
+      if (media.getTracks() != null) {
+        int totalLengthMedia = 0;
+        for (Track track : media.getTracks()) {
+          data.add(track);
+          totalLengthMedia += track.getLength();
+        }
+        media.setTotalLength(totalLengthMedia);
+        totalLengthRelease += totalLengthMedia;
       }
-      media.setTotalLength(totalLengthMedia);
-      totalLengthRelease += totalLengthMedia;
     }
     selected.setTotalLength(totalLengthRelease);
 
