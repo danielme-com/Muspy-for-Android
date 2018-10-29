@@ -44,6 +44,7 @@
     <string name="invalid_credentials">Wrong credentials</string>
     <string name="loading">Loading&#8230;</string>
     <string name="noconnection">Internet connection not available</string>
+    <string name="noserver">Server is not available</string>
     <string name="invalid_credentials_reset">Wrong credentials. Do you want to request a new password?</string>
     <string name="email_duplicate">This email address is already in use</string>
     <string name="action_logout">Logout</string>

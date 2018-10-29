@@ -48,6 +48,7 @@
     <string name="invalid_credentials">Credenciales erróneas</string>
     <string name="loading">Cargando&#8230;</string>
     <string name="noconnection">La conexión a Internet no se encuentra disponible</string>
+    <string name="noserver">Servidor no disponible</string>
     <string name="invalid_credentials_reset">Credenciales erróneas. ¿Quieres solicitar una nueva contraseña?.</string>
     <string name="email_duplicate">El email ya se encuentra registrado.</string>    
     <string name="action_logout">Salir</string>
