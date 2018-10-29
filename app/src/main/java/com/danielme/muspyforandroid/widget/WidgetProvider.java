@@ -55,12 +55,13 @@ public class WidgetProvider extends AppWidgetProvider {
         .inject(this);
 
     if (intent.getAction().equals(WidgetIntentService.INTENT_WIDGET)) {
+
       int widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager
           .INVALID_APPWIDGET_ID);
       if (widgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
         if (intent.getBooleanExtra(WidgetIntentService.INTENT_PARAM_REFRESH, false)
             && !userService.userHasCredentials()
-            && securePreferences.getInt(WidgetIntentService.WIDGET_MSG, -1)
+            && securePreferences.getInt(WidgetIntentService.WIDGET_MSG, WidgetIntentService.WIDGET_NO_MESSAGE)
                 == R.string.nocredentials
             && ViewUtils.isNetworkConnected(context)) {
           //button pressed, user is not logged and networking --> new login
@@ -92,14 +93,15 @@ public class WidgetProvider extends AppWidgetProvider {
     manager.updateAppWidget(appWidgetId, remoteViews);
 
     //keep displaying the releases while updating
-    int msg = -1;
+    int msg = WidgetIntentService.WIDGET_NO_MESSAGE;
     try {
-      msg = securePreferences.getInt(WidgetIntentService.WIDGET_MSG, -1);
+      msg = securePreferences.getInt(WidgetIntentService.WIDGET_MSG, WidgetIntentService.WIDGET_NO_MESSAGE);
     } catch (ClassCastException ex) {
       Log.w(WidgetProvider.class.getSimpleName(), ex);
     }
-    if (msg != -1) {
+    if (msg != WidgetIntentService.WIDGET_NO_MESSAGE) {
       remoteViews.setTextViewText(R.id.textViewMessage, context.getString(R.string.loading));
+      securePreferences.edit().putInt(WidgetIntentService.WIDGET_MSG, R.string.loading).apply();
       remoteViews.setViewVisibility(R.id.buttonRefresh, View.GONE);
       remoteViews.setViewVisibility(R.id.dataLayout, View.INVISIBLE);
       remoteViews.setViewVisibility(R.id.textViewMessage, View.VISIBLE);

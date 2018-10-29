@@ -55,15 +55,17 @@ import javax.net.ssl.SSLException;
 
 
 /**
- * IntentService --> asynchronous An {@code IntentService} that updates the homscreen widget.
+ * IntentService --> asynchronous An {@code IntentService} that updates the homescreen widget.
  */
 public class WidgetIntentService extends IntentService {
 
   public static final String INTENT_WIDGET = "com.danielme.muspyforandroid.UPDATE_WIDGET";
   public static final String INTENT_PARAM_REFRESH = "refresh";
   public static final String WIDGET_MSG = "WIDGET_MSG";
+  public static final int WIDGET_NO_MESSAGE = -1;
 
   private static final String TAG = "Muspy Widget";
+  private static final String FIRST_EXECUTION = "FIRST_EXECUTION";
 
 
   @Inject
@@ -106,13 +108,14 @@ public class WidgetIntentService extends IntentService {
     RemoteViews remoteViews = new RemoteViews(getApplicationContext().getPackageName(),
             R.layout.widget);
     if (!ViewUtils.isNetworkConnected(this)) {
-      int msg = -1;
+      int msg = WIDGET_NO_MESSAGE;
       try {
-        msg = securePreferences.getInt(WidgetIntentService.WIDGET_MSG, -1);
+        msg = securePreferences.getInt(WidgetIntentService.WIDGET_MSG, WIDGET_NO_MESSAGE);
       } catch (ClassCastException ex) {
         Log.w(WidgetProvider.class.getSimpleName(), ex);
       }
-      if (msg != -1) {
+      if (msg == WIDGET_NO_MESSAGE
+              && !securePreferences.getBoolean(WidgetIntentService.FIRST_EXECUTION, true)) {
         //keep displaying the previous data
         remoteViews.setViewVisibility(R.id.buttonRefresh, View.INVISIBLE);
         remoteViews.setViewVisibility(R.id.dataLayout, View.VISIBLE);
@@ -143,6 +146,8 @@ public class WidgetIntentService extends IntentService {
     appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
     Log.d(TAG, "updating widget");
     stopSelf();
+
+    securePreferences.edit().putBoolean(WidgetIntentService.FIRST_EXECUTION, false).apply();
   }
 
   private void loadReleasesFromMuspy(RemoteViews remoteViews) {
@@ -153,7 +158,7 @@ public class WidgetIntentService extends IntentService {
         remoteViews.setViewVisibility(R.id.dataLayout, View.VISIBLE);
         remoteViews.setViewVisibility(R.id.buttonRefresh, View.GONE);
         remoteViews.setViewVisibility(R.id.msgLayout, View.GONE);
-        securePreferences.edit().putInt(WIDGET_MSG, -1).apply();
+        securePreferences.edit().putInt(WIDGET_MSG, WIDGET_NO_MESSAGE).apply();
         showRelease(remoteViews, releases.get(0), R.id.textViewRelease1Date1, R.id.textViewRelease1,
                 R.id.cover1, R.id.dataLayout1);
         if (releases.size() > 1) {
